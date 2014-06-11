@@ -1,0 +1,977 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Despliega tu API en Heroku</title>
+
+</head>
+<body>
+<h1>Despliega tu API en Heroku</h1>
+
+<h2>Con Python (Django)</h2>
+
+<p>Crear cuenta en <a href="https://id.heroku.com/signup">Heroku</a></p>
+
+<p>Crear la app, por ejemplo: ironhack-api-python-demo, la app estará corriendo en:</p>
+
+<p><a href="http://ironhack-api-python-demo.herokuapp.com/">http://ironhack-api-python-demo.herokuapp.com/</a></p>
+
+<h4>Repositorio GIT</h4>
+
+<p>Nos traemos una copia del proyecto (vacío por ahora):</p>
+
+<pre><code>&gt; git clone git@heroku.com:ironhack-api-python-demo.git -o heroku
+</code></pre>
+
+<h4>Requisitos</h4>
+
+<p>Instalamos heroku toolbelt:</p>
+
+<pre><code>&gt; brew install heroku
+</code></pre>
+
+<p>Instalamos python:</p>
+
+<pre><code>&gt; brew install python
+</code></pre>
+
+<p>Instalamos pip:</p>
+
+<pre><code>&gt; sudo easy_install pip
+</code></pre>
+
+<p>Instalamos virtualenv:</p>
+
+<pre><code>&gt; pip install virtualenv
+</code></pre>
+
+<p>Instalamos virtualenvwrapper:</p>
+
+<pre><code>&gt; pip install virtualenvwrapper
+</code></pre>
+
+<p>Creamos un virtualenv (por ejemplo con el nombre <em>api_env</em>) donde estará nuestra app django:</p>
+
+<pre><code>&gt; mkvirtualenv api_env
+</code></pre>
+
+<p>Para activar ese virtualenv:</p>
+
+<pre><code>&gt; workon api_env
+</code></pre>
+
+<p>Instalamos django</p>
+
+<pre><code>&gt; pip install django
+</code></pre>
+
+<p>Instalamos MySql para Python:</p>
+
+<pre><code>&gt; pip install MySQL-python
+</code></pre>
+
+<p>Ahora vamos a instalar una serie de paquetes necearios para Heroku:</p>
+
+<pre><code>&gt; pip install dj-database-url
+&gt; pip install dj-static
+&gt; pip install gunicorn
+&gt; pip install static 
+</code></pre>
+
+<p>Guardamos los requisitos para Heroku sepa lo que tiene que instalar:</p>
+
+<pre><code>&gt; pip freeze &gt; requirements.txt
+</code></pre>
+
+<h4>Creando projecto Django</h4>
+
+<p>Por ejemplo lo llamaré <em>apidemo</em></p>
+
+<pre><code>&gt; django-admin.py startproject apidemo .
+</code></pre>
+
+<p>Tenemos que crear un archico <code>Procfile</code> para especificar a Heroku que en la máquina va a correr una app django, lo creamos en la raiz del proyecto con este contenido:</p>
+
+<pre><code>web: gunicorn apidemo.wsgi
+</code></pre>
+
+<p>Y probamos arrancando la app en local:</p>
+
+<pre><code>&gt; python manage.py runserver
+</code></pre>
+
+<p>Si todo ha ido bien, podrás ver el sitio corriendo en http://127.0.0.1:8000/</p>
+
+<h4>Subimos a producción para probar</h4>
+
+<p>Subimos los cambios al repositorio:</p>
+
+<pre><code>&gt; git add *
+&gt; git commit -m 'Django app created'
+</code></pre>
+
+<p>Y hacemos push en producción:</p>
+
+<pre><code>&gt; git push heroku master
+</code></pre>
+
+<p>Cuando acabe podremos ver en <a href="http://ironhack-api-python-demo.herokuapp.com/">http://ironhack-api-python-demo.herokuapp.com/</a> un mensaje alentador: <strong>It worked!</strong></p>
+
+<h4>Creamos base de datos local</h4>
+
+<p>Con nuestro cliente mysql, creamos una base de datos en localhost, llamada por ejemplo: <code>ironhack-api-demo-test</code>, luego creamos un usuario con permisos grant para esa base de datos. En el ejemplo el usuario será <em>ironhackdemo</em> y contraseña <em>ironhackdemo</em>.</p>
+
+<p>Vamos a configurar django para que se conecte a la base de datos, abrimos <em>/apidemo/settings.py</em> y editamos el contenido del diccionario DATABASES:</p>
+
+<pre><code>DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'ironhack-api-demo-test',     
+        'USER': 'ironhackdemo',               
+        'PASSWORD': 'ironhackdemo',               
+        'HOST': '127.0.0.1',                        
+        'PORT': '',                           
+    }
+}
+</code></pre>
+
+<h4>Creamos la app que será nuestra API</h4>
+
+<p>En Django los proyectos los conforman una o varias apps. Vamos a crearnos nuestra app, que se llamará por ejemplo <code>api</code>:</p>
+
+<pre><code>&gt; python manage.py startapp api
+</code></pre>
+
+<p>Esto crea un nuevo directorio en nuestro proyecto, pero debemos indicarle al proyecto que incluya esta nueva app. Editamos <em>/apidemo/settings.py</em> de nuevo para añadir a la lista <code>INSTALLED_APPS</code> nuestra nueva app:</p>
+
+<pre><code>INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'api'
+)
+</code></pre>
+
+<h4>Creamos nuestros modelos</h4>
+
+<p>Vamos a crean el <em>api/models.py</em>  estos dos modelos, <em>Ironhackers</em> que representan a los estudiantes del IronHack y <em>Teams</em> que representa por ejemplo posibles equipos en los que agruparnos:</p>
+
+<pre><code>class Ironhackers(models.Model):
+    name = models.CharField(default="",max_length=50)
+    email = models.EmailField(max_length=100,default="")
+    team = models.ForeignKey('Teams',null=True,blank=True,on_delete = models.SET_NULL)
+
+    def __unicode__(self):
+        return self.name
+
+class Teams(models.Model):
+    team = models.CharField(default="",max_length=50)
+    color = models.CharField(default="",max_length=50)
+
+    def __unicode__(self):
+        return self.team
+</code></pre>
+
+<p>Una vez creados los modelos, django se encarga crear las tablas en la base de datos, con el comando:</p>
+
+<pre><code>&gt; python manage.py syncdb
+</code></pre>
+
+<h4>Creamos las rutas que servirán de <em>endpoints</em> para nuestra API</h4>
+
+<p>Las rutas en Django se gestionan desde el archivo <em>urls.py</em>, lo abrimos y añadimos por ejemplo estas urls:</p>
+
+<pre><code>url(r'^ironhackers/add$', 'api.endpoints.ironhackers.add'),
+url(r'^ironhackers/delete$', 'api.endpoints.ironhackers.delete'),
+url(r'^ironhackers/list$', 'api.endpoints.ironhackers.list'),
+url(r'^ironhackers/orphans$', 'api.endpoints.ironhackers.orphan'),
+url(r'^ironhackers/link_to_team$', 'api.endpoints.ironhackers.link_to_team'),
+url(r'^teams/add$', 'api.endpoints.ironhackers.add'),
+url(r'^teams/delete$', 'api.endpoints.ironhackers.delete'),
+url(r'^teams/list$', 'api.endpoints.ironhackers.list'),
+</code></pre>
+
+<p>O sea en este ejemplo estamos añadiendo a nuestra api los métodos <code>add</code>, <code>delete</code>, <code>list</code>, <code>orphans</code> y <code>link_to_team</code> para <em>ironhackers</em> y <code>add</code>, <code>delete</code> y <code>list</code> para <em>teams</em>.</p>
+
+<h4>Implementación de los métodos</h4>
+
+<p>Para implementar los métodos de <em>ironhackers</em>, creamos el archivo <em>/api/endpoints/ironhackers.py</em>:</p>
+
+<p><strong>Añadir un ironhacker dados el <em>name</em> y el <em>email</em>:</strong></p>
+
+<pre><code>def add(request):
+    try:
+        student=Ironhackers()
+        student.name=request.POST['name']
+        student.email=request.POST['email']
+        student.save()
+        data=json.dumps({'status': 'success', 'response':'added', 'data':{'id':student.id}})
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<p><strong>Eliminar un ironhacker dado su <em>id</em>:</strong></p>
+
+<pre><code>def delete(request):
+    try:
+        student=Ironhackers.objects.get(id=request.POST["id"])
+        student.delete()
+        data=json.dumps({'status': 'success', 'response':'deleted'})
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<p><strong>Lista de ironhackers:</strong></p>
+
+<pre><code>def list(request):
+    try:
+        students=Ironhackers.objects.all()
+
+        list_students=[]
+        for student in students:
+            list_students.append({'id':student.id, 'name':student.name, 'email':student.email })
+
+        data=json.dumps({'status': 'success', 'response':'list', 'data': list_students });
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<p><strong>Lista de ironhackers sin equipo asignado:</strong></p>
+
+<pre><code>def orphans(request):
+    try:
+        students=Ironhackers.objects.filter(team__isnull=True)
+
+        list_students=[]
+        for student in students:
+            list_students.append({'id':student.id, 'name':student.name, 'email':student.email })
+
+        data=json.dumps({'status': 'success', 'response':'orphans', 'data': list_students });
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<p><strong>Vincular un ironhacker a un equipo dados el <em>id</em> del estudiante y el <em>id</em> del equipo:</strong></p>
+
+<pre><code>def link_to_team(request):
+    try:
+        student=Ironhackers.objects.get(id=request.POST["student_id"])
+        team = Teams.objects.get(id=request.POST["team_id"])
+        student.team = team
+        student.save()
+
+        data=json.dumps({'status': 'success', 'response':'linked'})
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<hr />
+
+<p>Para implementar los métodos de <em>teams</em>, creamos el archivo <em>/api/endpoints/teams</em>:</p>
+
+<p><strong>Añadir un equipo dados el <em>team</em> y el <em>color</em>:</strong></p>
+
+<pre><code>def add(request):
+    try:
+        team=Teams()
+        team.team=request.POST['team']
+        team.color=request.POST['color']
+        team.save()
+        data=json.dumps({'status': 'success', 'response':'added', 'data':{'id':team.id}})
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<p><strong>Eliminar un equipo dado su <em>id</em>:</strong></p>
+
+<pre><code>def delete(request):
+    try:
+        team=Teams.objects.get(id=request.POST["id"])
+        team.delete()
+        data=json.dumps({'status': 'success', 'response':'deleted'})
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<p><strong>Lista de equipos:</strong></p>
+
+<pre><code>def list(request):
+    try:
+        teams=Teams.objects.all()
+
+        list_teams=[]
+        for team in teams:
+            list_teams.append({'id':team.id, 'team':team.team, 'color':team.color })
+
+        data=json.dumps({'status': 'success', 'response':'list', 'data': list_teams });
+
+    except Exception as e:
+        data = json.dumps({ 'status':'failed', 'response': e.args[0] })
+
+    return HttpResponse(data, content_type="application/json")
+</code></pre>
+
+<p>Con estas implementaciones tenemos en local estos métodos de nuestra API:</p>
+
+<p><a href="http://127.0.0.1:8000/ironhackers/add">http://127.0.0.1:8000/ironhackers/add</a></p>
+
+<p><a href="http://127.0.0.1:8000/ironhackers/delete">http://127.0.0.1:8000/ironhackers/delete</a></p>
+
+<p><a href="http://127.0.0.1:8000/ironhackers/list">http://127.0.0.1:8000/ironhackers/list</a></p>
+
+<p><a href="http://127.0.0.1:8000/ironhackers/orphans">http://127.0.0.1:8000/ironhackers/orphans</a></p>
+
+<p><a href="http://127.0.0.1:8000/ironhackers/link_to_team">http://127.0.0.1:8000/ironhackers/link_to_team</a></p>
+
+<p><a href="http://127.0.0.1:8000/teams/add">http://127.0.0.1:8000/teams/add</a></p>
+
+<p><a href="http://127.0.0.1:8000/teams/delete">http://127.0.0.1:8000/teams/delete</a></p>
+
+<p><a href="http://127.0.0.1:8000/teams/list">http://127.0.0.1:8000/teams/list</a></p>
+
+<h4>Configurar la base de datos de producción</h4>
+
+<p>En la terminal, creamos una base de datos en producción con el comando:</p>
+
+<pre><code>&gt; heroku addons:add cleardb:ignite
+</code></pre>
+
+<p>Para saber los datos de acceso de la base de datos recien creada:</p>
+
+<pre><code>&gt; heroku config | grep CLEARDB_DATABASE_URL
+</code></pre>
+
+<p>Con esas credenciales, accedemos desde un cliente mysql e importamos la base de datos local. También cambiamos esas credenciales en el <em>settings.py</em> de nuestro proyecto.</p>
+
+<h3>Subimos a producción</h3>
+
+<p>Subimos todo a producción:</p>
+
+<pre><code>&gt; git add *
+&gt; git commit -m 'Django app created'
+&gt; git push heroku master
+</code></pre>
+
+<p>Si todo ha udo bien, debériamos tener estos métodos listos para ser usados:</p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/add">http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/add</a></p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/delete">http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/delete</a></p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/list">http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/list</a></p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/orphans">http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/orphans</a></p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/link_to_team">http://ironhack-api-python-demo-test.herokuapp.com//ironhackers/link_to_team</a></p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//teams/add">http://ironhack-api-python-demo-test.herokuapp.com//teams/add</a></p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//teams/delete">http://ironhack-api-python-demo-test.herokuapp.com//teams/delete</a></p>
+
+<p><a href="http://ironhack-api-python-demo-test.herokuapp.com//teams/list">http://ironhack-api-python-demo-test.herokuapp.com//teams/list</a></p>
+
+<p>Para probar, podéis usar <a href="http://www.hurl.it/">http://www.hurl.it/</a></p>
+
+<p>Para descargar el proyecto entero, <a href="https://github.com/rafaparadela/ironhack-api-python-demo">https://github.com/rafaparadela/ironhack-api-python-demo</a></p>
+
+<h2>Con PHP (CodeIgniter)</h2>
+
+<p>Crear cuenta en <a href="https://id.heroku.com/signup">Heroku</a></p>
+
+<p>Crear la app, por ejemplo: ironhack-api-php-demo, la app estará corriendo en:</p>
+
+<p><a href="http://ironhack-api-php-demo.herokuapp.com/">http://ironhack-api-php-demo.herokuapp.com/</a></p>
+
+<h4>Repositorio GIT</h4>
+
+<p>Nos traemos una copia del proyecto (vacío por ahora):</p>
+
+<pre><code>&gt; git clone git@heroku.com:ironhack-api-php-demo.git -o heroku
+</code></pre>
+
+<h4>Requisitos</h4>
+
+<p>Debemos tener Apache, PHP y MySQL corriendo en nuestro servidor local.</p>
+
+<h4>Descargamos CodeIgniter</h4>
+
+<p>Descargamos y descomprimimos una instancia de <a href="http://ellislab.com/codeigniter">CodeIgniter</a> en el directorio donde clonamos el repositorio. (Podemos borrar el directorio <code>user_guiade</code>) y vemos en el navegador la pantalla por defecto de CodeIgniter.</p>
+
+<h4>Subimos a producción para probar</h4>
+
+<p>Subimos los cambios al repositorio:</p>
+
+<pre><code>&gt; git add *
+&gt; git commit -m 'Django app created'
+</code></pre>
+
+<p>Y hacemos push en producción:</p>
+
+<pre><code>&gt; git push heroku master
+</code></pre>
+
+<p>Cuando acabe podremos ver en <a href="http://ironhack-api-php-demo.herokuapp.com/">http://ironhack-api-php-demo.herokuapp.com/</a></p>
+
+<h4>Creamos base de datos local</h4>
+
+<p>Con nuestro cliente mysql, creamos una base de datos en localhost, llamada por ejemplo: <code>ironhack-api-demo-test</code>, luego creamos un usuario con permisos grant para esa base de datos. En el ejemplo el usuario será <em>ironhackdemo</em> y contraseña <em>ironhackdemo</em>.</p>
+
+<p>Vamos a configurar codeigniter para que se conecte a la base de datos, abrimos <em>/applications/config/database.php</em> y editamos el array <em>db</em></p>
+
+<pre><code>$db['default']['hostname'] = '127.0.0.1';
+$db['default']['username'] = 'ironhackdemo';
+$db['default']['password'] = 'ironhackdemo';
+$db['default']['database'] = 'ironhack-api-demo-test';
+</code></pre>
+
+<h3>Creamos los controladores</h3>
+
+<p>Primero vamos a crear los controladores. Para entender el sistema de rutas, vamos a crearnos en <em>application/controllers/micontrolador.php</em></p>
+
+<pre><code>&lt;?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Micontrolador extends CI_Controller {
+
+    public function index()
+    {
+        echo 'How cool is that!';
+    }
+
+    public function una()
+    {
+        echo 'Pollito!';
+    }
+
+    public function dos($tres='')
+    {
+        echo 'Palote! '.$tres;
+    }
+
+}
+</code></pre>
+
+<p>Para acceder a los métodos de los controladores, hay que poner la base_url de nuestra app, seguido del nombre del controlador, seguido del método a llamar. Si no le pasamos el segmento '<em>método</em>' pues ejecuta función <code>index()</code>;</p>
+
+<p>Para llamar por ejemplo a la función una():</p>
+
+<pre><code>[base_url]/micontrolador/una
+</code></pre>
+
+<p>Para llamar por ejemplo a la función dos():</p>
+
+<pre><code>[base_url]/micontrolador/dos
+</code></pre>
+
+<p>Para pasarle el parámetro $tres a la función dos():</p>
+
+<pre><code>[base_url]/micontrolador/dos/mrpotato
+</code></pre>
+
+<p>La base_url por defecto incluye el punto de entrada de la app, o sea el archivo <em>index.php</em>. Para evitar que aparezca esto en nuetras rutas, debemos configurar algunas reglas de apache, lo más sencillo es crear un archivo <code>.htaccess</code> con estas reglas:</p>
+
+<pre><code>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+</code></pre>
+
+<p>Vamos a crear ahora el controlador que contendrá los métodos de los estudiantes, lo llamamos <em>ironhackers.php</em>:</p>
+
+<pre><code>&lt;?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Ironhackers extends CI_Controller {
+
+    public function index()
+    {
+        return false;
+    }
+
+    public function add()
+    {
+        return false
+    }
+
+    public function delete()
+    {
+        return false
+    }
+
+    public function list_students()
+    {
+        return false
+    }
+
+    public function link_to_team()
+    {
+        return false
+    }
+
+}
+</code></pre>
+
+<p>Lo mismo con los equipos. Lo llamamos <em>teams.php</em>:</p>
+
+<pre><code>&lt;?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Teams extends CI_Controller {
+
+    public function index()
+    {
+        return false;
+    }
+
+    public function add()
+    {
+        return false
+    }
+
+    public function delete()
+    {
+        return false
+    }
+
+    public function list_teams()
+    {
+        return false
+    }
+
+}
+</code></pre>
+
+<h4>Creamos los modelos</h4>
+
+<p>Para que el controlador interactúe con la base de datos, lo hace a través de los modelos.</p>
+
+<p>Vamoa a empezar creando el modelo para los estudiantes. En models, creamos ironhackers_model.php con una clase que extienda al CI_Model:</p>
+
+<pre><code>&lt;?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+
+class ironhackers_model extends CI_Model {
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function get($id){
+        $this-&gt;db-&gt;where('id', $id);
+        $this-&gt;db-&gt;limit(1);
+        $query=$this-&gt;db-&gt;get('ironhackers');
+        if ($query-&gt;num_rows() &gt; 0) return $query-&gt;row();
+        else return FALSE;
+    }
+}
+</code></pre>
+
+<p>Con esto estamos creando una función get(), disponible para todo aquel que importe el modelo ironhackers, para que dado un id, te devuelva los campos de ese estudiante. El resto de funciones podría ser <code>get_list</code> para que devuelva todos los estudiantes, <code>add</code> para añadir uno, <code>set</code> para cambiar algun campo de un estudiante y <code>delete</code> para borrar un estudiante. Quedaría así:</p>
+
+<pre><code>&lt;?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+
+class ironhackers_model extends CI_Model {
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function get($id){
+        $this-&gt;db-&gt;where('id', $id);
+        $this-&gt;db-&gt;limit(1);
+        $query=$this-&gt;db-&gt;get('ironhackers');
+        if ($query-&gt;num_rows() &gt; 0) return $query-&gt;row();
+        else return FALSE;
+    }
+
+    function get_list(){
+        // $this-&gt;db-&gt;order_by('ironhacker','asc');
+        $query=$this-&gt;db-&gt;get('ironhackers');
+        if ($query-&gt;num_rows() &gt; 0) return $query-&gt;result();
+        else return FALSE;
+    }
+
+    function add($ironhacker)
+    {
+        $this-&gt;db-&gt;insert('ironhackers', $ironhacker);
+        return $this-&gt;db-&gt;insert_id();
+    }
+
+    function set($id_ironhacker,$field=FALSE,$value=FALSE)
+    {
+        if($field) $this-&gt;db-&gt;set($field,$value);
+        // $this-&gt;db-&gt;set('update','NOW()', FALSE);
+        $this-&gt;db-&gt;where('id', $id_ironhacker);
+        return $this-&gt;db-&gt;update('ironhackers');
+    }
+
+    function delete($id_ironhacker)
+    {
+        $this-&gt;db-&gt;where('id', $id_ironhacker);
+        return $this-&gt;db-&gt;delete('ironhackers');
+    }
+
+}
+</code></pre>
+
+<p>Y el modelo de Teams quedaría así:</p>
+
+<pre><code>&lt;?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+
+class teams_model extends CI_Model {
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function get($id){
+        $this-&gt;db-&gt;where('id', $id);
+        $this-&gt;db-&gt;limit(1);
+        $query=$this-&gt;db-&gt;get('teams');
+        if ($query-&gt;num_rows() &gt; 0) return $query-&gt;row();
+        else return FALSE;
+    }
+
+    function get_list(){
+        // $this-&gt;db-&gt;order_by('team','asc');
+        $query=$this-&gt;db-&gt;get('teams');
+        if ($query-&gt;num_rows() &gt; 0) return $query-&gt;result();
+        else return FALSE;
+    }
+
+    function add($team)
+    {
+        $this-&gt;db-&gt;insert('teams', $team);
+        return $this-&gt;db-&gt;insert_id();
+    }
+
+    function set($id_team,$field=FALSE,$value=FALSE)
+    {
+        if($field) $this-&gt;db-&gt;set($field,$value);
+        // $this-&gt;db-&gt;set('update','NOW()', FALSE);
+        $this-&gt;db-&gt;where('id', $id_team);
+        return $this-&gt;db-&gt;update('teams');
+    }
+
+    function delete($id_team)
+    {
+        $this-&gt;db-&gt;where('id', $id_team);
+        return $this-&gt;db-&gt;delete('teams');
+    }
+
+}
+</code></pre>
+
+<p>Ya podemos implementar los métodos. <em>Ironhackers</em> quedaría así:</p>
+
+<pre><code>&lt;?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Ironhackers extends CI_Controller {
+
+    function __construct()
+    {
+        parent::__construct();
+        // $this-&gt;output-&gt;enable_profiler(TRUE);
+    }
+
+    public function index()
+    {
+        return false;
+    }
+
+    public function add()
+    {
+        $this-&gt;load-&gt;model('ironhackers_model');
+        $student = array( 'name' =&gt; $_POST['name'], 'email' =&gt; $_POST['email'] );
+        $id = $this-&gt;ironhackers_model-&gt;add($student);
+        $dev = array( 'status' =&gt; 'success', 'response' =&gt; 'added' , 'data' =&gt; $id );
+        echo json_encode($dev);
+    }
+
+    public function delete()
+    {
+        $this-&gt;load-&gt;model('ironhackers_model');
+        $id = $this-&gt;ironhackers_model-&gt;delete($_POST['id']);
+        $dev = array( 'status' =&gt; 'success', 'response' =&gt; 'deleted' );
+        echo json_encode($dev);
+    }
+
+    public function list_students()
+    {
+        $this-&gt;load-&gt;model('ironhackers_model');
+        $students=$this-&gt;ironhackers_model-&gt;get_list();
+        $my_students=array();
+        foreach ($students as $student) {
+            $item=array( 'id'=&gt;$student-&gt;id, 'name'=&gt; $student-&gt;name, 'email'=&gt; $student-&gt;email );
+            array_push($my_students,$item);
+        }
+        $dev = array( 'status' =&gt; 'success', 'response' =&gt; 'deleted', 'data' =&gt; $my_students );
+        echo json_encode($dev);
+    }
+
+
+    public function link_to_team()
+    {
+        $this-&gt;load-&gt;model('ironhackers_model');
+        $this-&gt;ironhackers_model-&gt;set($_POST['student_id'], $field='team_id', $value=$_POST['team_id'] );
+        $dev = array( 'status' =&gt; 'success', 'response' =&gt; 'linked' );
+        echo json_encode($dev);
+    }
+
+}
+</code></pre>
+
+<p>Y <em>Team</em> así:</p>
+
+<pre><code>&lt;?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Teams extends CI_Controller {
+
+    function __construct()
+    {
+        parent::__construct();
+        // $this-&gt;output-&gt;enable_profiler(TRUE);
+    }
+
+    public function index()
+    {
+        return false;
+    }
+
+    public function add()
+    {
+        $this-&gt;load-&gt;model('teams_model');
+        $team = array( 'team' =&gt; $_POST['team'], 'color' =&gt; $_POST['color'] );
+        $id = $this-&gt;teams_model-&gt;add($team);
+        $dev = array( 'status' =&gt; 'success', 'response' =&gt; 'added' , 'data' =&gt; $id );
+        echo json_encode($dev);
+    }
+
+    public function delete()
+    {
+        $this-&gt;load-&gt;model('teams_model');
+        $id = $this-&gt;teams_model-&gt;delete($_POST['id']);
+        $dev = array( 'status' =&gt; 'success', 'response' =&gt; 'deleted' );
+        echo json_encode($dev);
+    }
+
+    public function list_teams()
+    {
+        $this-&gt;load-&gt;model('teams_model');
+        $teams=$this-&gt;teams_model-&gt;get_list();
+        $my_teams=array();
+        foreach ($teams as $team) {
+            $item=array( 'id'=&gt;$team-&gt;id, 'team'=&gt; $team-&gt;team, 'color'=&gt; $team-&gt;color );
+            array_push($my_teams,$item);
+        }
+        $dev = array( 'status' =&gt; 'success', 'response' =&gt; 'list', 'data' =&gt; $my_teams );
+        echo json_encode($dev);
+    }
+
+}
+</code></pre>
+
+<hr />
+
+<h4>Nota 1</h4>
+
+<p>Para subirlo a Heroku, el <code>.htaccess</code> debería ser así:</p>
+
+<pre><code>&lt;IfModule mod_rewrite.c&gt;
+ RewriteEngine On
+ RewriteBase /
+ RewriteRule ^index\.php$ - [L]
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteRule . /index.php [L]
+&lt;/IfModule&gt;
+</code></pre>
+
+<hr />
+
+<h4>Nota 2</h4>
+
+<p>Si hay problema para conectar con Heroku por las credenciales:</p>
+
+<pre><code>&gt; ssh-keygen -t rsa -C "tuemail@tuemail.com" -f  ~/.ssh/id_rsa_heroku
+&gt; ssh-add ~/.ssh/id_rsa_heroku
+&gt; heroku keys:add ~/.ssh/id_rsa_heroku.pub
+</code></pre>
+</body>
+</html>
