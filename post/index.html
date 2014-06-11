@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -6,106 +5,214 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width">
 	<link rel="shortcut icon" href="img/icon.png">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<style type="text/css" media="screen">
-	/*=========================================
-	Reset
-	=========================================== */
-	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0} 
-	*, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-	.group:before,
-	.group:after { content: ""; display: table;} 
-	.group:after { clear: both;}
-	.group { zoom: 1;}
-
-	/*=========================================
-	Base
-	=========================================== */
-	body {
-		font:16px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;
-		color:#666;
-		-webkit-font-smoothing:antialiased;
-		text-rendering:optimizeLegibility;
-	}
-
-	#wrapper {
-		padding:100px 40px 100px 40px;
-		max-width:600px;
-		margin:0 auto;
-	}
-
-	#header {
-		border-bottom:1px solid #eee;
-		margin-bottom:40px;
-		padding-bottom:40px;
-		text-align:center;
-		position:relative;
-	}
-
-	/*=========================================
-	Typography
-	=========================================== */
-	/*Accent color*/
-	a {
-		text-decoration:none;
-		color:#37BB99;
-		font-weight:400;
-		font-size: 15px;
-	}
-
-	a+a {
-	  margin-left: 20px;
-	}
-
-	h1 {
-		font-weight:400;
-		font-size:22px;
-		color:#333;
-	}
-
-	h2 {
-		font-weight:300;
-		font-size:20px;
-		color:#aaa;
-		margin-top: 15px;
-
-	}
-
-
-	p {
-		font:300 20px/1.8 "Helvetica Neue",Helvetica,Arial,sans-serif;
-		margin-bottom:30px;
-			text-align: center;
-		color:#666;
-	}
-
-	@media screen and (max-width: 540px) {
-	#wrapper { padding:40px; }
-	#header { margin-bottom: 40px; }
-	h1 { font-size: 26px; }
-	}
-
-	@media screen and (max-width:440px) {
-	#wrapper { padding:20px; }
-	#header { margin-bottom: 20px; }
-	}
+		#post{ }
+		#post p{text-align: justify;}
+		#post img{width: 100%;}
 	</style>
-
-	
 	<title>Rafa Paradela</title>
-	
 </head>
-
 <body>
+	<div id="post" class="container">
+		
 
-	<section id="wrapper">
 
-		<header id="header">
-			<h1>Semana 1</h1>
-		</header> <!--header-->
 
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-	</section> <!--wrapper-->
 
+<h1>Introducción</h1>
+
+<p>Comenzamos por fin el curso intensivo de aplicaciones iOS organizado por IronHack. Con toda la ilusión del mundo afrontamos 8 semanas, que seguro estarán llenas de satisfacciones, dudas, decepciones, euforia, nervios, ilusión, cansancio, diversión etc. pero todo esto forma parte de la magia de venir sin saber e irte sabiendo.</p>
+
+<p>Escribiré estos artículos de repaso semanal con la intención de asentar los conceptos que voy aprendiendo. Me apoyo en apuntes que voy tomando durante las clases que luego intentaré redactar lo más ameno posible. Por tanto estos artículos no reflejan fielmente la materia que se imparte, sino una aproximación, mi interpretación de los conceptos. En algunos casos, pasaré por encima de un concepto al que sin embargo le hemos dedicado una hora durante las clases pero simplemente no he tomado suficientes apuntes al respecto.</p>
+
+<p>Imagino que algún lector habrá que, aparte de interés por el desarrollo de aplicaciones IOS, tenga curiosidad por cómo va el tema de IronHack. Cómo están organizados, cómo es la dinámica del curso, en qué entorno se lleva a cabo la docencia, en definitiva puede surgir la duda si merece la pena hacer una inversión tan grande, habiendo tantos cursos de la misma materia. Intentaré por tanto ir dando mi opinión sobre esto lo más objetivamente posible.</p>
+
+<h4>Pre-work</h4>
+
+<p>Varias semanas antes de empezar las clases presenciales, la organización de IronHack insiste mucho en hacer un trabajo previo en casa, para ir asimilando conceptos. Digamos que el primer cabezazo contra la pared te lo pegues en tu casa, un poco asimilando la idiosincrasia de Xcode y de Objective-c. Para reforzar esos conocimientos y resolver las dudas que surgen, organizan hangout semanales, en los que los alumnos pueden exponer las dudas a los profesores.</p>
+
+<p>Es cierto que asusta al principio ver las horas que hay que invertir solamente en el pre-work, sin embargo hay que aclarar que acabarlo no es imprescindible para hacer el curso. Aquí se parte de 0. Obviamente cuanta más soltura tengas en programación orientada a objetos, más entiendas la dinámica de Objective-c y sus particularidades, más dominio tengas sobre el entorno de desarrollo, más acostumbrado estés en el uso de control de versiones, etc. más profundamente vas a aprovechar el curso porque enfocarás tu atención en los conceptos nuevos.</p>
+
+<hr />
+
+<h2>Semana 1</h2>
+
+<p>Empezamos! Después de las presentaciones de todos los miembros de la organización, de todos los alumnos y del "tour" por el entorno donde vamos a "vivir" durante 8 semanas, llega el momento de presentarse el profesor que romperá el hielo la primera semana: <a href="http://blog.freniche.com/">Diego Freniche</a>. Toda una eminencia en el mundillo. Y antes de darnos cuenta ya estamos aprendiendo.</p>
+
+<h3>Xcode</h3>
+
+<p>Xcode no es solo un IDE más, es una herramienta compleja.</p>
+
+<p><img src="http://res.cloudinary.com/rafaparadela/image/upload/v1402220488/Captura_de_pantalla_2014-06-08_a_la_s_11_38_37_ds2pb5.jpg" alt="image" /></p>
+
+<p>Para ilustrar el repaso por los conceptos más básicos de Xcode, hacemos un <em>Hello World</em> en el que simplemente imprimimos <code>Hello World</code> en la consola. Para no convertir este artículo en un tutorial de Xcode 5, pongo un enlace hacia un <a href="http://codewithchris.com/xcode-tutorial/">Tutorial de Xcode</a>, un tutorial de <a href="http://codewithchris.com/first-xcode-project/">Cómo crear el primer proyecto en Xcode</a> y listo algunas anotaciones que me parecen interensantes:</p>
+
+<ul>
+<li>Cuando se crea un proyecto en Xcode, te da la posibilidad de especificar un <code>Class Prefix</code>. Digamos que esto sustituye el sistema de paquetes de otros lenguajes y entornos, y sirve para evitar que existan clases con el mismo nombre. Algunos ejemplos de prefijos de clase archiconocidos pueden ser NS, UI y CF.</li>
+<li>Un proyecto Xcode escrito en Objective-c no deja de ser un programa en C supervitaminado. Por tanto el punto de entrada es la función <code>main</code>, que Xcode coloca <em>MyProject >> Supporting FIles >> main.m</em>. El contenido por defecto de esta función en este tipo de proyectos es la llamada a UIApplicationMain (para iniciar el ciclo de eventos de la aplicación). Lo encapsula en un bloque <code>@autoreleasepool</code> que básicamente sirve para liberar la memoria tras la ejecución.</li>
+<li>El delegado de la aplicación es una clase que podemos considerar como la puerta para que la aplicación se comunique con el dispositivo. Entre sus métodos, el más importante es <code>didFinishLaunchingWithOptions</code> que avisa cuando la aplicación se abre.</li>
+<li>En Xcode el uso de los <em>Targets</em> es un sistema para organizar el proceso de compilación del proyecto. Se pueden añadir pasos a los que por defecto se llevan a cabo cuando se construye la app, que se <em>precompila -> compila -> enlaza -> empaqueta</em>.</li>
+<li>El uso de esquemas, también es útil para manipular la ejecución. Por ejemplo es donde habría que definir los argumentos de entrada.</li>
+</ul>
+
+
+<h3>Un vistazo rápido a C</h3>
+
+<p>Es importante recordar algunos conceptos del "abuelo" C, para ello os recomiendo echar vistazo a algún tutorial, por ejemplo <a href="http://www.cprogramming.com/tutorial/c-tutorial.html">este</a>. Nosotros creamos un proyecto de C en Xcode y jugamos un poco con los tipos de variables, la declaración y definición de funciones, con los argumentos de entrada, etc. Algunas anotaciones que merece la pena recordar:</p>
+
+<ul>
+<li>Podemos definir nuestros propios tipos de variables con typedef, ejemplo: <code>typedef unsigned int NSUinteger;</code></li>
+<li>Con <code>sizeof</code> podemos saber el tamaño que ocupa un tipo en memoria.</li>
+<li>Los archivos <em>.h</em> no se meten en el target porque no se compilan.</li>
+<li>Es importante recordar la visibilidad de las funciones. Si declaras una función en el <em>.h</em>, se podrán invocar dichas funciones importando la cabecera, sin embargo, si se declara y define una función en el <em>.c</em> se considera una función privada, útil en el ámbito del módulo.</li>
+<li>Es posible declarar una variable en el ambito del módulo pero solo visible en la función donde se define. En el siguiente ejemplo <code>sequence</code> se incrementará en cada llamada, <code>next_in_sequence()</code> puede ser una función publica pero quien la llame no pude modificar el valor de <code>sequence</code>:</li>
+</ul>
+
+
+<pre><code>NSUinteger next_in_sequence(){
+    static NSUinteger sequence = 0;
+    sequence ++;
+    return sequence;
+}
+</code></pre>
+
+<h3>Primera toma de contacto con Objective-c</h3>
+
+<p>Para ir metiéndonos en "manteca", creamos un nuevo proyecto llamado <a href="https://github.com/rafaparadela/iron-hack-week1-beer"><em>Beers</em></a> y que nos servirá durante toda la semana como proyecto de pruebas.</p>
+
+<p>Creamos una clase llamada <em>Beer</em> que nos servirá de ejemplo para ilustrar como se definen las variables de la clase, de la instancia, los método privados, públicos, etc.</p>
+
+<p>En <em>Beer.h</em> (interfaz de la clase) vemos que es una clase que extiende a NSObject <code>@interface Beer : NSObject</code>, y por tanto hereda ciertos métodos propios de cualquier objeto. Vamos a declarar varias variables de instancia, por tanto en la interfaz:</p>
+
+<pre><code>@private
+    NSString *name;
+    NSString *color;
+    NSUInteger grade;
+}
+</code></pre>
+
+<p>Una variable <em>name</em> de tipo <code>NSString</code> que representará el nombre de la cerveza, una variable <em>color</em> de tipo <code>NSString</code> que representará el color de la cerveza y una variable <em>grade</em> del tipo <code>NSUInteger</code> que representará la graduación de alcohol. Los asteriscos de <em>name</em> y <em>color</em> denotan que realmente dichas variables son punteros, que guardarán la dirección de memoria (<em>heap</em>) donde se almacenará el contenido del objeto <code>NSString</code>. Sin embargo <em>grade</em>, al ser un <code>NSUInteger</code> o sea un entero sin signo no es más que un tipo primario que puede ser guardado localmente (<em>stack</em>).</p>
+
+<h5>Setter &amp; Getter</h5>
+
+<p>Es poco recomendable leer y escribir las variables de instancias accediendo directamente con el operador <code>-&gt;</code> de esta forma <code>cerveza-&gt;name = @"Mahou";</code>. Es más común implementar los métodos que leerán y escribirán estas variables, los getter y los setters. De esta manera tendremos varias vantajas como mayor control en la inicialización poniendo condiciones por ejemplo, no se reserva memoria hasta que se llame al método, omitir el setter impidiendo que sea escrita desde fuera, etc.</p>
+
+<p>Por convenio el getter se nombran igual que la variable que devuelve y los setters se nombran igual que la variable pero con el prefijo <em>set</em>.</p>
+
+<pre><code>- (NSString *) name;
+- (void) setName: (NSString * )newName;
+
+- (NSString *) color;
+- (void) setColor: (NSString * )newColor;
+
+- (NSUInteger) grade;
+- (void) setGrade: (NSUInteger)newGrade;
+</code></pre>
+
+<p>En Beer.m la implemetación de estos métodos sería algo así:</p>
+
+<pre><code>- (NSString *) name{
+    return self-&gt;name;
+}
+
+- (void) setName: (NSString * )newName{
+    self-&gt;name = newName;
+}
+</code></pre>
+
+<p>Existe una notación que nos permite invocar a los métodos usando el punto
+<code>[mahou setName:@"Mahou"];</code> es exactamente igual que <code>mahou.name = @"Mahou";</code>, esta notación punto solo es válida si cumples la convención de nombrar el getter con el nombre de la variable y el setter como setNombre de la variable de instancia.</p>
+
+<p>La variable self es un puntero al propio objeto, pero hay convenio para nombrar las variables privadas de instancias, con el prefijo <code>_</code> para evitar confusión:</p>
+
+<pre><code>- (void) setCountry: (NSString * )newCountry{
+    _country = newCountry;
+}
+</code></pre>
+
+<p>Con <code>@property</code> definimos una variable de instancia y el compilador le añade setter y getter:</p>
+
+<pre><code>@property (nonatomic, strong) NSString *country;
+</code></pre>
+
+<p>Debes especificar con <code>@synthesize country = _country;</code> si quieres programar tu propio setter y getter. Cuando se establece una propiedad booleana como <code>@property (nonatomic) BOOL married;</code> podemos renombrar el nombre del getter <code>@property (nonatomic, getter = isMarried) BOOL married;</code>.</p>
+
+<h5>Métodos inicializadores</h5>
+
+<p>Para ilustrar la inicialización de los objetos vamos a crear una nueva clase llamada <em>Person</em>.</p>
+
+<p>En la intefaz creamos por ejemplo estas propiedades:</p>
+
+<pre><code>@property (nonatomic, strong) NSString *name;
+@property (nonatomic) NSUInteger age;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, getter = isMarried) BOOL married;
+</code></pre>
+
+<p>Podemos declarar tantos métodos inicializadores que queramos pero todos deben empezar por init. Normalmente se suelen anidar de manera que un método inicializador puede llamar a otro más descriptivo pasándole valores por defecto. Aquel que recibe más parámetros y por tanto describe mejor al objeto que iniciliza se denomina <em>designated initializer</em>. Un ejemplo:</p>
+
+<pre><code>- (id) init;
+- (id) initWithName: (NSString *)name;
+- (id) initWithName: (NSString *)name andAddress: (NSString *)address;
+- (id) initWithName: (NSString *)name andAddress: (NSString *)address age: (NSUInteger) age;
+</code></pre>
+
+<p>La implementación de estos inicializadores podría ser así:</p>
+
+<pre><code>- (id) initWithName: (NSString *)name andAddress: (NSString *)address age: (NSUInteger) age{
+    self = [super init];
+    if(self){
+        _name = name;
+        _address = address;
+        _age = age;
+    }
+    return self;
+}
+</code></pre>
+
+<p>| Nota |
+| ---- |
+| <em>En los métodos inicializadores no se usan las propiedades,
+son los único métodos que deben usar las variables de instancia</em> |</p>
+
+<p>Los siguientes métodos podrían implementarse así:</p>
+
+<pre><code>- (id) initWithName: (NSString *)name andAddress: (NSString *)address{
+    self = [self initWithName:name andAddress:address age:99];
+    return self;
+}
+
+- (id) initWithName: (NSString *)name{
+    self = [self initWithName:name andAddress:@"Sin definir"];
+    return self;
+}
+
+- (id) init{
+    self = [self initWithName:@"Anonimo"];
+    return self;
+}
+</code></pre>
+
+<h5>Métodos de clase</h5>
+
+<p>A veces es interesante crear un método que solo sirva para inicializar un objeto con los parámetros ya predefinidos. Para eso se usan los métodos de clase, que se caracterizan porque sirven para inizializar objetos, no pueden acceder a las variables de instancia y en la interfaz/implementacións viene precedidos por un signo más. Ésta podría ser un método de clase de Person:</p>
+
+<pre><code>+ (id) personWithName: (NSString *)name{
+    return [[Person alloc] initWithName:name];
+}
+</code></pre>
+
+<p>Y así se podría crear una persona <code>Person *homer = [Person personWithName:@"Homer Simpson"];</code></p>
+
+
+
+
+
+			
+			
+		
+	</div>
 </body>
 </html>
