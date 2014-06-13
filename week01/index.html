@@ -1,0 +1,460 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Introducción</title>
+
+</head>
+<body>
+<h1>Introducción</h1>
+
+<p>Comenzamos por fin el curso intensivo de aplicaciones iOS organizado por IronHack. Con toda la ilusión del mundo afrontamos 8 semanas, que seguro estarán llenas de satisfacciones, dudas, decepciones, euforia, nervios, ilusión, cansancio, diversión etc. pero todo esto forma parte de la magia de venir sin saber e irte sabiendo.</p>
+
+<p>Escribiré estos artículos de repaso semanal con la intención de asentar los conceptos que voy aprendiendo. Me apoyo en apuntes que voy tomando durante las clases que luego intentaré redactar lo más ameno posible. Por tanto estos artículos no reflejan fielmente la materia que se imparte, sino una aproximación, mi interpretación de los conceptos. En algunos casos, pasaré por encima de un concepto al que sin embargo le hemos dedicado una hora durante las clases pero simplemente no he tomado suficientes apuntes al respecto.</p>
+
+<p>Imagino que algún lector habrá que, aparte de interés por el desarrollo de aplicaciones IOS, tenga curiosidad por cómo va el tema de IronHack. Cómo están organizados, cómo es la dinámica del curso, en qué entorno se lleva a cabo la docencia, en definitiva puede surgir la duda si merece la pena hacer una inversión tan grande, habiendo tantos cursos de la misma materia. Intentaré por tanto ir dando mi opinión sobre esto lo más objetivamente posible.</p>
+
+<h4>Pre-work</h4>
+
+<p>Varias semanas antes de empezar las clases presenciales, la organización de IronHack insiste mucho en hacer un trabajo previo en casa, para ir asimilando conceptos. Digamos que el primer cabezazo contra la pared te lo pegues en tu casa, un poco asimilando la idiosincrasia de Xcode y de Objective-c. Para reforzar esos conocimientos y resolver las dudas que surgen, organizan hangout semanales, en los que los alumnos pueden exponer las dudas a los profesores.</p>
+
+<p>Es cierto que asusta al principio ver las horas que hay que invertir solamente en el pre-work, sin embargo hay que aclarar que acabarlo no es imprescindible para hacer el curso. Aquí se parte de 0. Obviamente cuanta más soltura tengas en programación orientada a objetos, más entiendas la dinámica de Objective-c y sus particularidades, más dominio tengas sobre el entorno de desarrollo, más acostumbrado estés en el uso de control de versiones, etc. más profundamente vas a aprovechar el curso porque enfocarás tu atención en los conceptos nuevos.</p>
+
+<hr />
+
+<h2>Semana 1</h2>
+
+<p>Empezamos! Después de las presentaciones de todos los miembros de la organización, de todos los alumnos y del "tour" por el entorno donde vamos a "vivir" durante 8 semanas, llega el momento de presentarse el profesor que romperá el hielo la primera semana: <a href="http://blog.freniche.com/">Diego Freniche</a>. Toda una eminencia en el mundillo. Y antes de darnos cuenta ya estamos aprendiendo.</p>
+
+<h3>Xcode</h3>
+
+<p>Xcode no es solo un IDE más, es una herramienta compleja.</p>
+
+<p>Para ilustrar el repaso por los conceptos más básicos de Xcode, hacemos un <em>Hello World</em> en el que simplemente imprimimos <code>Hello World</code> en la consola. Para no convertir este artículo en un tutorial de Xcode 5, pongo un enlace hacia un <a href="http://codewithchris.com/xcode-tutorial/">Tutorial de Xcode</a>, un tutorial de <a href="http://codewithchris.com/first-xcode-project/">Cómo crear el primer proyecto en Xcode</a> y listo algunas anotaciones que me parecen interensantes:</p>
+
+<ul>
+<li>Cuando se crea un proyecto en Xcode, te da la posibilidad de especificar un <code>Class Prefix</code>. Digamos que esto sustituye el sistema de paquetes de otros lenguajes y entornos, y sirve para evitar que existan clases con el mismo nombre. Algunos ejemplos de prefijos de clase archiconocidos pueden ser NS, UI y CF.</li>
+<li>Un proyecto Xcode escrito en Objective-c no deja de ser un programa en C supervitaminado. Por tanto el punto de entrada es la función <code>main</code>, que Xcode coloca <em>MyProject >> Supporting FIles >> main.m</em>. El contenido por defecto de esta función en este tipo de proyectos es la llamada a UIApplicationMain (para iniciar el ciclo de eventos de la aplicación). Lo encapsula en un bloque <code>@autoreleasepool</code> que básicamente sirve para liberar la memoria tras la ejecución.</li>
+<li>El delegado de la aplicación es una clase que podemos considerar como la puerta para que la aplicación se comunique con el dispositivo. Entre sus métodos, el más importante es <code>didFinishLaunchingWithOptions</code> que avisa cuando la aplicación se abre.</li>
+<li>En Xcode el uso de los <em>Targets</em> es un sistema para organizar el proceso de compilación del proyecto. Se pueden añadir pasos a los que por defecto se llevan a cabo cuando se construye la app, que se <em>precompila -> compila -> enlaza -> empaqueta</em>.</li>
+<li>El uso de esquemas, también es útil para manipular la ejecución. Por ejemplo es donde habría que definir los argumentos de entrada.</li>
+</ul>
+
+
+<h3>Un vistazo rápido a C</h3>
+
+<p>Es importante recordar algunos conceptos del "abuelo" C, para ello os recomiendo echar vistazo a algún tutorial, por ejemplo <a href="http://www.cprogramming.com/tutorial/c-tutorial.html">este</a>. Nosotros creamos un proyecto de C en Xcode y jugamos un poco con los tipos de variables, la declaración y definición de funciones, con los argumentos de entrada, etc. Algunas anotaciones que merece la pena recordar:</p>
+
+<ul>
+<li>Podemos definir nuestros propios tipos de variables con typedef, ejemplo: <code>typedef unsigned int NSUinteger;</code></li>
+<li>Con <code>sizeof</code> podemos saber el tamaño que ocupa un tipo en memoria.</li>
+<li>Los archivos <em>.h</em> no se meten en el target porque no se compilan.</li>
+<li>Es importante recordar la visibilidad de las funciones. Si declaras una función en el <em>.h</em>, se podrán invocar dichas funciones importando la cabecera, sin embargo, si se declara y define una función en el <em>.c</em> se considera una función privada, útil en el ámbito del módulo.</li>
+<li>Es posible declarar una variable en el ambito del módulo pero solo visible en la función donde se define. En el siguiente ejemplo <code>sequence</code> se incrementará en cada llamada, <code>next_in_sequence()</code> puede ser una función publica pero quien la llame no pude modificar el valor de <code>sequence</code>:</li>
+</ul>
+
+
+<pre><code>NSUinteger next_in_sequence(){
+    static NSUinteger sequence = 0;
+    sequence ++;
+    return sequence;
+}
+</code></pre>
+
+<h3>Primera toma de contacto con Objective-c</h3>
+
+<p>Para ir metiéndonos en "manteca", creamos un nuevo proyecto llamado <a href="https://github.com/rafaparadela/iron-hack-week1-beer"><em>Beers</em></a> y que nos servirá durante toda la semana como proyecto de pruebas.</p>
+
+<p>Creamos una clase llamada <em>Beer</em> que nos servirá de ejemplo para ilustrar como se definen las variables de la clase, de la instancia, los método privados, públicos, etc.</p>
+
+<p>En <em>Beer.h</em> (interfaz de la clase) vemos que es una clase que extiende a NSObject <code>@interface Beer : NSObject</code>, y por tanto hereda ciertos métodos propios de cualquier objeto. Vamos a declarar varias variables de instancia, por tanto en la interfaz:</p>
+
+<pre><code>@private
+    NSString *name;
+    NSString *color;
+    NSUInteger grade;
+}
+</code></pre>
+
+<p>Una variable <em>name</em> de tipo <code>NSString</code> que representará el nombre de la cerveza, una variable <em>color</em> de tipo <code>NSString</code> que representará el color de la cerveza y una variable <em>grade</em> del tipo <code>NSUInteger</code> que representará la graduación de alcohol. Los asteriscos de <em>name</em> y <em>color</em> denotan que realmente dichas variables son punteros, que guardarán la dirección de memoria (<em>heap</em>) donde se almacenará el contenido del objeto <code>NSString</code>. Sin embargo <em>grade</em>, al ser un <code>NSUInteger</code> o sea un entero sin signo no es más que un tipo primario que puede ser guardado localmente (<em>stack</em>).</p>
+
+<h5>Setter &amp; Getter</h5>
+
+<p>Es poco recomendable leer y escribir las variables de instancias accediendo directamente con el operador <code>-&gt;</code> de esta forma <code>cerveza-&gt;name = @"Mahou";</code>. Es más común implementar los métodos que leerán y escribirán estas variables, los getter y los setters. De esta manera tendremos varias vantajas como mayor control en la inicialización poniendo condiciones por ejemplo, no se reserva memoria hasta que se llame al método, omitir el setter impidiendo que sea escrita desde fuera, etc.</p>
+
+<p>Por convenio el getter se nombran igual que la variable que devuelve y los setters se nombran igual que la variable pero con el prefijo <em>set</em>.</p>
+
+<pre><code>- (NSString *) name;
+- (void) setName: (NSString * )newName;
+
+- (NSString *) color;
+- (void) setColor: (NSString * )newColor;
+
+- (NSUInteger) grade;
+- (void) setGrade: (NSUInteger)newGrade;
+</code></pre>
+
+<p>En Beer.m la implemetación de estos métodos sería algo así:</p>
+
+<pre><code>- (NSString *) name{
+    return self-&gt;name;
+}
+
+- (void) setName: (NSString * )newName{
+    self-&gt;name = newName;
+}
+</code></pre>
+
+<p>Existe una notación que nos permite invocar a los métodos usando el punto
+<code>[mahou setName:@"Mahou"];</code> es exactamente igual que <code>mahou.name = @"Mahou";</code>, esta notación punto solo es válida si cumples la convención de nombrar el getter con el nombre de la variable y el setter como setNombre de la variable de instancia.</p>
+
+<p>La variable self es un puntero al propio objeto, pero hay convenio para nombrar las variables privadas de instancias, con el prefijo <code>_</code> para evitar confusión:</p>
+
+<pre><code>- (void) setCountry: (NSString * )newCountry{
+    _country = newCountry;
+}
+</code></pre>
+
+<p>Con <code>@property</code> definimos una variable de instancia y el compilador le añade setter y getter:</p>
+
+<pre><code>@property (nonatomic, strong) NSString *country;
+</code></pre>
+
+<p>Debes especificar con <code>@synthesize country = _country;</code> si quieres programar tu propio setter y getter. Cuando se establece una propiedad booleana como <code>@property (nonatomic) BOOL married;</code> podemos renombrar el nombre del getter <code>@property (nonatomic, getter = isMarried) BOOL married;</code>.</p>
+
+<h5>Métodos inicializadores</h5>
+
+<p>Para ilustrar la inicialización de los objetos vamos a crear una nueva clase llamada <em>Person</em>.</p>
+
+<p>En la intefaz creamos por ejemplo estas propiedades:</p>
+
+<pre><code>@property (nonatomic, strong) NSString *name;
+@property (nonatomic) NSUInteger age;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, getter = isMarried) BOOL married;
+</code></pre>
+
+<p>Podemos declarar tantos métodos inicializadores que queramos pero todos deben empezar por init. Normalmente se suelen anidar de manera que un método inicializador puede llamar a otro más descriptivo pasándole valores por defecto. Aquel que recibe más parámetros y por tanto describe mejor al objeto que iniciliza se denomina <em>designated initializer</em>. Un ejemplo:</p>
+
+<pre><code>- (id) init;
+- (id) initWithName: (NSString *)name;
+- (id) initWithName: (NSString *)name andAddress: (NSString *)address;
+- (id) initWithName: (NSString *)name andAddress: (NSString *)address age: (NSUInteger) age;
+</code></pre>
+
+<p>La implementación de estos inicializadores podría ser así:</p>
+
+<pre><code>- (id) initWithName: (NSString *)name andAddress: (NSString *)address age: (NSUInteger) age{
+    self = [super init];
+    if(self){
+        _name = name;
+        _address = address;
+        _age = age;
+    }
+    return self;
+}
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th> Nota </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <em>En los métodos inicializadores no se usan las propiedades, son los único métodos que deben usar las variables de instancia</em> </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Los siguientes métodos podrían implementarse así:</p>
+
+<pre><code>- (id) initWithName: (NSString *)name andAddress: (NSString *)address{
+    self = [self initWithName:name andAddress:address age:99];
+    return self;
+}
+
+- (id) initWithName: (NSString *)name{
+    self = [self initWithName:name andAddress:@"Sin definir"];
+    return self;
+}
+
+- (id) init{
+    self = [self initWithName:@"Anonimo"];
+    return self;
+}
+</code></pre>
+
+<h5>Métodos de clase</h5>
+
+<p>A veces es interesante crear un método que solo sirva para inicializar un objeto con los parámetros ya predefinidos. Para eso se usan los métodos de clase, que se caracterizan porque sirven para inizializar objetos, no pueden acceder a las variables de instancia y en la interfaz/implementacións viene precedidos por un signo más. Ésta podría ser un método de clase de Person:</p>
+
+<pre><code>+ (id) personWithName: (NSString *)name{
+    return [[Person alloc] initWithName:name];
+}
+</code></pre>
+
+<p>Y así se podría crear una persona <code>Person *homer = [Person personWithName:@"Homer Simpson"];</code></p>
+
+<h3>Primeros test de unidad</h3>
+
+<p>En los proyectos de Xcode, por defecto se crea un directorio donde crear la clases de testeo. Por lo general son clases que extienden a <em>XCTestCase</em>, y en la implementación estarán los métodos que prueban el comportamiento de las clases. Éste sería un ejemplo de test:</p>
+
+<pre><code>#define TEST_ERROR_MSG @"OMG! 💀"
+...
+- (void)testCanCreateABeerList {
+    BeerList *allBeers = [[BeerList alloc] init];
+    XCTAssertNotNil(allBeers, TEST_ERROR_MSG);
+    XCTAssertEqual(0, [allBeers count], @"Expected %d but found %lu!", 0, [allBeers count]);
+}
+</code></pre>
+
+<h6>Nota</h6>
+
+<p>Desarrollo guiado por pruebas <code>TDD</code> es una técnica de programación que consiste en implementar primero los test unitarios e ir añadiendo el código necesario mínimo hasta pasar la prueba con éxito.</p>
+
+<h6>Nota</h6>
+
+<p>Así se puede iterar un array usando bloques:</p>
+
+<pre><code>[[allBeers allBeers] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    Beer *beerToTest = (Beer *)obj;
+    NSLog(@"%lu",(unsigned long)idx);
+}];
+</code></pre>
+
+<h3>KVC: Key Value Coding</h3>
+
+<p>KVC es un mecanismo que nos da la posibilidad de obtener y definir propiedades de una clase especificando identificadores (key) que representan los nombres de los atributos a los que queremos acceder.</p>
+
+<p><code>[allBeers valueForKey:@"count"]</code> es igual que <code>allBeers.count</code></p>
+
+<h3>Leer archivo plist</h3>
+
+<p>Despues de crear y rellenar un archivo plis con esta estructura:</p>
+
+<p>Desde la lista de cevezas podemos leerlo, y añadirlo como cerveza:</p>
+
+<pre><code>NSString *fileNameAndPath = [[NSBundle mainBundle]pathForResource:fileName ofType:@"plist"];
+NSArray *array = [NSArray arrayWithContentsOfFile:fileNameAndPath];
+
+for (NSDictionary *dict in array) {
+   Beer *beer = [[Beer alloc] init];
+   beer.name = [dict objectForKey:@"name"];
+   beer.grade = [[dict objectForKey:@"grade"] integerValue];
+   beer.color = [dict objectForKey:@"color"];
+   beer.country = [dict objectForKey:@"country"];
+
+   []self addBeer:beer];
+}
+</code></pre>
+
+<h3>MRC (Manual Reference Counting) y ARC (Automatic Reference Counting)</h3>
+
+<p>Hasta el iOS 5, el desarrollador tenía que mantener manualmente el seguimiento de la cantidad de referencias correspondientes a cada uno de los objetos creado (MRC), liberándolo correctamente después de que el objeto ya no fuese necesario para nadie más. De modo que, por ejemplo, antes de iOS 5, era preciso escribir algo como esto:</p>
+
+<pre><code>NSArray *anArray = [[NSArray alloc] initWithObjects:@"one", @"two", nil];
+self.myArrayProperty = anArray;
+[anArray release];
+</code></pre>
+
+<p>A partir de iOS 5, el compilador añade automáticamente el código necesario para gestionar la memoria. Pero es preciso conocer el mecanismo por si nos tenemos que enfrentar con código pre-iOS 5.</p>
+
+<p>¿Cuándo tengo que liberar memoria? Cuando añado un <code>alloc</code>, <code>new</code> o <code>copy</code> hay liberar con <code>release</code>.</p>
+
+<p>¿Cuándo tengo que hacer <code>-retainCount</code>? <a href="http://whentouseretaincount.com/">Aquí la respuesta</a>.</p>
+
+<hr />
+
+<p><em><strong>Nota rápida:</strong> Solo se debe usar <code>weak</code> en los delegados y outlet.</em></p>
+
+<hr />
+
+<h3>Ejercicio final de semana:</h3>
+
+<p>Para acabar la semana, afianzamos los conceptos con un ejercicio: <a href="http://cl.ly/VvPD">Enunciado</a>.</p>
+
+<p>Está resuelto en este repositorio: <a href="https://github.com/rafaparadela/Ironhack-week-1-iOS-exercises---Bars-app">Resolución</a></p>
+
+<h3>Algunas anotaciones extras</h3>
+
+<p><strong><a href="http://alcatraz.io/">Alcatraz</a></strong> The package manager for Xcode:</p>
+
+<p><strong><a href="https://github.com/venmo/synx">Synx</a></strong> A command-line tool that reorganizes your Xcode project folder to match your Xcode groups</p>
+
+<p><strong><a href="http://simpholders.com/">SimPholders</a></strong> A small utility for fast access to your iPhone Simulator apps.</p>
+
+<p><strong><a href="https://popapp.in/">POP</a></strong> Prototyping on Paper | iPhone App Prototyping Made Easy.</p>
+
+<p><strong><a href="http://cocoapods.org/">CocoaPods</a></strong> The Dependency Manager for Objective C.</p>
+
+<ul>
+<li>Editas Podfile con las dependencias</li>
+<li>pod install instala las dependencias</li>
+<li>Y desde ese momento, se debe abrir el workspace y no el xcodeproject.</li>
+</ul>
+
+
+<h4>Categorias:</h4>
+
+<ul>
+<li>Se crea una categoria sobre "algo".</li>
+<li>Si escribes un método que ya existe, la sobreescribe.</li>
+<li>Lo importamos en el pch de sipporting files para tenerlo en todos.</li>
+<li>Las categorias en principio no soportaban propiedades, es mas facil definir una variable de instancia.</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Semana 2</title>
+
+</head>
+<body>
+<h1>Semana 2</h1>
+
+<h2>Lunes 9</h2>
+
+<p>Empezamos planificando la semana y luego con la presentación de Fran Sevillano.</p>
+
+<h3>MVC</h3>
+
+<p>El patrón Model-View-Controller consiste en dividir el código en 3 capas diferenciadas, donde los modelos representan los datos que se van a manejar, las vistas representan los elementos que conforman la interfaz de usuario y los controladores, que responde a los eventos para interactuar con las vistas y con los modelos. Las vistas en Objective-c no tiene acceso a los modelos directamente sino que se comunica con los controladores que les proveerá de la información necesaria. Esta cominicación "fluye" por varias vías.</p>
+
+<p><img src="http://res.cloudinary.com/rafaparadela/image/upload/v1402386815/Captura_de_pantalla_2014-06-09_a_la_s_19_23_21_rqrgvx.png" alt="image" /></p>
+
+<h5>Target-Action</h5>
+
+<p>Esta técnica consiste en enviar un mensaje cuando un evento ocurre. El objeto <code>target</code> recibirá un mensaje, <code>action</code> cuadno ocurra el evento <code>controlEvents</code></p>
+
+<pre><code>(void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents
+</code></pre>
+
+<p>Hay muchos objetos en el SDK al los que se les puede enviar mensajes en respuesta a un evento. Como por ejemplo: UIButton, UILabel, UISwitch, UISlider, UISegmentedControl, UIPageControl, UIStepper, etc.</p>
+
+<p>Así podemos añadir un botón a la vista, y asignarle un título.</p>
+
+<pre><code>UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+button.frame = CGRectMake(10, 10, 100, 50);
+[self.view addSubview:button];
+[button setTitle:@"Normal" forState:UIControlStateNormal];
+[button setTitle:@"Resaltado" forState:UIControlStateHighlighted];
+</code></pre>
+
+<p>Si queremos mandarle un mensaje cuando sea pulsado, y desencadene la ejecución del método <code>buttonPressed</code>:</p>
+
+<pre><code>[button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchDown];
+</code></pre>
+
+<p>El manejo de los labels es similar. Así añadimos un label, con el texto <em>Hola</em>, con la tipogradía <em>Georgia</em> de tamaño 20 puntos en color verde:</p>
+
+<pre><code>UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(300, 10, 300, 50)];
+[self.view addSubview:label];
+[label setText:@"Hola"];
+[label setFont:[UIFont fontWithName:@"Georgia" size:20]];
+[label setTextColor:[UIColor greenColor]];
+</code></pre>
+
+<p>Un ejercicio sencillo, dadas las propiedades <code>UILabel * mylabel</code> y <code>UISwitch * myswitch</code> ¿Cómo cambiar la manera en la que el sistema truca el texto del label, dependiendo de si un switch está activado o desactivado?</p>
+
+<pre><code>@property (nonatomic, strong) UILabel * mylabel;
+@property (nonatomic, strong) UISwitch * myswitch;
+
+...
+
+- (void)exercise
+{
+
+    self.myswitch = [[UISwitch alloc] initWithFrame:CGRectMake(10, 140, 300, 50)];
+    [self.view addSubview:self.myswitch];
+    [self.myswitch addTarget:self action:@selector(setLineBreakMode) forControlEvents:UIControlEventValueChanged];
+
+    self.mylabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 120, 50)];
+    [self.view addSubview:self.mylabel];
+    [self.mylabel setText:@"Lorem ipsum dolor sit amet"];
+    [self.mylabel setBackgroundColor:[UIColor greenColor]];
+
+}
+
+- (void)setLineBreakMode
+{
+    if ([self.myswitch isOn]) {
+        [self.mylabel setLineBreakMode:NSLineBreakByTruncatingHead];
+    }else{
+        [self.mylabel setLineBreakMode:NSLineBreakByTruncatingTail];
+    }
+
+}
+</code></pre>
+
+<p>Y un sencillo ejemplo de cómo crear un UISegmentedControl, con las opciones <em>Hola</em> y <em>Adiós</em> y que mande el mensaje <code>setLineBreakMode</code> cuando cambie su valor:</p>
+
+<pre><code>UISegmentedControl * mysegmented = [[UISegmentedControl alloc] initWithItems:@[@"Hola",@"Adios"]];
+[mysegmented setFrame:CGRectMake(10, 390, 200, 50)];
+[self.view addSubview:mysegmented];
+[mysegmented addTarget:self action:@selector(setLineBreakMode) forControlEvents:UIControlEventValueChanged];
+</code></pre>
+
+<h3>Delegation</h3>
+
+<p>Consiste en delegar parte de la funcionalidad de un objeto a otro, habilitando por ejemplo la posibilidad de personalizar multiples vistas desde un solo controlador.</p>
+
+<p>Para establecer la relación de delegación se debe llevar a cabo los siguientes pasos:</p>
+
+<ul>
+<li>La clase delegada debe definir un protocolo (con el mismo nombre del controlador y el sufijo <em>Delegate</em>), que consiste en declarar una serie de métodos.</li>
+</ul>
+
+
+<pre><code>@protocol MyViewControllerDelegate &lt;NSObject&gt;
+- (void) oneMethod;
+@end
+</code></pre>
+
+<ul>
+<li>La clase delegada debe tener una propiedad (<em>weak</em>) llamada <code>delegate</code>, del tipo genérico <code>id</code> con la restricción de que extienda el protocolo:</li>
+</ul>
+
+
+<pre><code>@property (nonatomic, weak) id&lt;MyViewControllerDelegate&gt; delegate;
+</code></pre>
+
+<ul>
+<li>Que el método delegador extienda el protocolo:</li>
+</ul>
+
+
+<pre><code>@interface OtherViewController ()&lt;MyViewControllerDelegate&gt;
+</code></pre>
+
+<ul>
+<li>Que el método delegador implemente los métodos del protocolo:</li>
+</ul>
+
+
+<pre><code>- (void) oneMethod{
+    NSLog(@"Pollito");
+}
+</code></pre>
+
+<ul>
+<li>Para establecer que un objeto de <code>OtherViewController</code> sea el delegador de un objeto <code>MyViewController</code>, sería algo así (si se hace desde <code>OtherViewController</code>):</li>
+</ul>
+
+
+<pre><code>self.anyViewController = [[MyViewController alloc] init];
+self.anyViewController.delegate = self;
+</code></pre>
+
+<ul>
+<li>Ahora desde <code>MyViewController</code> podemos delegar algunas funcionalidades sobre <code>OtherViewController</code>, en este caso delegar el método <code>oneMethod</code>:</li>
+</ul>
+
+
+<pre><code>[self.delegate oneMethod];
+</code></pre>
+
+<p>Normalmente se usa la técnica <em>delegate</em> para definir la funcionalidad de un conjunto de controles como: UITextField y su protocolo UITextFieldDelegate con el que podemos personalizar su comportamiento, UITextView y UITextViewDelegate, UIAlertView, UIActionSheet, etc.</p>
+
+<h3>Notificaciones</h3>
+
+<p>Las notificaciones se usan para comunicar los modelos con los controladores. Consiste en enviar un mensaje de difusión, con cierta información, que es escuchada por aquellos objetos que se subscriban. Es la clase <code>NSNotificationCenter</code> la encargada de este flujo.</p>
+
+<p>El envío y lectura de notificaciones se entiende mucho mejor con un ejemplo. Imaginemos dos vistas diferentes independeientes, gestionadas mediante dos ViewControllers. En la primera de las vistas tenemos un UITextField y la segunda un UILabel. El propósito es que cuando se cambie campo de texto de la primera vista, se escriba en el label de la segunda vista exactamente el mismo texto:</p>
+
+<pre><code>@property (nonatomic, strong) UITextField *textField;
+
+...
+
+- (void)exercise
+{
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 40, 300, 40)];
+    [self.view addSubview:self.textField];    
+    [self.textField addTarget:self action:@selector(changedField) forControlEvents:UIControlEventEditingChanged];
+
+
+} 
+
+- (void)changedField{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"myTextNotification" object:self userInfo:@{@"mytexto" : self.textField.text}];
+}
+</code></pre>
+
+<p>Así estaríamos enviando una notificación llamada <em>myTextNotification</em> con los datos serializados en un diccionario llamado <em>userInfo</em>, en este caso el nuevo texto como valor cuya clave es <em>@"mytexto"</em>. Los recibiría todo aquel que se suscriba a dicha notificación. En este caso desde la segunda vista:</p>
+
+<pre><code>@property (nonatomic, strong) UILabel * mylabel;
+
+...
+
+- (void)exercise
+{
+    self.mylabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 90, 300, 40)];
+    [self.view addSubview:self.mylabel];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"myTextNotification" object:nil];
+
+}
+
+- (void)receiveNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    self.mylabel.text = [userInfo objectForKey:@"texto"];
+}
+</code></pre>
+
+<p>De esta manera recibiría la notificación <em>myTextNotification</em> y se la enviaría al método <em>receivenotification</em> que actualiza el texto del label.</p>
+
+<h2>Martes 10</h2>
+
+<h3>View Controllers</h3>
+
+<p>Los controladores de las vistas son el nexo entre los datos y lo que se presenta al usuario. Aunque la SDK provee de una serie de controladores de vistas por defecto con una serie de comportamientos establecidos, nosotros podemos crearnos las nuestras propias.</p>
+
+<p>Las vistas representar un area que muestra un contenido y recibe los eventos táctiles. Pueden estar anidadas y animadas y desconocen qué hay en su entorno. Cada vista solo puede ser gestionada por un solo controlador,
+Por el contrario los controladores de las vistas</p>
+
+<p>Trasnparencias</p>
+
+<ul>
+<li>Hacemos ejercicio de rotating</li>
+<li>Hacemos ejercicio de presenting y afianzamos el concepto de delegacion</li>
+<li>Hecemos ejercicios de container</li>
+<li>Hacemos ejerecicios de popover</li>
+</ul>
+
+
+<h2>Miercoles 11</h2>
+
+<ul>
+<li>Vemos transparencias de Views:</li>
+<li><p>Vamos a hacer ejercicios de vistas</p></li>
+<li><p>Xibs</p></li>
+<li>Storyboards</li>
+</ul>
+
+
+<h2>Jueves</h2>
+
+<p>Ricardo Sanchez</p>
+
+<p>Empezamos viendo los UITableView, que es tipo especial de UIScrollerView,</p>
+
+<p>Hablar de las partes</p>
+
+<p>Hablar de los tipos</p>
+
+<p>Las UITableViewCell ->
+Las UITableViewController es su controlador que implementan Delegate y Datasource y algunas funcionalidades.</p>
+
+<p>UITableViewDatasource tiene muchos metodos para pasarle datos a nuestra UITableView</p>
+
+<p>Ejerecicio de tabla con secciones:</p>
+
+<pre><code>self.model = [[GotModel alloc] init];
+[self.model cargaModelo];
+
+...
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.model.casas.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    Casa *casa = [self.model.casas objectAtIndex:section];
+    return casa.personajes.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    Casa *casa = [self.model.casas objectAtIndex:section];
+    return casa.nombre;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"celdaPersonaje" forIndexPath:indexPath];
+    Casa *casa = [self.model.casas objectAtIndex:indexPath.section];
+    Personaje * personaje = [casa.personajes objectAtIndex:indexPath.row];
+    cell.textLabel.text = personaje.nombre;
+    cell.detailTextLabel.text = personaje.descripcion;
+    return cell;
+}
+</code></pre>
+
+<p>Customize cells</p>
+
+<p>Para crear tu propia celda, crea tu clase que extienda de UITableViewCell
+En el storyboard, indicas que la celda se de la clase que hemos creado.
+Ponemos que sea tipo custom y le ponemos un identificador.
+Le metemos los elementos que queramos y creamos los outlet (En el .h de nuestra clase).
+Por ultimo en nuestra UITableViewController:</p>
+
+<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"celdaPersonaje" forIndexPath:indexPath];
+    Casa *casa = [self.model.casas objectAtIndex:indexPath.section];
+    Personaje * personaje = [casa.personajes objectAtIndex:indexPath.row];
+    cell.myLabel.text = personaje.nombre;
+    cell.myImage.image = [UIImage imageNamed:personaje.imagen];
+    return cell;
+
+}
+</code></pre>
+
+<p>Para cambiar el alto de la celda:</p>
+
+<pre><code>- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 70.0;
+}
+</code></pre>
+
+<h5>UITableViewDelegate</h5>
+
+<p>Para que cuando pinche en una celda que te lleve a otra vista con info.
+Y el nuevo controlador</p>
+
+<pre><code>@property (weak, nonatomic) IBOutlet UIImageView *myImagen;
+@property (weak, nonatomic) IBOutlet UITextView *myTextArea;
+@property (weak, nonatomic) Personaje* myPersonaje;
+
+...
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+
+    self.myImagen.image = [UIImage imageNamed:self.myPersonaje.imagen];
+    self.myTextArea.text = self.myPersonaje.descripcion;
+    self.title = self.myPersonaje.nombre;
+}
+</code></pre>
+
+<p>Creamo segue con un identificador <code>mySegue</code>:</p>
+
+<pre><code>
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"mySegue" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier  isEqual: @"mySegue"]){
+        MySecondViewController* mySecondView = segue.destinationViewController;
+
+        NSInteger casaId = self.tableView.indexPathForSelectedRow.section;
+        Casa * casa = [self.model.casas objectAtIndex:casaId];
+
+        NSInteger personajeId = self.tableView.indexPathForSelectedRow.row;
+        Personaje* personaje = [casa.personajes objectAtIndex:personajeId];
+
+        mySecondView.myPersonaje = personaje;
+
+        NSLog(@"%d", personajeId);
+
+    }
+
+}
+</code></pre>
+
+<p>Cambiar el header de una section:</p>
+
+<pre><code>- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 100.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    Casa * casa = [self.model.casas objectAtIndex:section];
+    UIImage *logo = [UIImage imageNamed:casa.imagen];
+    UIImageView* myImageSectionView = [[UIImageView alloc] initWithImage:logo];
+    return myImageSectionView;
+}
+</code></pre>
+
+<h5>Borrar celdas</h5>
+
+<pre><code>- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSInteger casaId = indexPath.section;
+        Casa * casa = [self.model.casas objectAtIndex:casaId];
+        NSInteger personajeId = indexPath.row;
+        NSMutableArray* myarray = [[NSMutableArray alloc] initWithArray:casa.personajes];
+
+        [myarray removeObjectAtIndex:personajeId];
+
+        casa.personajes = myarray;
+
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+
+    }
+}
+</code></pre>
+
+<p>Si llamamos "deleteRowsAtIndexPaths" antes que se cambie el modelo, falla, la solución es ponerlo despues en encapsular ese bloque de codigo entre:</p>
+
+<pre><code>[self.tableView beginUpdates];
+...
+[self.tableView endUpdates];
+</code></pre>
+
+<h5>Mover Celdas</h5>
+
+<p>Para mover las celdas es neceario implementar estos dos métodos:</p>
+
+<pre><code>- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+
+    // Aquí se implementa los cambios en el modelo.
+
+}
+</code></pre>
+
+<h5>Añadir celdas</h5>
+
+<p>Lo hemos hecho con storyboard y no lo he acabado.</p>
+
+<h5>Search</h5>
+
+<p>d</p>
+
+<p>d</p>
+
+<p>d</p>
+
+<p>d</p>
+</body>
+</html>
