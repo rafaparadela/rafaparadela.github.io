@@ -1,0 +1,1395 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="IronHack MADRID - iOS Development">
+<meta name="keywords" content="Objective-c, Cocoa, Xcode, Ironhack, Development">
+<meta name="author" content="Rafa Paradela">
+<title>IronHack - iOS Development</title>
+<link href="assets/bootstrap.min.css" rel="stylesheet">
+<link href="assets/docs.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+<link href="assets/theme.css" rel="stylesheet">
+
+<!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+  </head>
+  <body>
+    <a class="sr-only" href="#content">Skip to main content</a>
+
+    <!-- Docs master nav -->
+  <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="../" class="navbar-brand">IronHack - iOS Development</a>
+    </div>
+	<!--
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="../getting-started">Getting started</a>
+        </li>
+        <li>
+          <a href="../css">CSS</a>
+        </li>
+        <li>
+          <a href="../components">Components</a>
+        </li>
+        <li>
+          <a href="../javascript">JavaScript</a>
+        </li>
+        <li class="active">
+          <a href="../customize">Customize</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="http://expo.getbootstrap.com" onclick="_gaq.push(['_trackEvent', 'Navbar', 'Community links', 'Expo']);">Expo</a></li>
+        <li><a href="http://blog.getbootstrap.com" onclick="_gaq.push(['_trackEvent', 'Navbar', 'Community links', 'Blog']);">Blog</a></li>
+      </ul>
+    </nav>
+	-->
+  </div>
+</header>
+
+    <div class="container bs-docs-container">
+
+      <div class="row">
+		  
+		  
+        <div class="col-md-2">
+          <div class="bs-docs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-docs-sidenav">
+              
+				<li><a href="#w01">Semana 1</a></li>
+				<li><a href="#w02">Semana 2</a></li>
+              
+            </ul>
+            <a class="back-to-top" href="#top">
+              Back to top
+            </a>
+          </div>
+        </div>
+		
+        <div class="col-md-10" role="main">
+          <!-- Customizer form -->
+
+			  <div class="bs-docs-section" id="w01-section">
+				  <h1 id="w01" class="page-header">Semana 1</h1>
+				  
+				  <!-- &&&&&& -->
+
+<h3>Xcode</h3>
+
+<p>Xcode no es solo un IDE más, es una herramienta compleja.</p>
+
+<p>Para ilustrar el repaso por los conceptos más básicos de Xcode, hacemos un <em>Hello World</em> en el que simplemente imprimimos <code>Hello World</code> en la consola. Para no convertir este artículo en un tutorial de Xcode 5, pongo un enlace hacia un <a href="http://codewithchris.com/xcode-tutorial/">Tutorial de Xcode</a>, un tutorial de <a href="http://codewithchris.com/first-xcode-project/">Cómo crear el primer proyecto en Xcode</a> y listo algunas anotaciones que me parecen interensantes:</p>
+
+<ul>
+<li>Cuando se crea un proyecto en Xcode, te da la posibilidad de especificar un <code>Class Prefix</code>. Digamos que esto sustituye el sistema de paquetes de otros lenguajes y entornos, y sirve para evitar que existan clases con el mismo nombre. Algunos ejemplos de prefijos de clase archiconocidos pueden ser NS, UI y CF.</li>
+<li>Un proyecto Xcode escrito en Objective-c no deja de ser un programa en C supervitaminado. Por tanto el punto de entrada es la función <code>main</code>, que Xcode coloca <em>MyProject >> Supporting FIles >> main.m</em>. El contenido por defecto de esta función en este tipo de proyectos es la llamada a UIApplicationMain (para iniciar el ciclo de eventos de la aplicación). Lo encapsula en un bloque <code>@autoreleasepool</code> que básicamente sirve para liberar la memoria tras la ejecución.</li>
+<li>El delegado de la aplicación es una clase que podemos considerar como la puerta para que la aplicación se comunique con el dispositivo. Entre sus métodos, el más importante es <code>didFinishLaunchingWithOptions</code> que avisa cuando la aplicación se abre.</li>
+<li>En Xcode el uso de los <em>Targets</em> es un sistema para organizar el proceso de compilación del proyecto. Se pueden añadir pasos a los que por defecto se llevan a cabo cuando se construye la app, que se <em>precompila -> compila -> enlaza -> empaqueta</em>.</li>
+<li>El uso de esquemas, también es útil para manipular la ejecución. Por ejemplo es donde habría que definir los argumentos de entrada.</li>
+</ul>
+
+
+<h3>Un vistazo rápido a C</h3>
+
+<p>Es importante recordar algunos conceptos del "abuelo" C, para ello os recomiendo echar vistazo a algún tutorial, por ejemplo <a href="http://www.cprogramming.com/tutorial/c-tutorial.html">este</a>. Nosotros creamos un proyecto de C en Xcode y jugamos un poco con los tipos de variables, la declaración y definición de funciones, con los argumentos de entrada, etc. Algunas anotaciones que merece la pena recordar:</p>
+
+<ul>
+<li>Podemos definir nuestros propios tipos de variables con typedef, ejemplo: <code>typedef unsigned int NSUinteger;</code></li>
+<li>Con <code>sizeof</code> podemos saber el tamaño que ocupa un tipo en memoria.</li>
+<li>Los archivos <em>.h</em> no se meten en el target porque no se compilan.</li>
+<li>Es importante recordar la visibilidad de las funciones. Si declaras una función en el <em>.h</em>, se podrán invocar dichas funciones importando la cabecera, sin embargo, si se declara y define una función en el <em>.c</em> se considera una función privada, útil en el ámbito del módulo.</li>
+<li>Es posible declarar una variable en el ambito del módulo pero solo visible en la función donde se define. En el siguiente ejemplo <code>sequence</code> se incrementará en cada llamada, <code>next_in_sequence()</code> puede ser una función publica pero quien la llame no pude modificar el valor de <code>sequence</code>:</li>
+</ul>
+
+
+<pre><code>NSUinteger next_in_sequence(){
+    static NSUinteger sequence = 0;
+    sequence ++;
+    return sequence;
+}
+</code></pre>
+
+<h3>Primera toma de contacto con Objective-c</h3>
+
+<p>Para ir metiéndonos en "manteca", creamos un nuevo proyecto llamado <a href="https://github.com/rafaparadela/iron-hack-week1-beer"><em>Beers</em></a> y que nos servirá durante toda la semana como proyecto de pruebas.</p>
+
+<p>Creamos una clase llamada <em>Beer</em> que nos servirá de ejemplo para ilustrar como se definen las variables de la clase, de la instancia, los método privados, públicos, etc.</p>
+
+<p>En <em>Beer.h</em> (interfaz de la clase) vemos que es una clase que extiende a NSObject <code>@interface Beer : NSObject</code>, y por tanto hereda ciertos métodos propios de cualquier objeto. Vamos a declarar varias variables de instancia, por tanto en la interfaz:</p>
+
+<pre><code>@private
+    NSString *name;
+    NSString *color;
+    NSUInteger grade;
+}
+</code></pre>
+
+<p>Una variable <em>name</em> de tipo <code>NSString</code> que representará el nombre de la cerveza, una variable <em>color</em> de tipo <code>NSString</code> que representará el color de la cerveza y una variable <em>grade</em> del tipo <code>NSUInteger</code> que representará la graduación de alcohol. Los asteriscos de <em>name</em> y <em>color</em> denotan que realmente dichas variables son punteros, que guardarán la dirección de memoria (<em>heap</em>) donde se almacenará el contenido del objeto <code>NSString</code>. Sin embargo <em>grade</em>, al ser un <code>NSUInteger</code> o sea un entero sin signo no es más que un tipo primario que puede ser guardado localmente (<em>stack</em>).</p>
+
+<h5>Setter &amp; Getter</h5>
+
+<p>Es poco recomendable leer y escribir las variables de instancias accediendo directamente con el operador <code>-&gt;</code> de esta forma <code>cerveza-&gt;name = @"Mahou";</code>. Es más común implementar los métodos que leerán y escribirán estas variables, los getter y los setters. De esta manera tendremos varias vantajas como mayor control en la inicialización poniendo condiciones por ejemplo, no se reserva memoria hasta que se llame al método, omitir el setter impidiendo que sea escrita desde fuera, etc.</p>
+
+<p>Por convenio el getter se nombran igual que la variable que devuelve y los setters se nombran igual que la variable pero con el prefijo <em>set</em>.</p>
+
+<pre><code>- (NSString *) name;
+- (void) setName: (NSString * )newName;
+
+- (NSString *) color;
+- (void) setColor: (NSString * )newColor;
+
+- (NSUInteger) grade;
+- (void) setGrade: (NSUInteger)newGrade;
+</code></pre>
+
+<p>En Beer.m la implemetación de estos métodos sería algo así:</p>
+
+<pre><code>- (NSString *) name{
+    return self-&gt;name;
+}
+
+- (void) setName: (NSString * )newName{
+    self-&gt;name = newName;
+}
+</code></pre>
+
+<p>Existe una notación que nos permite invocar a los métodos usando el punto
+<code>[mahou setName:@"Mahou"];</code> es exactamente igual que <code>mahou.name = @"Mahou";</code>, esta notación punto solo es válida si cumples la convención de nombrar el getter con el nombre de la variable y el setter como setNombre de la variable de instancia.</p>
+
+<p>La variable self es un puntero al propio objeto, pero hay convenio para nombrar las variables privadas de instancias, con el prefijo <code>_</code> para evitar confusión:</p>
+
+<pre><code>- (void) setCountry: (NSString * )newCountry{
+    _country = newCountry;
+}
+</code></pre>
+
+<p>Con <code>@property</code> definimos una variable de instancia y el compilador le añade setter y getter:</p>
+
+<pre><code>@property (nonatomic, strong) NSString *country;
+</code></pre>
+
+<p>Debes especificar con <code>@synthesize country = _country;</code> si quieres programar tu propio setter y getter. Cuando se establece una propiedad booleana como <code>@property (nonatomic) BOOL married;</code> podemos renombrar el nombre del getter <code>@property (nonatomic, getter = isMarried) BOOL married;</code>.</p>
+
+<h5>Métodos inicializadores</h5>
+
+<p>Para ilustrar la inicialización de los objetos vamos a crear una nueva clase llamada <em>Person</em>.</p>
+
+<p>En la intefaz creamos por ejemplo estas propiedades:</p>
+
+<pre><code>@property (nonatomic, strong) NSString *name;
+@property (nonatomic) NSUInteger age;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, getter = isMarried) BOOL married;
+</code></pre>
+
+<p>Podemos declarar tantos métodos inicializadores que queramos pero todos deben empezar por init. Normalmente se suelen anidar de manera que un método inicializador puede llamar a otro más descriptivo pasándole valores por defecto. Aquel que recibe más parámetros y por tanto describe mejor al objeto que iniciliza se denomina <em>designated initializer</em>. Un ejemplo:</p>
+
+<pre><code>- (id) init;
+- (id) initWithName: (NSString *)name;
+- (id) initWithName: (NSString *)name andAddress: (NSString *)address;
+- (id) initWithName: (NSString *)name andAddress: (NSString *)address age: (NSUInteger) age;
+</code></pre>
+
+<p>La implementación de estos inicializadores podría ser así:</p>
+
+<pre><code>- (id) initWithName: (NSString *)name andAddress: (NSString *)address age: (NSUInteger) age{
+    self = [super init];
+    if(self){
+        _name = name;
+        _address = address;
+        _age = age;
+    }
+    return self;
+}
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th> Nota </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <em>En los métodos inicializadores no se usan las propiedades, son los único métodos que deben usar las variables de instancia</em> </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Los siguientes métodos podrían implementarse así:</p>
+
+<pre><code>- (id) initWithName: (NSString *)name andAddress: (NSString *)address{
+    self = [self initWithName:name andAddress:address age:99];
+    return self;
+}
+
+- (id) initWithName: (NSString *)name{
+    self = [self initWithName:name andAddress:@"Sin definir"];
+    return self;
+}
+
+- (id) init{
+    self = [self initWithName:@"Anonimo"];
+    return self;
+}
+</code></pre>
+
+<h5>Métodos de clase</h5>
+
+<p>A veces es interesante crear un método que solo sirva para inicializar un objeto con los parámetros ya predefinidos. Para eso se usan los métodos de clase, que se caracterizan porque sirven para inizializar objetos, no pueden acceder a las variables de instancia y en la interfaz/implementacións viene precedidos por un signo más. Ésta podría ser un método de clase de Person:</p>
+
+<pre><code>+ (id) personWithName: (NSString *)name{
+    return [[Person alloc] initWithName:name];
+}
+</code></pre>
+
+<p>Y así se podría crear una persona <code>Person *homer = [Person personWithName:@"Homer Simpson"];</code></p>
+
+<h3>Primeros test de unidad</h3>
+
+<p>En los proyectos de Xcode, por defecto se crea un directorio donde crear la clases de testeo. Por lo general son clases que extienden a <em>XCTestCase</em>, y en la implementación estarán los métodos que prueban el comportamiento de las clases. Éste sería un ejemplo de test:</p>
+
+<pre><code>#define TEST_ERROR_MSG @"OMG! 💀"
+...
+- (void)testCanCreateABeerList {
+    BeerList *allBeers = [[BeerList alloc] init];
+    XCTAssertNotNil(allBeers, TEST_ERROR_MSG);
+    XCTAssertEqual(0, [allBeers count], @"Expected %d but found %lu!", 0, [allBeers count]);
+}
+</code></pre>
+
+<h6>Nota</h6>
+
+<p>Desarrollo guiado por pruebas <code>TDD</code> es una técnica de programación que consiste en implementar primero los test unitarios e ir añadiendo el código necesario mínimo hasta pasar la prueba con éxito.</p>
+
+<h6>Nota</h6>
+
+<p>Así se puede iterar un array usando bloques:</p>
+
+<pre><code>[[allBeers allBeers] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    Beer *beerToTest = (Beer *)obj;
+    NSLog(@"%lu",(unsigned long)idx);
+}];
+</code></pre>
+
+<h3>KVC: Key Value Coding</h3>
+
+<p>KVC es un mecanismo que nos da la posibilidad de obtener y definir propiedades de una clase especificando identificadores (key) que representan los nombres de los atributos a los que queremos acceder.</p>
+
+<p><code>[allBeers valueForKey:@"count"]</code> es igual que <code>allBeers.count</code></p>
+
+<h3>Leer archivo plist</h3>
+
+<p>Despues de crear y rellenar un archivo plis con esta estructura:</p>
+
+<p>Desde la lista de cevezas podemos leerlo, y añadirlo como cerveza:</p>
+
+<pre><code>NSString *fileNameAndPath = [[NSBundle mainBundle]pathForResource:fileName ofType:@"plist"];
+NSArray *array = [NSArray arrayWithContentsOfFile:fileNameAndPath];
+
+for (NSDictionary *dict in array) {
+   Beer *beer = [[Beer alloc] init];
+   beer.name = [dict objectForKey:@"name"];
+   beer.grade = [[dict objectForKey:@"grade"] integerValue];
+   beer.color = [dict objectForKey:@"color"];
+   beer.country = [dict objectForKey:@"country"];
+
+   []self addBeer:beer];
+}
+</code></pre>
+
+<h3>MRC (Manual Reference Counting) y ARC (Automatic Reference Counting)</h3>
+
+<p>Hasta el iOS 5, el desarrollador tenía que mantener manualmente el seguimiento de la cantidad de referencias correspondientes a cada uno de los objetos creado (MRC), liberándolo correctamente después de que el objeto ya no fuese necesario para nadie más. De modo que, por ejemplo, antes de iOS 5, era preciso escribir algo como esto:</p>
+
+<pre><code>NSArray *anArray = [[NSArray alloc] initWithObjects:@"one", @"two", nil];
+self.myArrayProperty = anArray;
+[anArray release];
+</code></pre>
+
+<p>A partir de iOS 5, el compilador añade automáticamente el código necesario para gestionar la memoria. Pero es preciso conocer el mecanismo por si nos tenemos que enfrentar con código pre-iOS 5.</p>
+
+<p>¿Cuándo tengo que liberar memoria? Cuando añado un <code>alloc</code>, <code>new</code> o <code>copy</code> hay liberar con <code>release</code>.</p>
+
+<p>¿Cuándo tengo que hacer <code>-retainCount</code>? <a href="http://whentouseretaincount.com/">Aquí la respuesta</a>.</p>
+
+<hr />
+
+<p><em><strong>Nota rápida:</strong> Solo se debe usar <code>weak</code> en los delegados y outlet.</em></p>
+
+<hr />
+
+<h3>Ejercicio final de semana:</h3>
+
+<p>Para acabar la semana, afianzamos los conceptos con un ejercicio: <a href="http://cl.ly/VvPD">Enunciado</a>.</p>
+
+<p>Está resuelto en este repositorio: <a href="https://github.com/rafaparadela/Ironhack-week-1-iOS-exercises---Bars-app">Resolución</a></p>
+
+<h3>Algunas anotaciones extras</h3>
+
+<p><strong><a href="http://alcatraz.io/">Alcatraz</a></strong> The package manager for Xcode:</p>
+
+<p><strong><a href="https://github.com/venmo/synx">Synx</a></strong> A command-line tool that reorganizes your Xcode project folder to match your Xcode groups</p>
+
+<p><strong><a href="http://simpholders.com/">SimPholders</a></strong> A small utility for fast access to your iPhone Simulator apps.</p>
+
+<p><strong><a href="https://popapp.in/">POP</a></strong> Prototyping on Paper | iPhone App Prototyping Made Easy.</p>
+
+<p><strong><a href="http://cocoapods.org/">CocoaPods</a></strong> The Dependency Manager for Objective C.</p>
+
+<ul>
+<li>Editas Podfile con las dependencias</li>
+<li>pod install instala las dependencias</li>
+<li>Y desde ese momento, se debe abrir el workspace y no el xcodeproject.</li>
+</ul>
+
+
+<h4>Categorias:</h4>
+
+<ul>
+<li>Se crea una categoria sobre "algo".</li>
+<li>Si escribes un método que ya existe, la sobreescribe.</li>
+<li>Lo importamos en el pch de sipporting files para tenerlo en todos.</li>
+<li>Las categorias en principio no soportaban propiedades, es mas facil definir una variable de instancia.</li>
+</ul>
+
+
+				  <!-- %%%%%% -->
+				  
+			  </div>
+
+			  <div class="bs-docs-section" id="w01-section">
+				  <h1 id="w02" class="page-header">Semana 2</h1>
+
+				  <!-- &&&&&& -->
+				  
+
+
+<p>Empezamos planificando la semana y presentándonos a un nuevo profesor: <a href="https://twitter.com/frsevillano">Fran Sevillano</a>.</p>
+
+<h3>MVC</h3>
+
+<p>El patrón Model-View-Controller consiste en dividir el código en 3 capas diferenciadas, donde los modelos representan los datos que se van a manejar, las vistas representan los elementos que conforman la interfaz de usuario y los controladores, que responden a los eventos para interactuar con las vistas y con los modelos. Las vistas en Objective-c no tiene acceso a los modelos directamente sino que se comunica con los controladores que les proveerá de la información necesaria. Esta cominicación "fluye" por varias vías.</p>
+
+<p><img src="http://res.cloudinary.com/rafaparadela/image/upload/v1402386815/Captura_de_pantalla_2014-06-09_a_la_s_19_23_21_rqrgvx.png" alt="image" /></p>
+
+<h5>Target-Action</h5>
+
+<p>Esta técnica consiste en enviar un mensaje cuando un evento ocurre. El objeto <code>target</code> recibirá un mensaje, <code>action</code> cuando ocurra el evento <code>controlEvents</code></p>
+
+<pre><code>(void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents
+</code></pre>
+
+<p>Hay muchos objetos en el SDK al los que se les puede enviar mensajes en respuesta a un evento. Como por ejemplo: UIButton, UILabel, UISwitch, UISlider, UISegmentedControl, UIPageControl, UIStepper, etc.</p>
+
+<p>Así podemos añadir un botón a la vista, y asignarle un título.</p>
+
+<pre><code>UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+button.frame = CGRectMake(10, 10, 100, 50);
+[self.view addSubview:button];
+[button setTitle:@"Normal" forState:UIControlStateNormal];
+[button setTitle:@"Resaltado" forState:UIControlStateHighlighted];
+</code></pre>
+
+<p>Si queremos mandarle un mensaje cuando sea pulsado, y desencadene la ejecución del método <code>buttonPressed</code>:</p>
+
+<pre><code>[button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchDown];
+</code></pre>
+
+<p>El manejo de los labels es similar. Así añadimos un label, con el texto <em>Hola</em>, con la tipogradía <em>Georgia</em> de tamaño 20 puntos en color verde:</p>
+
+<pre><code>UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(300, 10, 300, 50)];
+[self.view addSubview:label];
+[label setText:@"Hola"];
+[label setFont:[UIFont fontWithName:@"Georgia" size:20]];
+[label setTextColor:[UIColor greenColor]];
+</code></pre>
+
+<p>Un ejercicio sencillo, dadas las propiedades <code>UILabel * mylabel</code> y <code>UISwitch * myswitch</code> ¿Cómo cambiar la manera en la que el sistema truca el texto del label, dependiendo de si un switch está activado o desactivado?</p>
+
+<pre><code>@property (nonatomic, strong) UILabel * mylabel;
+@property (nonatomic, strong) UISwitch * myswitch;
+
+...
+
+- (void)exercise
+{
+
+    self.myswitch = [[UISwitch alloc] initWithFrame:CGRectMake(10, 140, 300, 50)];
+    [self.view addSubview:self.myswitch];
+    [self.myswitch addTarget:self action:@selector(setLineBreakMode) forControlEvents:UIControlEventValueChanged];
+
+    self.mylabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 120, 50)];
+    [self.view addSubview:self.mylabel];
+    [self.mylabel setText:@"Lorem ipsum dolor sit amet"];
+    [self.mylabel setBackgroundColor:[UIColor greenColor]];
+
+}
+
+- (void)setLineBreakMode
+{
+    if ([self.myswitch isOn]) {
+        [self.mylabel setLineBreakMode:NSLineBreakByTruncatingHead];
+    }else{
+        [self.mylabel setLineBreakMode:NSLineBreakByTruncatingTail];
+    }
+
+}
+</code></pre>
+
+<p>Y un sencillo ejemplo de cómo crear un UISegmentedControl, con las opciones <em>Hola</em> y <em>Adiós</em> y que mande el mensaje <code>setLineBreakMode</code> cuando cambie su valor:</p>
+
+<pre><code>UISegmentedControl * mysegmented = [[UISegmentedControl alloc] initWithItems:@[@"Hola",@"Adios"]];
+[mysegmented setFrame:CGRectMake(10, 390, 200, 50)];
+[self.view addSubview:mysegmented];
+[mysegmented addTarget:self action:@selector(setLineBreakMode) forControlEvents:UIControlEventValueChanged];
+</code></pre>
+
+<h3>Delegation</h3>
+
+<p>Consiste en delegar parte de la funcionalidad de un objeto a otro, habilitando por ejemplo la posibilidad de personalizar multiples vistas desde un solo controlador.</p>
+
+<p>Para establecer la relación de delegación se debe llevar a cabo los siguientes pasos:</p>
+
+<ul>
+<li>La clase delegada debe definir un protocolo (con el mismo nombre del controlador y el sufijo <em>Delegate</em>), que consiste en declarar una serie de métodos.</li>
+</ul>
+
+
+<pre><code>@protocol MyViewControllerDelegate &lt;NSObject&gt;
+- (void) oneMethod;
+@end
+</code></pre>
+
+<ul>
+<li>La clase delegada debe tener una propiedad (<em>weak</em>) llamada <code>delegate</code>, del tipo genérico <code>id</code> con la restricción de que extienda el protocolo:</li>
+</ul>
+
+
+<pre><code>@property (nonatomic, weak) id&lt;MyViewControllerDelegate&gt; delegate;
+</code></pre>
+
+<ul>
+<li>Que el método delegador extienda el protocolo:</li>
+</ul>
+
+
+<pre><code>@interface OtherViewController ()&lt;MyViewControllerDelegate&gt;
+</code></pre>
+
+<ul>
+<li>Que el método delegador implemente los métodos del protocolo:</li>
+</ul>
+
+
+<pre><code>- (void) oneMethod{
+    NSLog(@"Pollito");
+}
+</code></pre>
+
+<ul>
+<li>Para establecer que un objeto de <code>OtherViewController</code> sea el delegador de un objeto <code>MyViewController</code>, sería algo así (si se hace desde <code>OtherViewController</code>):</li>
+</ul>
+
+
+<pre><code>self.anyViewController = [[MyViewController alloc] init];
+self.anyViewController.delegate = self;
+</code></pre>
+
+<ul>
+<li>Ahora desde <code>MyViewController</code> podemos delegar algunas funcionalidades sobre <code>OtherViewController</code>, en este caso delegar el método <code>oneMethod</code>:</li>
+</ul>
+
+
+<pre><code>[self.delegate oneMethod];
+</code></pre>
+
+<p>Normalmente se usa la técnica <em>delegate</em> para definir la funcionalidad de un conjunto de controles como: UITextField y su protocolo UITextFieldDelegate con el que podemos personalizar su comportamiento, UITextView y UITextViewDelegate, UIAlertView, UIActionSheet, etc.</p>
+
+<h3>Notificaciones</h3>
+
+<p>Las notificaciones se usan para comunicar los modelos con los controladores. Consiste en enviar un mensaje de difusión, con cierta información, que es escuchada por aquellos objetos que se subscriban. Es la clase <code>NSNotificationCenter</code> la encargada de este flujo.</p>
+
+<p>El envío y lectura de notificaciones se entiende mucho mejor con un ejemplo. Imaginemos dos vistas diferentes independeientes, gestionadas mediante dos ViewControllers. En la primera de las vistas tenemos un UITextField y la segunda un UILabel. El propósito es que cuando se cambie campo de texto de la primera vista, se escriba en el label de la segunda vista exactamente el mismo texto:</p>
+
+<pre><code>@property (nonatomic, strong) UITextField *textField;
+
+...
+
+- (void)exercise
+{
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 40, 300, 40)];
+    [self.view addSubview:self.textField];    
+    [self.textField addTarget:self action:@selector(changedField) forControlEvents:UIControlEventEditingChanged];
+
+
+} 
+
+- (void)changedField{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"myTextNotification" object:self userInfo:@{@"mytexto" : self.textField.text}];
+}
+</code></pre>
+
+<p>Así estaríamos enviando una notificación llamada <em>myTextNotification</em> con los datos serializados en un diccionario llamado <em>userInfo</em>, en este caso el nuevo texto como valor cuya clave es <em>@"mytexto"</em>. Los recibiría todo aquel que se suscriba a dicha notificación. En este caso desde la segunda vista:</p>
+
+<pre><code>@property (nonatomic, strong) UILabel * mylabel;
+
+...
+
+- (void)exercise
+{
+    self.mylabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 90, 300, 40)];
+    [self.view addSubview:self.mylabel];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"myTextNotification" object:nil];
+
+}
+
+- (void)receiveNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    self.mylabel.text = [userInfo objectForKey:@"texto"];
+}
+</code></pre>
+
+<p>De esta manera recibiría la notificación <em>myTextNotification</em> y se la enviaría al método <em>receivenotification</em> que actualiza el texto del label.</p>
+
+<h2>Martes 10</h2>
+
+<h3>View Controllers</h3>
+
+<p>Los controladores de las vistas son el nexo entre los datos y lo que se presenta al usuario. Aunque la SDK provee de una serie de controladores de vistas por defecto con una serie de comportamientos establecidos, nosotros podemos crearnos las nuestras propias.</p>
+
+<p>Las vistas representan un area que muestra un contenido y recibe los eventos táctiles. Pueden estar anidadas y animadas y desconocen qué hay en su entorno. Cada vista solo puede ser gestionada por un solo controlador.</p>
+
+<h5>Controladores de contenido</h5>
+
+<p>Presentan contenido a través de una vista o una jerarquía de las mismas. Estos controladores normalmente conocen el subconjunto de datos de la aplicación relevantes a su papel en la aplicación. Si tenemos un controlador de la vista para mostrar el perfil de un usuario, el controlador de la vista conocerá cuáles son los datos del usuario como su foto, nombre, etc.</p>
+
+<p>Cada controlador de la vista es responsable de gestionar todas las vistas en la jerarquía de una sola vista. Esto es que hay una correspondencia 1–1 entre el controlador y la vista. No se deberían utilizar múltiples controladores para gestionar una sola vista ni un solo controlador para gestionar varias jerarquías de vistas. De nuevo, la regla (en general) es utilizar un controlador por cada pantalla de la aplicación.</p>
+
+<h5>Controladores Contenedores</h5>
+
+<p>Tienen contenido que pertenece a otros controladores de vista. Éstos otros controladores de vista han sido explícitamente asignados como hijos de este controlador de vista. Un controlador de vista puede ser a su vez padre e hijo de otros controladores de vista, lo que establece a su vez una jerarquía de controladores de vista.</p>
+
+<p>Un controlador contenedor gestiona una jerarquía de vistas como un controlador normal. Además también puede añadir las vistas de sus controladores hijo como parte de la jerarquía de sus vistas. El controlador padre decide donde quiere poner la vista de su controlador y hijo y que tamaño tiene que tener. Por lo demás el controlador hijo es el responsable de gestionar su propia jerarquía de vistas.</p>
+
+<h5>Inicialización de un controlador de la vista</h5>
+
+<p>Cuando alguna parte de la aplicación pide la vista al controlador y ésta no está en memoria. El controlador la carga en memoria y la almacena en su propiedad view. Los pasos que ocurren en el proceso de carga son:</p>
+
+<ul>
+<li>El controlador llama al método loadView que carga la vista.</li>
+<li>El controlador llama a su método viewDidLoad que permite a la subclase hacer cualquier tipo de carga adicional.</li>
+</ul>
+
+
+<p>Ambos loadView y viewDidLoad pueden ser sobrescritos para facilitar el comportamiento deseado por el controlador.</p>
+
+<p><img src="http://res.cloudinary.com/rafaparadela/image/upload/v1402871618/Captura_de_pantalla_2014-06-15_a_la_s_16_28_27_amxpjg.png" alt="image" /></p>
+
+<h5>Creando vistas de forma programática</h5>
+
+<p>Para ellos, tendremos que sobreescribir el método loadView y en él.
+- Crear una vista raíz para el controlador.</p>
+
+<ul>
+<li>Crear vistas adicionales y añadirlas a la vista raíz.</li>
+<li>Asignar la vista raíz a la propiedad view del controlador.</li>
+</ul>
+
+
+<p>Es importante no llamar a super loadView ya que esto lanza el
+comportamiento habitual y es un malgasto de recursos.</p>
+
+<h5>Soportando múltiples orientaciones de interfaz</h5>
+
+<p>Gracias al acelerómetro, las aplicaciones pueden conocer la orientación actual del dispositivo. Por defecto, una aplicación soporta orientación vertical y horizontal. Cuando ésta cambia, el dispositivo manda una notificación <code>UIDeviceOrientationDidChangeNotification</code>. Por defecto, UIKit recoge esta notificación y realiza los cambios pertinentes. Esto quiere decir que, excepto unas pocas excepciones, no necesitaríamos hacer nada más.</p>
+
+<p>Cuando cambia la orientación, la ventana es redimensionada para encajar en la nueva orientación. La ventana también ajusta el el frame de su controlador raíz para coincidir con el nuevo tamaño. Por tanto, la forma más fácil de soportar múltiples orientaciones en nuestro controlador es configurar su jerarquía de vistas para que sus subvistas se actualicen cada vez que el frame de la vista raíz cambie.</p>
+
+<p>Si no queremos el comportamiento por defecto, podemos controlar:</p>
+
+<ul>
+<li>Las orientaciones que queremos que soporte la app.</li>
+<li>Como una rotación entre dos orientaciones es animada en pantalla.</li>
+</ul>
+
+
+<p>Ejemplos:</p>
+
+<p>Sobreescribiendo <code>supportedInterfaceOrientations</code> podemos indicar las orientaciones soportadas:</p>
+
+<pre><code>-  (NSUInteger)supportedInterfaceOrientations{
+    return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
+}
+</code></pre>
+
+<p>Evitando que se auto-rote:</p>
+
+<pre><code>- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+</code></pre>
+
+<p>A veces tendremos un controlador cuyo contenido se vea mejor en cierta orientación. Aunque soporte otras orientaciones, queremos que al presentarse salga en esa. Para ello, deberemos sobreescribir el método <code>preferredInterfaceOrientationForPresentation</code>. Esta orientación debe estar incluida en las <code>supportedInterfaceOrientations</code>:</p>
+
+<pre><code>- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationPortraitUpsideDown;
+}
+</code></pre>
+
+<h5>Presentando Controladores desde otros controladores</h5>
+
+<p>Cualquier tipo de controlador puede ser presentado por la aplicación. Sin embargo, solo deberíamos presentar nuevos controladores cuando queramos transmitir un significado específico sobre la relación de la jerarquía previa y la nueva presentada.</p>
+
+<p>Cuando presentas un controlador modal, el sistema crea una relación entre el controlador que hizo la presentación y el presentado. El controlador presentador actualiza su propiedad presentedViewController con el controlador presentado y el presentado actualiza su propiedad presentingViewController con el presentador. Pasos a seguir.</p>
+
+<ol>
+<li>Crear el controlador a presentar.</li>
+<li>Establecer la propiedad modalTransitionStyle del controlador con el valor deseado.</li>
+<li>Asignar un delegate al view controller. Típicamente será el controlador presentador. El delegado será usado por el controlador presentado para informar al presentador cuando está listo para ser ocultado. También podría comunicar otra información.</li>
+<li>Llamar al método presentViewController:animated:completion pasando como argumento el controlador a presentar.</li>
+</ol>
+
+
+<p>Un ejemplo, de un ViewController con un UIButton que al pulsar muestra otra vista con el efecto "Cover", además es delegado de ella y por tanto implementa el método para ocultar al segunda vista:</p>
+
+<pre><code>@interface IHViewController ()&lt;IHPresentedViewControllerDelegate&gt;
+@property (nonatomic, strong) UIButton *btn1;
+@property (nonatomic, strong) IHPresentedViewController * myViewController;
+@end
+
+...
+
+- (void)exercise1
+{
+    self.btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.btn1.frame = CGRectMake(10, 10, 200, 30);
+    [self.btn1 setTitle:@"Boton1" forState:UIControlStateNormal];
+    [self.view addSubview:self.btn1];
+    [self.btn1 addTarget:self action:@selector(transitionCover) forControlEvents:UIControlEventTouchUpInside];
+
+}
+
+...
+
+- (void) transitionCover{
+    self.myViewController = [[IHPresentedViewController alloc] init];
+    self.myViewController.delegate = self;
+    self.myViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:self.myViewController animated:YES completion:nil];
+
+    NSLog(@"cover");
+}
+
+...
+
+- (void) dismissMe{
+    [self.myViewController dismissViewControllerAnimated:YES completion:nil];
+}
+</code></pre>
+
+<p>En el controlador delegado:</p>
+
+<pre><code>- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.btn1.frame = CGRectMake(10, 10, 200, 30);
+    [self.btn1 setTitle:@"Volver" forState:UIControlStateNormal];
+    [self.view addSubview:self.btn1];
+    [self.btn1 addTarget:self action:@selector(volverAtras) forControlEvents:UIControlEventTouchUpInside];
+
+}
+
+...
+
+- (void) volverAtras{
+    [self.delegate dismissMe];
+}
+</code></pre>
+
+<h5>Controladores contenedores</h5>
+
+<p>Son una parte vital del diseño de apps en iOS. Nos permiten descomponer la app en piezas más pequeñas y simples, cada una manejada por un controlador dedicado a esa tarea. Los contenedores permiten a esos controladores trabajar juntos para construir una interfaz impoluta.</p>
+
+<p>iOS nos provee de contenedores standard como son UINavigationController o UITabBarController, sin embargo a veces necesitamos un flujo personalizado que no podemos encontrar en los controladores del sistema. Si necesitamos una organización especial de controladores hijos con una navegación especial o transiciones animadas de un tipo en particular, tendremos que crearnos uno personalizado.</p>
+
+<p>Ejemplo: En un ViewController, añadir dos UIButton, uno para añadir una subvista con el fondo rojo y otro para eliminarla.</p>
+
+<pre><code>@property (nonatomic, strong) UIButton *btn1;
+@property (nonatomic, strong) UIButton *btn2;
+@property (nonatomic, strong) UIViewController *myViewController;
+
+...
+
+- (void)exercise1
+{
+
+    self.btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.btn1.frame = CGRectMake(10, 20, 200, 30);
+    [self.btn1 setTitle:@"Boton1" forState:UIControlStateNormal];
+    [self.view addSubview:self.btn1];
+    [self.btn1 addTarget:self action:@selector(openChild) forControlEvents:UIControlEventTouchUpInside];
+
+    self.btn2 = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.btn2.frame = CGRectMake(200, 20, 200, 30);
+    [self.btn2 setTitle:@"Boton2" forState:UIControlStateNormal];
+    [self.view addSubview:self.btn2];
+    [self.btn2 addTarget:self action:@selector(closeChild) forControlEvents:UIControlEventTouchUpInside];
+
+    self.myViewController = [[UIViewController alloc] init];
+    self.myViewController.view.frame = CGRectMake(20, 100, 100, 100);
+    [self.myViewController.view setBackgroundColor: [UIColor redColor]];
+}
+
+- (void) openChild{
+
+    [self addChildViewController:self.myViewController];
+    [self.view  addSubview:self.myViewController.view];
+    [self.myViewController didMoveToParentViewController:self];
+    NSLog(@"Entra");
+}
+
+- (void) closeChild{
+    [self.myViewController willMoveToParentViewController:nil];
+    [self.myViewController.view removeFromSuperview];
+    [self.myViewController removeFromParentViewController];
+    NSLog(@"Sale");
+}
+</code></pre>
+
+<h4>Arquitectura de Vistas</h4>
+
+<p>Un objeto UIView define una región rectangular de la pantalla que maneja los dibujos y loe eventos táctiles en esa región. Una vista puede también actuar como padre para otras vistas y coordinar el lugar y el tamaño de esas subvistas.</p>
+
+<p>Cada vista tiene su correspondiente objeto "<em>layer</em>" que puede ser accedido con la propiedad <code>layer</code> de esa vista.</p>
+
+<h5>Las propiedades <em>Frame</em>, <em>Bounds</em> y <em>Center</em></h5>
+
+<p>La propiedad <strong>Frame:</strong> contiene el rectángulo (tamaño y posición) que ocupa en el sistema de cordenadas de la vista padre.</p>
+
+<p>La propiedad <strong>Bounds:</strong> contiene el rectángulo (tamaño y posición) que ocupa el contenido en el sistema de cordenadas de la propia vista.</p>
+
+<p>La propiedad <strong>Center:</strong> representa el punto del central de la vista en el sistema de coordenadas del padre.</p>
+
+<p>¿Como se crea una vista?</p>
+
+<pre><code>￼CGRect  viewRect = CGRectMake(0, 0, 100, 100);
+UIView* myView = [[UIView alloc] initWithFrame:viewRect];
+</code></pre>
+
+<p>Ejemplo: Crear 3 subvistas, posicionarlas haciendo que se solapen y modificar el zIndex de alguna de ellas:</p>
+
+<pre><code>@property (nonatomic,strong) UIView *myFirstView;
+@property (nonatomic,strong) UIView *mySecondView;
+@property (nonatomic,strong) UIView *myThirdView;
+...
+self.myFirstView = [[UIView alloc] initWithFrame:CGRectMake(30, 30, 300, 240)];
+[self.myFirstView setBackgroundColor:[UIColor redColor]];
+[self.view addSubview:self.myFirstView];
+
+self.mySecondView = [[UIView alloc] initWithFrame:CGRectMake(90, 90, 300, 240)];
+[self.mySecondView setBackgroundColor:[UIColor blueColor]];
+[self.view addSubview:self.mySecondView];
+[self.view sendSubviewToBack: self.mySecondView];
+
+self.myThirdView = [[UIView alloc] initWithFrame:CGRectMake(60, 60, 300, 240)];
+[self.myThirdView setBackgroundColor:[UIColor yellowColor]];
+[self.view addSubview:self.myThirdView];
+[self.view insertSubview:self.myThirdView atIndex:1];
+</code></pre>
+
+<p>Otro ejemplo. Añadir una subvista que contenga una imagen que respete sus proporciones y rellene todo el rectángulo de la vista:</p>
+
+<pre><code>@property (nonatomic, strong) UIImageView * myFirstImageView;
+...
+myFirstImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"guinness"]];
+[myFirstImageView setFrame:CGRectMake(400, 400, 300, 240)];
+[myFirstImageView setBackgroundColor:[UIColor lightGrayColor]];
+[myFirstImageView setContentMode:UIViewContentModeScaleAspectFill];
+[myFirstImageView setClipsToBounds:YES];
+[self.view myFirstImageView];
+</code></pre>
+
+<p>Otro ejemplo: Modifica mediante una animación la opacidad, le ubicación y las dimensiones de la subvista anterior:</p>
+
+<pre><code>[UIView animateWithDuration:2.0 animations:^{
+    self.myFirstImageView.alpha = 0.5;
+
+    CGRect frame = self.myFirstImageView.frame;
+    frame.origin.x=80;
+    self.myFirstImageView.frame=frame;
+
+    CGRect bounds = self.myFirstImageView.bounds;
+    bounds.size.width=140;
+    self.myFirstImageView.bounds=bounds;
+}];
+</code></pre>
+
+<p>Otro ejemplo: Hacer que una subvista sea transparente mediante una animación, y cuando esta acabe se vuelva a mostrar:</p>
+
+<pre><code>[UIView animateWithDuration:1.0 animations:^{
+    self.myView.alpha = 0;
+} completion:^(BOOL finished) {
+    self.myView.alpha = 1.0;
+}];
+</code></pre>
+
+<p>Otro ejemplo: Rotar una subvista (UIImageView), controlando el ángulo con un UISlider:</p>
+
+<pre><code>@property (nonatomic, strong) UIImageView * myImageView;
+@property (nonatomic, strong) UISlider * rotateSlider;
+
+...
+
+self.rotateSlider = [[UISlider alloc] initWithFrame:CGRectMake(400, 700, 300, 40)];
+[self.rotateSlider setMaximumValue:M_PI];
+[self.rotateSlider setMinimumValue:0];
+[self.view addSubview:self.rotateSlider];
+[self.rotateSlider addTarget:self action:@selector(rotateImage:) forControlEvents:UIControlEventValueChanged];
+
+...
+
+- (void)rotateImage: (UISlider *) slider{
+    CGAffineTransform oneTransform = CGAffineTransformMakeRotation(slider.value);
+    self.myImageView.transform = CGAffineTransformConcat(oneTransform);
+}
+</code></pre>
+
+<hr />
+
+<h4>Nuevo profesor</h4>
+
+<p>El jueves nos presentamos ante <a href="https://twitter.com/foolonhill">Ricardo Sanchez</a> y empezamos viendo los <code>UITableView</code>.</p>
+
+<h5>UITableView</h5>
+
+<p>Estas vistas son, con diferencia, el componente iOS más popular llegando hasta el 94% de las apps, ya que pueden mostrar muchos recursos  usando muy poca memoria.</p>
+
+<p>Las TableView se componen de:</p>
+
+<ul>
+<li><code>UITableCell</code>'s</li>
+<li>Header y Footer de cada sección.</li>
+<li>Header y Footer de la propia TableView</li>
+<li>Datasource</li>
+<li>Delegate</li>
+</ul>
+
+
+<h5>UITableViewCell</h5>
+
+<p>Las celdas de una TableView pueden ser estáticas o dinámicas, hay diferentes estilos por defectos, pero son muy fácilmente customizables. Para su uso es necesario definir su "Reuse Identifier" y su posición en la tabla/sección viene definida por <code>NSIndexPath</code>.</p>
+
+<h5>UITableViewController</h5>
+
+<p>Son un tipo particular de UIViewController que incluyen el Delegate y Datasource de la tabla y además aportan más funcionalidades.</p>
+
+<p>El Datasource exige la implementación de estos dos métodos:</p>
+
+<pre><code>- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+</code></pre>
+
+<p>Es necesario también definir la vista UITableViewCell que se reusará, a través de su identificador:</p>
+
+<pre><code>- (id)dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath
+￼
+</code></pre>
+
+<hr />
+
+<p>Ejemplo de tabla con secciones:</p>
+
+<p>Para este ejemplo vamos a usar un modelo, que contiene una lista de casas (Juego de Tronos) y cada casa tiene un listado de personas.</p>
+
+<pre><code>self.model = [[GotModel alloc] init];
+[self.model cargaModelo];
+
+...
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.model.casas.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    Casa *casa = [self.model.casas objectAtIndex:section];
+    return casa.personajes.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    Casa *casa = [self.model.casas objectAtIndex:section];
+    return casa.nombre;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"celdaPersonaje" forIndexPath:indexPath];
+    Casa *casa = [self.model.casas objectAtIndex:indexPath.section];
+    Personaje * personaje = [casa.personajes objectAtIndex:indexPath.row];
+    cell.textLabel.text = personaje.nombre;
+    cell.detailTextLabel.text = personaje.descripcion;
+    return cell;
+}
+</code></pre>
+
+<h3>Customize cells</h3>
+
+<p>Para crear tu propia celda:
+- Crea tu clase que extienda de UITableViewCell
+- En el storyboard, indicas que la celda sea de la clase que hemos creado.
+- Ponemos que sea tipo custom y le ponemos un identificador.
+- Le metemos los elementos que queramos y creamos los outlet (En el .h de nuestra clase).
+- Por ultimo en nuestra UITableViewController:</p>
+
+<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"celdaPersonaje" forIndexPath:indexPath];
+    Casa *casa = [self.model.casas objectAtIndex:indexPath.section];
+    Personaje * personaje = [casa.personajes objectAtIndex:indexPath.row];
+    cell.myLabel.text = personaje.nombre;
+    cell.myImage.image = [UIImage imageNamed:personaje.imagen];
+    return cell;
+
+}
+</code></pre>
+
+<p>Para cambiar el alto de la celda:</p>
+
+<pre><code>- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 70.0;
+}
+</code></pre>
+
+<h5>UITableViewDelegate</h5>
+
+<p>Para que cuando pinche en una celda que te lleve a otra vista con info.
+Y el nuevo controlador</p>
+
+<pre><code>@property (weak, nonatomic) IBOutlet UIImageView *myImagen;
+@property (weak, nonatomic) IBOutlet UITextView *myTextArea;
+@property (weak, nonatomic) Personaje* myPersonaje;
+
+...
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+
+    self.myImagen.image = [UIImage imageNamed:self.myPersonaje.imagen];
+    self.myTextArea.text = self.myPersonaje.descripcion;
+    self.title = self.myPersonaje.nombre;
+}
+</code></pre>
+
+<p>Creamo segue con un identificador <code>mySegue</code>:</p>
+
+<pre><code>
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"mySegue" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier  isEqual: @"mySegue"]){
+        MySecondViewController* mySecondView = segue.destinationViewController;
+
+        NSInteger casaId = self.tableView.indexPathForSelectedRow.section;
+        Casa * casa = [self.model.casas objectAtIndex:casaId];
+
+        NSInteger personajeId = self.tableView.indexPathForSelectedRow.row;
+        Personaje* personaje = [casa.personajes objectAtIndex:personajeId];
+
+        mySecondView.myPersonaje = personaje;
+
+        NSLog(@"%d", personajeId);
+
+    }
+
+}
+</code></pre>
+
+<p>Cambiar el header de una section:</p>
+
+<pre><code>- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 100.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    Casa * casa = [self.model.casas objectAtIndex:section];
+    UIImage *logo = [UIImage imageNamed:casa.imagen];
+    UIImageView* myImageSectionView = [[UIImageView alloc] initWithImage:logo];
+    return myImageSectionView;
+}
+</code></pre>
+
+<h5>Borrar celdas</h5>
+
+<pre><code>- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSInteger casaId = indexPath.section;
+        Casa * casa = [self.model.casas objectAtIndex:casaId];
+        NSInteger personajeId = indexPath.row;
+        NSMutableArray* myarray = [[NSMutableArray alloc] initWithArray:casa.personajes];
+
+        [myarray removeObjectAtIndex:personajeId];
+
+        casa.personajes = myarray;
+
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+
+    }
+}
+</code></pre>
+
+<p>Si llamamos "deleteRowsAtIndexPaths" antes que se cambie el modelo, falla, la solución es ponerlo despues en encapsular ese bloque de codigo entre:</p>
+
+<pre><code>[self.tableView beginUpdates];
+...
+[self.tableView endUpdates];
+</code></pre>
+
+<h5>Mover Celdas</h5>
+
+<p>Para mover las celdas es neceario implementar estos dos métodos:</p>
+
+<pre><code>- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+
+    // Aquí se implementa los cambios en el modelo.
+
+}
+</code></pre>
+
+<!--#####Añadir celdas
+Perdido
+
+#####Search
+Lio!!!
+-->
+
+
+<h5>UICollectionView</h5>
+
+<p>Son un tipo especial de UITableView que incluyen <em>Layouts</em>, inicialmente de tipo <em>grid</em>. Apple aporta un tipo de layout muy fácil de manejar, llamado UICollectionViewFlowLayout. Los layouts pueden ser cambiados dinámicamente.</p>
+
+<p>Las CollectionViews se componen de:</p>
+
+<ul>
+<li>UICollectionViewCell</li>
+<li>SupplementaryViews</li>
+<li>DecoratorViews</li>
+</ul>
+
+
+<p>Veamos el uso de estos componentes con un ejemplo:</p>
+
+<h5>Cells</h5>
+
+<p>Para definir las celdas de nuestro <code>UICollectionView</code> de ejemplo, vamos a crear una clase "<code>CustomCell</code>" que extienda de <code>UICollectionViewCell</code> con una propiedad pública del tipo <code>UIImageView</code>. En su método inicializador le añadimos características a la imagen:</p>
+
+<pre><code>self.myImage = [[UIImageView alloc] initWithFrame:self.bounds];
+[self.myImage setContentMode:UIViewContentModeScaleAspectFill];
+[self.myImage setClipsToBounds:YES];
+[self addSubview:self.myImage];
+
+...
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.myImage.frame = self.bounds;
+}
+</code></pre>
+
+<p>En el <code>UICollectionViewController</code>, lo hacemos delegado de <code>&lt;UICollectionViewDataSource&gt;</code>, e implmentamos estos métodos:</p>
+
+<pre><code>@property (nonatomic, strong) UICollectionView *myCollectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout * myCollectionViewLayout;
+
+...
+
+self.modelo = [[GotModel alloc] init];
+[self.modelo cargaModelo];
+self.myCollectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
+self.myCollectionViewLayout.itemSize = CGSizeMake(350, 80);
+self.myCollectionViewLayout.sectionInset = UIEdgeInsetsMake(20, 20, 20, 20);
+self.myCollectionViewLayout.minimumInteritemSpacing = 20;
+self.myCollectionViewLayout.minimumLineSpacing = 20;
+self.myCollectionViewLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+self.myCollectionViewLayout.headerReferenceSize = CGSizeMake(self.myCollectionView.frame.size.width, 120);
+self.myCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.myCollectionViewLayout];
+self.myCollectionView.dataSource = self;
+self.myCollectionView.delegate = self;
+[self.myCollectionView setContentInset: UIEdgeInsetsMake(64, 0, 0, 0)];
+[self.myCollectionView registerClass:[CustomCell class] forCellWithReuseIdentifier:@"cellIdent"];
+[self.view addSubview:self.myCollectionView];
+
+...
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    CustomCell *cell = [self.myCollectionView dequeueReusableCellWithReuseIdentifier:@"cellIdent" forIndexPath:indexPath];
+    Casa* casa = [self.modelo.casas objectAtIndex:indexPath.section];
+    Personaje* personaje = [casa.personajes objectAtIndex:indexPath.row];
+    UIImage * myCellImage =  [UIImage imageNamed:[NSString stringWithFormat:@"%@.jpg", personaje.imagen]];
+    cell.myImage.image = myCellImage;
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return self.modelo.casas.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    Casa* casa = [self.modelo.casas objectAtIndex:section];
+    return casa.personajes.count;
+}
+</code></pre>
+
+<h5>Header</h5>
+
+<p>Para definir el header,</p>
+
+<pre><code>self.myCollectionViewLayout.headerReferenceSize = CGSizeMake(self.myCollectionView.frame.size.width, 30);
+
+....
+
+[self.myCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerIdent"];
+
+...
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+
+    UICollectionReusableView* myHeaderView = [self.myCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerIdent" forIndexPath:indexPath];
+
+    myHeaderView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+
+    return myHeaderView;
+}
+</code></pre>
+
+<h5>Lo vamos a hacer pero con una subclase</h5>
+
+<ul>
+<li>Creamos una clase de UICollectionReusableView (llamada por ejemplo CustomHeader)con un propiedad publica label:</li>
+</ul>
+
+
+<pre><code>@interface CustomHeader : UICollectionReusableView
+
+@property (strong, nonatomic) UILabel * myLabel;
+
+@end
+</code></pre>
+
+<p>Inicializamos el label;</p>
+
+<pre><code>self.myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+self.myLabel.text = @"Hola";
+[self.myLabel setTextAlignment:NSTextAlignmentCenter];
+[self.myLabel setFont:[UIFont fontWithName:@"Helvetica" size:30.0]];
+self.myLabel.textColor = [UIColor lightGrayColor];
+[self addSubview:self.myLabel];
+</code></pre>
+
+<p> En el controlador principal:</p>
+
+<pre><code>#import "CustomHeader.h"
+
+...
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+
+    CustomHeader* myHeaderView = [self.myCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerIdent" forIndexPath:indexPath];
+
+    myHeaderView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+
+    Casa* casa = [self.modelo.casas objectAtIndex:indexPath.section];
+
+    myHeaderView.myLabel.text = casa.nombre;
+
+    return myHeaderView;
+}
+</code></pre>
+
+<h5>Añadir segment control para elegir vertical u horizontal</h5>
+
+<ul>
+<li>Creamos un segmen control, con storyboard y metemos IBoutlet y IBaction</li>
+<li>Creamos dos layouts:</li>
+</ul>
+
+
+<pre><code>@property (nonatomic, strong) UICollectionViewFlowLayout * myCollectionViewLayout;
+@property (nonatomic, strong) UICollectionViewFlowLayout * myCollectionViewLayoutHorizontal;
+</code></pre>
+
+<p>Implementamos los cambios:</p>
+
+<pre><code>    self.myCollectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
+    self.myCollectionViewLayout.itemSize = CGSizeMake(100, 100);
+    self.myCollectionViewLayout.sectionInset = UIEdgeInsetsMake(20, 20, 20, 20);
+    self.myCollectionViewLayout.minimumInteritemSpacing = 20;
+    self.myCollectionViewLayout.minimumLineSpacing = 20;
+    self.myCollectionViewLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.myCollectionViewLayout.headerReferenceSize = CGSizeMake(self.myCollectionView.frame.size.width, 120);
+
+    self.myCollectionViewLayoutHorizontal = [[UICollectionViewFlowLayout alloc] init];
+    self.myCollectionViewLayoutHorizontal.itemSize = CGSizeMake(140, 140);
+    self.myCollectionViewLayoutHorizontal.sectionInset = UIEdgeInsetsMake(20, 20, 20, 20);
+    self.myCollectionViewLayoutHorizontal.minimumInteritemSpacing = 20;
+    self.myCollectionViewLayoutHorizontal.minimumLineSpacing = 20;
+    self.myCollectionViewLayoutHorizontal.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    self.myCollectionViewLayoutHorizontal.headerReferenceSize = CGSizeMake(120,self.myCollectionView.frame.size.height);
+</code></pre>
+
+<p>En el ibaction del segmentcontrol controlo el valor:</p>
+
+<pre><code>- (IBAction)selectSegment:(id)sender {
+    UISegmentedControl * segment = sender;
+
+    if(segment.selectedSegmentIndex==0){
+        [self.myCollectionView setCollectionViewLayout:self.myCollectionViewLayout animated:YES];
+    }
+    else{
+        [self.myCollectionView setCollectionViewLayout:self.myCollectionViewLayoutHorizontal animated:YES];
+    }
+
+}
+</code></pre>
+
+<h5>CollectionView Delegate: Seleccionar varios elementos para elimiarlos</h5>
+
+<p>Permitir el multiple selection:</p>
+
+<pre><code>self.myCollectionView.allowsMultipleSelection = YES;
+</code></pre>
+
+<p>Para cambiar el estilo de la celda seleccionada, implemento el cambio en su clase</p>
+
+<pre><code>- (void)setSelected:(BOOL)selected{
+    [super setSelected:selected];
+
+    if (selected) {
+        [self.myImage setAlpha:0.5];
+    }
+    else{
+        [self.myImage setAlpha:1.0];
+    }
+}
+</code></pre>
+
+<p>Creamos un IBAction del botón de borrar con este método:</p>
+
+<pre><code>- (IBAction)delete:(UIBarButtonItem *)sender {
+    [self.myCollectionView performBatchUpdates:^{
+
+        [self.myCollectionView deleteItemsAtIndexPaths: self.selectedItems ];
+
+        for (int c = 0; c &lt; self.modelo.casas.count; c++) {
+
+            NSMutableIndexSet* indexSet = [[NSMutableIndexSet alloc] init];
+
+            for(NSIndexPath * myIndexPath in self.selectedItems){
+                if(myIndexPath.section == c){
+                    NSLog(@"Entro");
+                    [indexSet addIndex:myIndexPath.row];
+                }
+
+            }
+            Casa* casa = [self.modelo.casas objectAtIndex:c];
+            NSMutableArray* newList = casa.personajes.mutableCopy;
+            [newList removeObjectsAtIndexes:indexSet];
+            casa.personajes = newList.copy;
+        }
+        [self.selectedItems removeAllObjects];
+
+    } completion:^(BOOL finished) {
+
+    }];
+
+}
+</code></pre>
+
+<hr />
+
+<p>No estuve presente en el último ejercicio de la semana. Queda pendiente.</p>
+
+
+				  
+				  <!-- %%%%%% -->
+
+			  </div>
+			  
+			  <!-- 
+			  <div class="bs-docs-section" id="w00-section">
+				  <h1 id="w00" class="page-header">Semana 00</h1>
+				  
+				  <!-- &&&&&& ->
+				  
+				  <!-- %%%%%% ->
+			  </div>
+			  -->
+
+        </div>
+        
+      </div>
+
+    </div>
+
+    <!-- Footer
+================================================== -->
+<footer class="bs-docs-footer" role="contentinfo">
+  <div class="container">
+    <p>Built with all the love in the world by <a href="https://github.com/rafaparadela" target="_blank">Rafa Paradela</a>.</p>
+    <p>Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap.min.js"></script>
+<script src="assets/docs.min.js"></script>
+<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  </body>
+</html>
