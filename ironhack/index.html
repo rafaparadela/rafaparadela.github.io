@@ -379,7 +379,7 @@ self.myArrayProperty = anArray;
 				  
 			  </div>
 
-			  <div class="bs-docs-section" id="w01-section">
+			  <div class="bs-docs-section" id="w02-section">
 				  <h1 id="w02" class="page-header">Semana 2</h1>
 
 				  <!-- &&&&&& -->
@@ -1353,6 +1353,436 @@ self.myLabel.textColor = [UIColor lightGrayColor];
 				  <!-- %%%%%% -->
 
 			  </div>
+			  
+			  <div class="bs-docs-section" id="w03-section">
+				  <h1 id="w00" class="page-header">Semana 3</h1>
+				  
+				  <!-- &&&&&& -->
+				  
+
+<p>Victor Baro: http://victorbaro.com/ nos cuenta sus apps</p>
+
+<p>Despues de transparencias le damos forma al proyecto donde meteremos los ejemplos. La idea es dividir los ejercicios en tres categorías (Views, Drawing y Layers), con tres "Storyboards", que cargaremos desde</p>
+
+<ul>
+<li><p>Creamos un proyecto "Single View".</p></li>
+<li><p>En el Storyboard principal ponemos 3 botones que le asociamos 3 IBAction en el .m del controlador, que dejaremos vacío de momento:</p></li>
+</ul>
+
+
+<pre><code>- (IBAction)GoViews:(id)sender {
+
+}
+
+- (IBAction)GoDrawing:(id)sender {
+
+}
+
+
+- (IBAction)GoLayers:(id)sender {
+
+}
+</code></pre>
+
+<ul>
+<li><p>Por otra parte, creamos el storyboard para la sección "Views" y lo metemos en otra carpeta.</p></li>
+<li><p>Ahí en esa carpeta vamos a englobar todos los ejercicios relacionados con las Vistas. Creamos un NavigationController con un TableView (con celdas estáticas) y le asociamos un TableViewController, en dicha tabla vamos a listar los ejercicios, que abriremos al pulsar sobre cada celda.</p></li>
+<li>Tambien creamos otro viewController genérico con una propiedad llamada <code>exampleNumber</code> donde desplegaremos los diferentes ejemplos de <em>Vistas</em>.</li>
+<li>A cada celda, le creamos un segue apuntando a la vista genérica.</li>
+<li>En el TableViewController lo preparamos para los segues:</li>
+</ul>
+
+
+<pre><code>- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    NSIndexPath * index = [self.tableView indexPathForCell:sender];
+    GenericViewController * vc = [segue destinationViewController];
+    vc.exampleNumber = index.row;
+    vc.title = [sender textLabel].text;
+
+}
+</code></pre>
+
+<ul>
+<li>Para indicar qué ejemplo tiene que mostrar:</li>
+</ul>
+
+
+<pre><code>@property (nonatomic) NSUInteger exampleNumber;
+
+...
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+
+    switch (self.exampleNumber) {
+        case 0:
+            [self example01];
+            break;
+        case 1:
+            [self example02];
+            break;
+        case 2:
+            [self example03];
+            break;
+
+        ...
+
+
+        default:
+            break;
+    }
+
+
+
+}
+</code></pre>
+
+<p>Ya solo queda ir implementando los ejercicios.</p>
+
+<h2>Ejercicios con Vista:</h2>
+
+<h4>Entendiendo CGRectInset</h4>
+
+<p>http://cl.ly/W53w</p>
+
+<pre><code>- (void) example01{
+    CGRect blueViewFrame = CGRectMake(100, 100, 100, 200);
+    UIView *blueView = [[UIView alloc] initWithFrame:blueViewFrame];
+    blueView.backgroundColor = [UIColor blueColor];
+    [self.view addSubview:blueView];
+
+    CGRect greenViewFrame = CGRectInset(blueView.bounds, 10, 10);
+    UIView *greenView = [[UIView alloc] initWithFrame:greenViewFrame];
+    greenView.backgroundColor = [UIColor greenColor];
+    [blueView addSubview:greenView];
+
+}
+</code></pre>
+
+<p><img src="http://f.cl.ly/items/1K2W1J3E0l030j3f2L21/Image%202014-06-16%20at%2011.56.01%20a.m..png" alt="image" /></p>
+
+<h4>Entendiendo CGRectUnion</h4>
+
+<pre><code>// CGRectUnion
+CGRect frame1 = CGRectMake(80.0, 100.0, 150.0, 240.0);
+CGRect frame2 = CGRectMake(140.0, 240.0, 120.0, 120.0);
+CGRect frame3 = CGRectUnion(frame1, frame2);
+UIView *view1 = [[UIView alloc] initWithFrame:frame1];
+[view1 setBackgroundColor:[UIColor redColor]];
+UIView *view2 = [[UIView alloc] initWithFrame:frame2];
+[view2 setBackgroundColor:[UIColor orangeColor]];
+UIView *view3 = [[UIView alloc] initWithFrame:frame3];
+[view3 setBackgroundColor:[UIColor grayColor]];
+[self.view addSubview:view3];
+[self.view addSubview:view2];
+[self.view addSubview:view1];
+</code></pre>
+
+<p><img src="https://s3.amazonaws.com/cms-assets.tutsplus.com/uploads/users/41/posts/21196/image/figure-3.jpg" alt="image" /></p>
+
+<h4>Entendiendo CGRectDivide</h4>
+
+<pre><code>// CGRectDivide
+CGRect frame = CGRectMake(10.0, 50.0, 300.0, 300.0);
+CGRect part1;
+CGRect part2;
+CGRectDivide(frame, &amp;part1, &amp;part2, 100.0, CGRectMaxYEdge);
+
+UIView *view1 = [[UIView alloc] initWithFrame:frame];
+[view1 setBackgroundColor:[UIColor grayColor]];
+
+UIView *view2 = [[UIView alloc] initWithFrame:part1];
+[view2 setBackgroundColor:[UIColor orangeColor]];
+
+UIView *view3 = [[UIView alloc] initWithFrame:part2];
+[view3 setBackgroundColor:[UIColor redColor]];
+
+[self.view addSubview:view1];
+[self.view addSubview:view2];
+[self.view addSubview:view3];
+</code></pre>
+
+<p><img src="https://s3.amazonaws.com/cms-assets.tutsplus.com/uploads/users/41/posts/21196/image/figure-4.jpg" alt="image" /></p>
+
+<h4>Transforms</h4>
+
+<pre><code>view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 2.0, 2.0);
+
+view.transform = CGAffineTransformMakeTranslation(2.0, 2.0);
+</code></pre>
+
+<p>La difrenecia es que la segunda transforma la ya transformada vista, para anidar animaciones.</p>
+
+<p>Mediante la matriz:</p>
+
+<pre><code>struct CGAffineTransform {!
+   CGFloat a;!
+   CGFloat b;!
+   CGFloat c;!
+   CGFloat d;!
+   CGFloat tx;!
+   CGFloat ty;!
+};
+
+new x position = old x position * a + old y position * c + tx!
+new y position = old x position*b + old y position * d + ty
+</code></pre>
+
+<p>Un ejemplo: http://cl.ly/W5lx</p>
+
+<pre><code>- (void) example03{
+    CGRect blueViewFrame = CGRectMake(100, 100, 100, 100);
+    UIView *blueView = [[UIView alloc] initWithFrame:blueViewFrame];
+    blueView.backgroundColor = [UIColor blueColor];
+    [self.view addSubview:blueView];
+    blueView.transform = CGAffineTransformMake(1, 0, -0.4, 1, 0, 0);
+}
+</code></pre>
+
+<h4>Custom buttons</h4>
+
+<p>Cocoa Pods: UIColor + FlatColors
+Creamos clase con esta interfaz:</p>
+
+<pre><code>@interface MyButton : UIView
+
+@property (nonatomic, copy) NSString *title;
+
+- (id) initWithFrame:(CGRect)frame title:(NSString *) theTitle color:(UIColor *) fillColor;
+
+@end
+</code></pre>
+
+<p>En la implementación:</p>
+
+<pre><code>@property (nonatomic, strong) UIView * shadow;
+...
+
+- (id)initWithFrame:(CGRect)frame
+{
+    return [self initWithFrame:frame title:@"Button" color:[UIColor greenColor]];
+}
+
+- (id) initWithFrame:(CGRect)frame title:(NSString *) theTitle color:(UIColor *) fillColor{
+    self = [super initWithFrame:frame];
+    if(self){
+        _title = theTitle;
+        self.backgroundColor = fillColor;
+        [self setup];
+    }
+    return self;
+}
+
+
+- (void) setup{
+    UILabel *buttonTitle = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 10, 10)];
+    buttonTitle.text = self.title;
+    buttonTitle.textColor = [UIColor whiteColor];
+    buttonTitle.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:buttonTitle];
+
+    CGFloat shadowHeight = 5;
+    self.shadow = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - shadowHeight, self.bounds.size.width, shadowHeight)];
+    self.shadow.backgroundColor = [UIColor blackColor];
+    self.shadow.alpha = 0.2;
+    [self addSubview:self.shadow];
+
+}
+</code></pre>
+
+<p>En el controlador principal creamos una instancia:</p>
+
+<pre><code>#import "MyButton.h"
+
+...
+
+-(void) example04{
+    MyButton * myButton = [[MyButton alloc] initWithFrame:CGRectMake(20, 100, 240, 40) title:@"My Button 1" color:[UIColor colorWithRed:0.412 green:0.156 blue:0.350 alpha:1.000]];
+    [self.view addSubview:myButton];
+}
+</code></pre>
+
+<p><img src="http://f.cl.ly/items/2S3l0v3Y1r2B061g1Y17/Image%202014-06-16%20at%201.09.17%20p.m..png" alt="image" /></p>
+
+<p>Para que responda a gestos, en el controllador de mi MyButton:</p>
+
+<pre><code>- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    self.shadow.frame = self.bounds;
+    NSLog(@"Tocado");
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    CGFloat shadowHeight = 5;
+    self.shadow.frame = CGRectMake(0, self.bounds.size.height - shadowHeight, self.bounds.size.width, shadowHeight);
+}
+</code></pre>
+
+<h4>Gestos Multitáctiles</h4>
+
+<p>Creamos una clase UIView:</p>
+
+<pre><code>- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setMultipleTouchEnabled:YES];
+    }
+    return self;
+}
+
+...
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    //Borramos lo que ya haya
+    for (UIView *view in [self subviews]) {
+        [view removeFromSuperview];
+    }
+
+    [touches enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+        UITouch *touch = obj;
+        CGPoint touchPoint = [touch locationInView:self];
+
+        UIView *touchView = [[UIView alloc] init];
+        [touchView setBackgroundColor:[UIColor redColor]];
+        touchView.frame = CGRectMake(touchPoint.x, touchPoint.y, 30, 30);
+        [self addSubview:touchView];
+    }];
+
+}
+</code></pre>
+
+<h4>Drag</h4>
+
+<p>Creamos otra clase como antes, pero en el touchesBegan solo lo habilitamos para toques con un solo dedo, y creamos una nueva vista siempre y cuando no coincida con una ya creada:</p>
+
+<pre><code>@property (nonatomic, strong) UIView * dragView;
+
+...
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+
+        [self setMultipleTouchEnabled:YES];
+    }
+    return self;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if([touches count] == 1){
+        UITouch *touch = [touches anyObject];
+        CGPoint touchPoint = [touch locationInView:self];
+
+        for(UIView * view in [self subviews]){
+            if(CGRectContainsPoint(view.frame, touchPoint)){
+                self.dragView = view;
+                return;
+            }
+        }
+
+        UIView *touchView = [[UIView alloc] init];
+        [touchView setBackgroundColor:[UIColor redColor]];
+        CGFloat size = 60;
+        touchView.frame = CGRectMake(touchPoint.x - size/2, touchPoint.y - size/2, size, size);
+        [self addSubview:touchView];
+        self.dragView = touchView;
+
+    }
+
+
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    self.dragView.center = [touch locationInView:self];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    self.dragView.center = [touch locationInView:self];
+}
+</code></pre>
+
+<h2>Autolayout:</h2>
+
+<p>Todo lo que necesitas saber de autolayouts <a href="http://www.raywenderlich.com/50317/beginning-auto-layout-tutorial-in-ios-7-part-1">aquí</a>.</p>
+
+<p>Cuando queremos animar una vista cuyas dimensiones vienen definidas por <em>contrains</em>, hay que hacer las animaciones sobre esas <em>contrains</em>.</p>
+
+<p>Vamos a ver la manipulación de <em>contrains</em> por código.</p>
+
+<p>Ejemplo, añadir un label a 100 punto de altura:</p>
+
+<pre><code>- (void) addLabels{
+    UILabel * myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+    myLabel.text = @"This is my label";
+    myLabel.font = [UIFont systemFontOfSize:18];
+    myLabel.backgroundColor = [UIColor lightGrayColor];
+    myLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:myLabel];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-offsetTop-[myLabel]" options:0 metrics:@{@"offsetTop": @100} views:NSDictionaryOfVariableBindings(myLabel)]];
+}
+</code></pre>
+
+<p>Un label centrado respecto al padre:</p>
+
+<pre><code>- (void) addLabels{
+    UILabel * myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+    myLabel.text = @"This is my label";
+    myLabel.font = [UIFont systemFontOfSize:18];
+    myLabel.backgroundColor = [UIColor lightGrayColor];
+    myLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:myLabel];
+
+    NSLayoutConstraint * unaConstrain = [NSLayoutConstraint constraintWithItem:myLabel
+                                                                     attribute:NSLayoutAttributeCenterX
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.view
+                                                                     attribute:NSLayoutAttributeCenterX
+                                                                    multiplier:1
+                                                                      constant:0];
+
+    [self.view addConstraint: unaConstrain];
+
+}
+</code></pre>
+
+<p>Animando una constrain:</p>
+
+<pre><code>@property (nonatomic, strong) NSLayoutConstraint * myConstrain;
+
+...
+
+- (IBAction)anima:(id)sender {
+
+    self.myConstrain = [NSLayoutConstraint constraintWithItem:self.myLabel
+                                                    attribute:NSLayoutAttributeTop
+                                                    relatedBy:NSLayoutRelationEqual
+                                                       toItem:self.view
+                                                    attribute:NSLayoutAttributeTop
+                                                   multiplier:1
+                                                     constant:150];
+
+    [self.view addConstraint: self.myConstrain];
+
+    [UIView animateWithDuration:0.5 animations:^{
+        self.myConstrain.constant = 300;
+        [self.view layoutIfNeeded];
+    }];
+
+}
+</code></pre>
+				  
+				  <!-- %%%%%% -->
+			  </div>
+			  
+			  
+			  
+			  
 			  
 			  <!-- 
 			  <div class="bs-docs-section" id="w00-section">
