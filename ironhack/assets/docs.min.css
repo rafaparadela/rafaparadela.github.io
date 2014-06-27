@@ -11,6 +11,11 @@
 .nav>li{ background-color: #F1F1F1; border-bottom: 2px solid #FFF; }
 .nav>li.active{ background-color: #46BA7D; }
 
+.nav.navbar-right>li {
+background-color: #333;
+border-bottom: 2px solid #46BA7D;
+}
+
 .page-header{color: #46BA7D;}
 
 table{
@@ -26,3 +31,8 @@ td{padding: 4px 20px 10px 20px;}
 
 .bs-docs-section img{display: block; text-align: center; margin-left: auto; margin-right: auto;}
 pre {font-size: 12px; background-color: #f8f8ff; border: 1px solid #DDD;}
+
+
+@media (min-width: 992px){
+.bs-docs-sidebar.affix, .bs-docs-sidebar.affix-bottom {width: 160px; }
+}
