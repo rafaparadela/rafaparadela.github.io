@@ -36,3 +36,6 @@ pre {font-size: 12px; background-color: #f8f8ff; border: 1px solid #DDD;}
 @media (min-width: 992px){
 .bs-docs-sidebar.affix, .bs-docs-sidebar.affix-bottom {width: 160px; }
 }
+
+#social{border: 0px solid red; margin-top: 40px;}
+#social .twitter{border: 0px solid red; margin-top: 15px;}
