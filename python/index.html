@@ -165,7 +165,7 @@
 	<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
 		<div class="container">
 			<div class="navbar-header">
-				<a href="#" class="navbar-brand">Python Scripts</a>
+				<a href="#" class="navbar-brand"></a>
 			</div>
 		</div>
 	</header>
@@ -176,6 +176,395 @@
 		  
 			<div class="col-md-12">
 				
+
+
+
+
+<h3 id="djangoenvironment">Django Environment</h3>
+
+<h4 id="responsetypeconsideringcorscross-originresourcesharingcalls.">Response type considering CORS (cross-origin resource sharing) calls.</h4>
+
+<p>If a web client needs to make cross-domain requests, probably wait for JSONP response. But iOS or Android requests don&#8217;t. This way we can evaluate what kind of response should be built.</p>
+
+<pre><code># -*- coding: utf-8 -*-
+from django.http import HttpResponse
+
+def APIResponse(request,data):
+    callback = request.GET.get('callback', '')
+    return HttpResponse(callback+'('+data+');' if callback else data, content_type=&quot;application/json&quot;)
+
+</code></pre>
+
+<hr />
+
+<h4 id="smartdistributionofusersrolesmodels.">Smart distribution of &#8220;users/roles&#8221; models.</h4>
+
+<p>A simplification of relational models that represent users and their roles.</p>
+
+<p>Roles:</p>
+
+<pre><code>class Roles(models.Model):
+    role = models.CharField(max_length=50,default=&quot;&quot;)
+
+    def __unicode__(self):
+        return self.role
+</code></pre>
+
+<p>Auth model (contains fields required for authentication)</p>
+
+<pre><code>class Auth(models.Model):
+    email = models.EmailField(max_length=100,default=&quot;&quot;)
+    password = models.CharField(max_length=250,default=&quot;&quot;)
+    date = models.DateTimeField(default=None,null=True)
+    role = models.ForeignKey('Roles',null=True,blank=True,on_delete = models.CASCADE)
+    active = models.BooleanField(default=False)
+    banned = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.email
+</code></pre>
+
+<p>And then, so many types of users as needed. For example:</p>
+
+<pre><code>class Students(models.Model):
+    auth = models.ForeignKey('Auth',null=True,blank=True,on_delete = models.CASCADE)
+    name = models.CharField(default=&quot;&quot;,max_length=50)
+    surname = models.CharField(default=&quot;&quot;,max_length=50)
+    phone = models.CharField(default=&quot;&quot;,max_length=20)
+    ...
+
+    def __unicode__(self):
+        return self.name+&quot; &quot;+self.surname
+        
+
+class Teachers(models.Model):
+    auth = models.ForeignKey('Auth',null=True,blank=True,on_delete = models.CASCADE)
+    name = models.CharField(default=&quot;&quot;,max_length=50)
+    surname = models.CharField(default=&quot;&quot;,max_length=50)
+    phone = models.CharField(default=&quot;&quot;,max_length=20)
+    ...
+
+    def __unicode__(self):
+        return self.name+&quot; &quot;+self.surname
+
+</code></pre>
+
+<p>So, after authentication, with <code>auth_id</code> we can get every data of user with this simple function:</p>
+
+<pre><code>def get_user(auth_id):
+    auth=Auth.objects.get(id=auth_id)
+    user=False
+    cadena=&quot;user=&quot;+auth.role.role+&quot;.objects.get(auth=auth)&quot;
+    exec(cadena)
+    return user
+
+</code></pre>
+
+<p>Note: Is very important that roles are called exactly like models.</p>
+
+<p>If we need get user data with authentication fields, maybe this function is relevant:</p>
+
+<pre><code>def get_user_and_auth(auth_id):
+    user = get_user(auth_id)
+    return (user, user.auth)
+</code></pre>
+
+<p>Note: I love Python for features like return more than one value.</p>
+
+<hr />
+
+<h4 id="loginmethod">Login method</h4>
+
+<p>Log-in method that consider some possibility as banned user, parameters missed, wrong password, not activated user, etc. with exceptions handling.</p>
+
+<pre><code>def login(request):
+    try:
+        if 'auth_id' not in request.session:
+            params=['email','password']
+            for param in params:
+                if not validate_parameter(request.GET,param):
+                    raise Exception(param+'_missed')
+
+            auth=Auth.objects.get(email=request.GET['email'])
+
+            if not check_password(request.GET['email'],request.GET['password']):
+                raise Exception('password_wrong')
+
+            if auth.banned:
+                raise Exception('banned',{'id':auth.id})
+                
+            if not auth.active:
+                raise Exception('not_activated',{'token':auth.token})
+
+            request.session['auth_id'] = auth.id
+            data=json.dumps({'status': 'success', 'response':'logged', 'data':{'id':auth.id, 'role':auth.role.role}})
+        else:
+            auth=Auth.objects.get(id=request.session['auth_id'])
+            data=json.dumps({'status': 'failed', 'response':'logged_yet','data':{'auth_id':auth.id,'role':auth.role.role}})
+
+    except Auth.DoesNotExist:
+        data = json.dumps({'status':'failed','response':'email_wrong'})
+
+    except Auth.MultipleObjectsReturned:
+        data = json.dumps({'status':'failed','response':'email_wrong'})
+
+    except Exception as e:
+        data=json.dumps({'status':'failed','response':e.args[0]})
+
+    return APIResponse(request,data)
+</code></pre>
+
+<p>Notes:</p>
+
+<ul>
+<li><code>def validate_parameter(request,parameter):</code> is an auxiliary function that evaluates if a parameter exists and is not null or empty.</li>
+<li><code>def check_password(email,raw_password):</code> just compares encrypted passwords.</li>
+</ul>
+
+<hr />
+
+<h4 id="someunittests">Some unit tests</h4>
+
+<p>Some unit tests about auth/roles models</p>
+
+<pre><code># encoding: utf-8
+
+from django.test import TestCase
+from django.test.client import Client
+
+import json, hashlib
+
+from api.models import *
+
+
+class AuthLoginTestCase(TestCase):
+    fixtures = ['roles', 'superuser']
+
+    def setUp(self):
+        # Get superuser
+        self.superuser = Auth.objects.get(name='Super')
+
+        # Login superuser
+        self.superuser_client = Client()
+        response = self.superuser_client.get('/v2/auth/tokin', {'token': self.superuser.token})
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'success')
+        self.assertEqual(response['response'], 'logged')
+
+    def test_login_ok(self):
+        response =Client().get('/v2/auth/login', {
+            'email': 'soporte@taxible.com',
+            'password': 'XXXXXX'
+        })
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'success')
+        self.assertEqual(response['response'], 'logged')
+
+    def test_already_logged(self):
+        response = self.superuser_client.get('/v2/auth/login', {
+            'email': 'soporte@taxible.com',
+            'password': 'XXXXXX'
+        })
+
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'failed')
+        self.assertEqual(response['response'], 'logged_yet')
+
+    def test_missing_email(self):
+        response = Client().get('/v2/auth/login')
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'failed')
+        self.assertEqual(response['response'], 'email_missed')
+
+    def test_wrong_email(self):
+        response = Client().get('/v2/auth/login', {
+            'email': 'foo@bar.com'
+        })
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'failed')
+        self.assertEqual(response['response'], 'email_wrong')
+
+
+    def test_missing_password(self):
+        response = Client().get('/v2/auth/login', {
+            'email': 'soporte@taxible.com'
+        })
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'failed')
+        self.assertEqual(response['response'], 'password_missed')
+
+    def test_wrong_password(self):
+        response = Client().get('/v2/auth/login', {
+            'email': 'soporte@taxible.com',
+            'password': 'foobar'
+        })
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'failed')
+        self.assertEqual(response['response'], 'password_wrong')
+
+    def test_banned(self):
+        auth = Auth.objects.create(
+            email=&quot;1@test.com&quot;,
+            password=hashlib.sha1('12345').hexdigest(),
+            banned=True
+        )
+
+        response = Client().get('/v2/auth/login', {
+            'email': '1@test.com',
+            'password': '12345'
+        })
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'failed')
+        self.assertEqual(response['response'], 'banned')
+
+    def test_not_activated(self):
+        auth = Auth.objects.create(
+            email=&quot;1@test.com&quot;,
+            password=hashlib.sha1('12345').hexdigest(),
+        )
+
+        response = Client().get('/v2/auth/login', {
+            'email': '1@test.com',
+            'password': '12345'
+        })
+        response = json.loads(response.content)
+
+        self.assertEqual(response['status'], 'failed')
+        self.assertEqual(response['response'], 'not_activated')
+</code></pre>
+
+<p>Note: Fixtures are JSON files with initial data that TestCase preload for testing.</p>
+
+<h3 id="externalapisuses">External APIs uses</h3>
+
+<h4 id="fromrestapitofirebae">From REST API to Firebae</h4>
+
+<p>I needed some data grouped to different schema than Restful API. So this script (just a code snippet) reads from an API and writes on a Firebase node.</p>
+
+<pre><code>from firebase import Firebase
+import json
+import urllib
+
+API_BASE_URL = 'http://proyectocolibri.es/api/v1/'
+FIREBASE_BASE_URL = 'https://congresoaldia.firebaseio.com/'
+
+def update_groups():
+    gruposRef = Firebase(FIREBASE_BASE_URL+'groups')
+    gruposRef.delete();
+
+    results = json.load(urllib.urlopen(API_BASE_URL+&quot;group/&quot;))
+
+    for grupo in results['objects']:
+        grupoRef = Firebase(FIREBASE_BASE_URL+'groups/'+str(grupo['id']))
+        grupoRef.set(grupo)
+
+    return True
+</code></pre>
+
+<p>Reads from <code>http://proyectocolibri.es/api/v1/group/</code>, writes on <code>https://congresoaldia.firebaseio.com/groups</code>.</p>
+
+<hr />
+
+<h4 id="sendtelegram">Send Telegram</h4>
+
+<p>Simple function for sending a <a href="https://telegram.org/">Telegram</a>.</p>
+
+<pre><code>def send_telegram(nick,phone,msg):
+    cmd = '/root/tg/telegram -k /root/tg/tg.pub'
+    telegram = pexpect.spawn(cmd)
+    index = telegram.expect(['0m', 'unread', pexpect.EOF, pexpect.TIMEOUT],timeout=5)
+    if index == 0 or index == 1:
+            telegram.sendline('add_contact '+phone+' '+nick)
+        telegram.sendline('msg '+nick+' '+msg)   
+    elif index == 2:
+        print 'CONNECT_END'
+    elif index == 3:
+        print 'CONNECT_TIMEOUT'
+    else:
+        print 'CONNECT_ERROR'
+</code></pre>
+
+<p>Import pexpect is needed for CLI calls. Basically executes a Telegram instance using a public key with <code>pexpect.spawn</code> and then must to evaluate possible responses using an array.</p>
+
+<hr />
+
+<h4 id="addingmailchimpmember">Adding MailChimp Member</h4>
+
+<p>Function for add a subscription to a mailchimp list.</p>
+
+<pre><code>import mailchimp
+
+def add_mailchimp_member(user,mcapi_key,my_list_id):
+    merge_vars = {'EMAIL':user.email,'FNAME':user.name,'LNAME':user.surname,'PHONE':user.phone}
+    try:
+        mcapi=mailchimp.Mailchimp(mcapi_key)
+        list_global= mcapi.lists.subscribe(my_list_id, {'email':user.email}, merge_vars, double_optin=False)
+        return list_global
+    except:
+        return 'ERROR GLOBAL USER'
+</code></pre>
+
+<p>No need to explain.</p>
+
+<hr />
+
+<h3 id="othersscripts">Others scripts</h3>
+
+<h4 id="webscraping">Web scraping</h4>
+
+<p>I needed get some data about next Real Madrid match (at former official website). Doing web scraping I could parse this information.</p>
+
+<pre><code># -*- encoding: utf-8 -*-
+import urllib2
+from bs4 import BeautifulSoup
+
+url1=’http://www.realmadrid.com/cs/Satellite/es/Home.htm’
+req1 = urllib2.Request(url1)
+response = urllib2.urlopen(req1)
+html=response.read()
+
+try:
+  soup2= BeautifulSoup(html, &quot;lxml&quot;)
+  result= soup2.find_all(&quot;dl&quot;)
+
+  try:
+    result[1].attrs['class']
+    soup3= BeautifulSoup(str(result[1]), &quot;lxml&quot;)
+    result2= soup3.find_all(&quot;dd&quot;)
+    competicion=’Liga’
+
+  except:
+    soup3= BeautifulSoup(str(result[2]), &quot;lxml&quot;)
+    result2= soup3.find_all(&quot;dd&quot;)
+    competicion=’Champion Leage’
+
+  partido=result2[0].string
+  dia=result2[1].string
+  hora=result2[2].string
+  estadio=result2[3].string
+  jornada=result2[4].string
+  arbitro=result2[5].string
+  tv=result2[6].string
+
+  print partido+’ '+dia+’ '+hora+’ '+estadio+’ '+jornada+’ '+arbitro+’ '+tv
+
+except:
+  print 'error’
+</code></pre>
+
+<p>I used BeautifulSoup package for handling the DOM.</p>
+
+
+
+
 
 			
 				
