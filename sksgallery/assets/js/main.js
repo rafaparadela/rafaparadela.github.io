@@ -67,7 +67,7 @@ function new_sks() {
 	var autor = $('#sks_autor').val();
 	
 	if(title.length>0 && gif.length>0 && zip.length>0 && autor.length>0){
-		sksRef.push({autor : title, gif : gif, zip:zip, autor:autor});
+		sksRef.push({title : title, gif : gif, zip:zip, autor:autor});
 		$('#add_sks_modal').modal('hide');
 	}
 	
