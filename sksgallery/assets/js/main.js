@@ -16,6 +16,7 @@
 
 var FBRef;
 var sksRef;
+var skss;
 
 
 function getReferencias () {
@@ -25,21 +26,22 @@ function getReferencias () {
 }
 
 function cargaSKS() {
-
+	
 	sksRef.on('value', function(snapshot) {
-		$.each(snapshot.val(), function(index, sks) {
+		$('#grid').empty();
+		skss = snapshot.val();
+		$.each(skss, function(index, sks) {
 			draw(sks);
 		});
 		organiceList();
 	});
+	
 }
 
+
 function draw(sks) {
-	
-	console.log(sks);
-	
 	var destino = $('#grid');
-	var li = $('<li></li>'); destino.append(li);
+	var li = $('<li></li>'); destino.prepend(li);
 		var img = $('<img>').attr({'src': sks.gif }); li.append(img);
 		var info = $('<div></div>').attr({'class':'info'}); li.append(info);
 			var right = $('<div></div>').attr({'class':'pull-right'}); info.append(right);
@@ -57,8 +59,25 @@ function draw(sks) {
 }
 
 
+//ADD SKS
+function new_sks() {
+	var title = $('#sks_title').val();
+	var gif = $('#sks_gif').val();
+	var zip = $('#sks_zip').val();
+	var autor = $('#sks_autor').val();
+	
+	if(title.length>0 && gif.length>0 && zip.length>0 && autor.length>0){
+		sksRef.push({autor : title, gif : gif, zip:zip, autor:autor});
+		$('#add_sks_modal').modal('hide');
+	}
+	
+	
+}
+
+
 //Efecto Masonry
 function organiceList() {
+	console.log('entro aqui');
 	new AnimOnScroll( document.getElementById( 'grid' ), {
 		minDuration : 0.4,
 		maxDuration : 0.7,
