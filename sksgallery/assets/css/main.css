@@ -616,3 +616,14 @@ hr {
     opacity: 1;
 }
 }
+
+
+
+
+
+/*Bootstrap override*/
+
+.modal-content{border-radius:0px;}
+.modal-title {font-weight: bold;}
+.modal-footer {border-top: 0px solid #e5e5e5; }
+.modal-header {border-bottom: 0px solid #e5e5e5;}
