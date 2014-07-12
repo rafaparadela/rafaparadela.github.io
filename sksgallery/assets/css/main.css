@@ -587,7 +587,7 @@ hr {
     display: block;
     max-width: 100%}
 .grid img {
-    opacity: .7;
+    opacity: 1;
 }
 .grid img:hover {
     opacity: 1;
