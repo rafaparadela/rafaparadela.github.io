@@ -521,6 +521,17 @@ hr {
 	margin-bottom: -50px;
 }
 
+.grid li.placeholder{
+	border: 0px solid #999;
+	opacity:1;
+	margin: 30px auto 200px auto;
+	text-align: center;
+	width:100%;
+	text-align: center;
+	font-size: 100px;
+	
+}
+
 .grid li .info{
 	height: 50px;
 	color: #fff;

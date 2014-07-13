@@ -26,7 +26,7 @@ function getReferencias () {
 }
 
 function cargaSKS() {
-	
+	$('#grid').html('<li class="placeholder"><i class="fa fa-cog fa-spin"></i></li>');
 	sksRef.on('value', function(snapshot) {
 		$('#grid').empty();
 		skss = snapshot.val();
