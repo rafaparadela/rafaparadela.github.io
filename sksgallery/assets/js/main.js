@@ -53,7 +53,14 @@ function draw(sks) {
 			
 			var left = $('<div></div>').attr({'class':'pull-left'}); info.append(left);
 				var h4 = $('<h4></h4>').text(sks.title); left.append(h4);
-				var p = $('<p></p>').text(sks.autor); left.append(p);
+				if(isTwitter(sks.autor)){
+					var p = $('<p></p>').html('<a href="https://twitter.com/'+sks.autor+'" target="_blank">'+sks.autor+'</a>'); left.append(p);
+					
+				}
+				else{
+					var p = $('<p></p>').text(sks.autor); left.append(p);
+				}
+				
 	
 
 }
@@ -92,4 +99,9 @@ function download(element) {
 	var url = icon.attr('data-url');
 	window.location=url;
 	
+}
+
+//Utils
+function isTwitter(autor) {
+	return (autor.indexOf('@') != -1)
 }
