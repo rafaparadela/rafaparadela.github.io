@@ -1,0 +1,201 @@
+<!DOCTYPE html> <html class=no-js> <head> <meta charset=utf-8> <title>scala exercises</title> <meta name=description content=""> <meta name=viewport content="width=device-width"> <link rel="shortcut icon" href=/6df2b309.favicon.ico> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel=stylesheet href=styles/375d021c.vendor.css> <link rel=stylesheet href=styles/a8b47d85.main.css> <script src=scripts/vendor/fbe20327.modernizr.js></script>  <body> <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--> <!-- <div id="header" class="container">
+        <div id="auth_wrapper" class="pull-right">
+            <a href="#" id="login" class="oculto">Identifícate</a>
+            <a href="#" id="logout" class="oculto"><img id="mifoto" src="">Cerrar sesión</a>
+        </div>
+    </div> --> <div class=wrapper> <div class=box> <div class=row> <!-- sidebar --> <div class="column col-sm-2" id=sidebar> <div id=auth_wrapper></div> <img id=mifoto src="" onclick=logout()> <ul class=nav> <li><h3>Chapter 2</h3><div class=exercises> <span data-chapter=2 data-exercise=1>2.1</span> <span data-chapter=2 data-exercise=2>2.2</span> <span data-chapter=2 data-exercise=3>2.3</span> <span data-chapter=2 data-exercise=4>2.4</span> <span data-chapter=2 data-exercise=5>2.5</span> </div></li> <li><h3>Chapter 3</h3><div class=exercises> <span data-chapter=3 data-exercise=1>3.1</span> <span data-chapter=3 data-exercise=2>3.2</span> <span data-chapter=3 data-exercise=3>3.3</span> <span data-chapter=3 data-exercise=4>3.4</span> <span data-chapter=3 data-exercise=5>3.5</span> <span data-chapter=3 data-exercise=6>3.6</span> <span data-chapter=3 data-exercise=7>3.7</span> <span data-chapter=3 data-exercise=8>3.8</span> <span data-chapter=3 data-exercise=9>3.9</span> <span data-chapter=3 data-exercise=10>3.10</span> <span data-chapter=3 data-exercise=11>3.11</span> <span data-chapter=3 data-exercise=12>3.12</span> <span data-chapter=3 data-exercise=13>3.13</span> <span data-chapter=3 data-exercise=14>3.14</span> <span data-chapter=3 data-exercise=15>3.15</span> <span data-chapter=3 data-exercise=16>3.16</span> <span data-chapter=3 data-exercise=17>3.17</span> <span data-chapter=3 data-exercise=18>3.18</span> <span data-chapter=3 data-exercise=19>3.19</span> <span data-chapter=3 data-exercise=20>3.20</span> <span data-chapter=3 data-exercise=21>3.21</span> <span data-chapter=3 data-exercise=22>3.22</span> <span data-chapter=3 data-exercise=23>3.23</span> <span data-chapter=3 data-exercise=24>3.24</span> <span data-chapter=3 data-exercise=25>3.25</span> <span data-chapter=3 data-exercise=26>3.26</span> <span data-chapter=3 data-exercise=27>3.27</span> <span data-chapter=3 data-exercise=28>3.28</span> <span data-chapter=3 data-exercise=29>3.29</span> <div></div></div></li> <!-- <li><h3>Chapter 4</h3><div class="exercises">
+                            <span data-chapter="4" data-exercise="1">4.1</span>
+                            <span data-chapter="4" data-exercise="2">4.2</span>
+                            <span data-chapter="4" data-exercise="3">4.3</span>
+                            <span data-chapter="4" data-exercise="4">4.4</span>
+                            <span data-chapter="4" data-exercise="5">4.5</span>
+                            <span data-chapter="4" data-exercise="6">4.6</span>
+                            <span data-chapter="4" data-exercise="7">4.7</span>
+                            <span data-chapter="4" data-exercise="8">4.8</span>
+                        </div></li>
+                        <li><h3>Chapter 5</h3><div class="exercises">
+                            <span data-chapter="5" data-exercise="1">5.1</span>
+                            <span data-chapter="5" data-exercise="2">5.2</span>
+                            <span data-chapter="5" data-exercise="3">5.3</span>
+                            <span data-chapter="5" data-exercise="4">5.4</span>
+                            <span data-chapter="5" data-exercise="5">5.5</span>
+                            <span data-chapter="5" data-exercise="6">5.6</span>
+                            <span data-chapter="5" data-exercise="7">5.7</span>
+                            <span data-chapter="5" data-exercise="8">5.8</span>
+                            <span data-chapter="5" data-exercise="9">5.9</span>
+                            <span data-chapter="5" data-exercise="10">5.10</span>
+                            <span data-chapter="5" data-exercise="11">5.11</span>
+                            <span data-chapter="5" data-exercise="12">5.12</span>
+                            <span data-chapter="5" data-exercise="13">5.13</span>
+                            <span data-chapter="5" data-exercise="14">5.14</span>
+                            <span data-chapter="5" data-exercise="15">5.15</span>
+                            <span data-chapter="5" data-exercise="16">5.16</span>
+                        </div></li>
+                        <li><h3>Chapter 6</h3><div class="exercises">
+                            <span data-chapter="6" data-exercise="1">6.1</span>
+                            <span data-chapter="6" data-exercise="2">6.2</span>
+                            <span data-chapter="6" data-exercise="3">6.3</span>
+                            <span data-chapter="6" data-exercise="4">6.4</span>
+                            <span data-chapter="6" data-exercise="5">6.5</span>
+                            <span data-chapter="6" data-exercise="6">6.6</span>
+                            <span data-chapter="6" data-exercise="7">6.7</span>
+                            <span data-chapter="6" data-exercise="8">6.8</span>
+                            <span data-chapter="6" data-exercise="9">6.9</span>
+                            <span data-chapter="6" data-exercise="10">6.10</span>
+                            <span data-chapter="6" data-exercise="11">6.11</span>
+                        </div></li>
+                        <li><h3>Chapter 7</h3><div class="exercises">
+                            <span data-chapter="7" data-exercise="1">7.1</span>
+                            <span data-chapter="7" data-exercise="2">7.2</span>
+                            <span data-chapter="7" data-exercise="3">7.3</span>
+                            <span data-chapter="7" data-exercise="4">7.4</span>
+                            <span data-chapter="7" data-exercise="5">7.5</span>
+                            <span data-chapter="7" data-exercise="6">7.6</span>
+                            <span data-chapter="7" data-exercise="7">7.7</span>
+                            <span data-chapter="7" data-exercise="8">7.8</span>
+                            <span data-chapter="7" data-exercise="9">7.9</span>
+                            <span data-chapter="7" data-exercise="10">7.10</span>
+                            <span data-chapter="7" data-exercise="11">7.11</span>
+                            <span data-chapter="7" data-exercise="12">7.12</span>
+                            <span data-chapter="7" data-exercise="13">7.13</span>
+                            <span data-chapter="7" data-exercise="14">7.14</span>
+                        </div></li>
+                        <li><h3>Chapter 8</h3><div class="exercises">
+                            <span data-chapter="8" data-exercise="1">8.1</span>
+                            <span data-chapter="8" data-exercise="2">8.2</span>
+                            <span data-chapter="8" data-exercise="3">8.3</span>
+                            <span data-chapter="8" data-exercise="4">8.4</span>
+                            <span data-chapter="8" data-exercise="5">8.5</span>
+                            <span data-chapter="8" data-exercise="6">8.6</span>
+                            <span data-chapter="8" data-exercise="7">8.7</span>
+                            <span data-chapter="8" data-exercise="8">8.8</span>
+                            <span data-chapter="8" data-exercise="9">8.9</span>
+                            <span data-chapter="8" data-exercise="10">8.10</span>
+                            <span data-chapter="8" data-exercise="11">8.11</span>
+                            <span data-chapter="8" data-exercise="12">8.12</span>
+                            <span data-chapter="8" data-exercise="13">8.13</span>
+                            <span data-chapter="8" data-exercise="14">8.14</span>
+                            <span data-chapter="8" data-exercise="15">8.15</span>
+                            <span data-chapter="8" data-exercise="16">8.16</span>
+                            <span data-chapter="8" data-exercise="17">8.17</span>
+                            <span data-chapter="8" data-exercise="18">8.18</span>
+                            <span data-chapter="8" data-exercise="19">8.19</span>
+                            <span data-chapter="8" data-exercise="20">8.20</span>
+                        </div></li>
+                        <li><h3>Chapter 9</h3><div class="exercises">
+                            <span data-chapter="9" data-exercise="1">9.1</span>
+                            <span data-chapter="9" data-exercise="2">9.2</span>
+                            <span data-chapter="9" data-exercise="3">9.3</span>
+                            <span data-chapter="9" data-exercise="4">9.4</span>
+                            <span data-chapter="9" data-exercise="5">9.5</span>
+                            <span data-chapter="9" data-exercise="6">9.6</span>
+                            <span data-chapter="9" data-exercise="7">9.7</span>
+                            <span data-chapter="9" data-exercise="8">9.8</span>
+                            <span data-chapter="9" data-exercise="9">9.9</span>
+                            <span data-chapter="9" data-exercise="10">9.10</span>
+                            <span data-chapter="9" data-exercise="11">9.11</span>
+                            <span data-chapter="9" data-exercise="12">9.12</span>
+                            <span data-chapter="9" data-exercise="13">9.13</span>
+                            <span data-chapter="9" data-exercise="14">9.14</span>
+                            <span data-chapter="9" data-exercise="15">9.15</span>
+                            <span data-chapter="9" data-exercise="16">9.16</span>
+                            <span data-chapter="9" data-exercise="17">9.17</span>
+                            <span data-chapter="9" data-exercise="18">9.18</span>
+                        </div></li>
+                        <li><h3>Chapter 10</h3><div class="exercises">
+                            <span data-chapter="10" data-exercise="1">10.1</span>
+                            <span data-chapter="10" data-exercise="2">10.2</span>
+                            <span data-chapter="10" data-exercise="3">10.3</span>
+                            <span data-chapter="10" data-exercise="4">10.4</span>
+                            <span data-chapter="10" data-exercise="5">10.5</span>
+                            <span data-chapter="10" data-exercise="6">10.6</span>
+                            <span data-chapter="10" data-exercise="7">10.7</span>
+                            <span data-chapter="10" data-exercise="8">10.8</span>
+                            <span data-chapter="10" data-exercise="9">10.9</span>
+                            <span data-chapter="10" data-exercise="10">10.10</span>
+                            <span data-chapter="10" data-exercise="11">10.11</span>
+                            <span data-chapter="10" data-exercise="12">10.12</span>
+                            <span data-chapter="10" data-exercise="13">10.13</span>
+                            <span data-chapter="10" data-exercise="14">10.14</span>
+                            <span data-chapter="10" data-exercise="15">10.15</span>
+                            <span data-chapter="10" data-exercise="16">10.16</span>
+                            <span data-chapter="10" data-exercise="17">10.17</span>
+                            <span data-chapter="10" data-exercise="18">10.18</span>
+                        </div></li>
+                        <li><h3>Chapter 11</h3><div class="exercises">
+                            <span data-chapter="11" data-exercise="1">11.1</span>
+                            <span data-chapter="11" data-exercise="2">11.2</span>
+                            <span data-chapter="11" data-exercise="3">11.3</span>
+                            <span data-chapter="11" data-exercise="4">11.4</span>
+                            <span data-chapter="11" data-exercise="5">11.5</span>
+                            <span data-chapter="11" data-exercise="6">11.6</span>
+                            <span data-chapter="11" data-exercise="7">11.7</span>
+                            <span data-chapter="11" data-exercise="8">11.8</span>
+                            <span data-chapter="11" data-exercise="9">11.9</span>
+                            <span data-chapter="11" data-exercise="10">11.10</span>
+                            <span data-chapter="11" data-exercise="11">11.11</span>
+                            <span data-chapter="11" data-exercise="12">11.12</span>
+                            <span data-chapter="11" data-exercise="13">11.13</span>
+                            <span data-chapter="11" data-exercise="14">11.14</span>
+                            <span data-chapter="11" data-exercise="15">11.15</span>
+                            <span data-chapter="11" data-exercise="16">11.16</span>
+                            <span data-chapter="11" data-exercise="17">11.17</span>
+                            <span data-chapter="11" data-exercise="18">11.18</span>
+                            <span data-chapter="11" data-exercise="19">11.19</span>
+                            <span data-chapter="11" data-exercise="20">11.20</span>
+                        </div></li>
+                        <li><h3>Chapter 12</h3><div class="exercises">
+                            <span data-chapter="12" data-exercise="1">12.1</span>
+                            <span data-chapter="12" data-exercise="2">12.2</span>
+                            <span data-chapter="12" data-exercise="3">12.3</span>
+                            <span data-chapter="12" data-exercise="4">12.4</span>
+                            <span data-chapter="12" data-exercise="5">12.5</span>
+                            <span data-chapter="12" data-exercise="6">12.6</span>
+                            <span data-chapter="12" data-exercise="7">12.7</span>
+                            <span data-chapter="12" data-exercise="8">12.8</span>
+                            <span data-chapter="12" data-exercise="9">12.9</span>
+                            <span data-chapter="12" data-exercise="10">12.10</span>
+                            <span data-chapter="12" data-exercise="11">12.11</span>
+                            <span data-chapter="12" data-exercise="12">12.12</span>
+                            <span data-chapter="12" data-exercise="13">12.13</span>
+                            <span data-chapter="12" data-exercise="14">12.14</span>
+                            <span data-chapter="12" data-exercise="15">12.15</span>
+                            <span data-chapter="12" data-exercise="16">12.16</span>
+                            <span data-chapter="12" data-exercise="17">12.17</span>
+                            <span data-chapter="12" data-exercise="18">12.18</span>
+                            <span data-chapter="12" data-exercise="19">12.19</span>
+                            <span data-chapter="12" data-exercise="20">12.20</span>
+                        </div></li>
+                        <li><h3>Chapter 13</h3><div class="exercises">
+                            <span data-chapter="13" data-exercise="1">13.1</span>
+                            <span data-chapter="13" data-exercise="2">13.2</span>
+                            <span data-chapter="13" data-exercise="3">13.3</span>
+                            <span data-chapter="13" data-exercise="4">13.4</span>
+                            <span data-chapter="13" data-exercise="5">13.5</span>
+                        </div></li>
+                        <li><h3>Chapter 14</h3><div class="exercises">
+                            <span data-chapter="14" data-exercise="1">14.1</span>
+                            <span data-chapter="14" data-exercise="2">14.2</span>
+                            <span data-chapter="14" data-exercise="3">14.3</span>
+                        </div></li>
+                        <li><h3>Chapter 15</h3><div class="exercises">
+                            <span data-chapter="15" data-exercise="1">15.1</span>
+                            <span data-chapter="15" data-exercise="2">15.2</span>
+                            <span data-chapter="15" data-exercise="3">15.3</span>
+                            <span data-chapter="15" data-exercise="4">15.4</span>
+                            <span data-chapter="15" data-exercise="5">15.5</span>
+                            <span data-chapter="15" data-exercise="6">15.6</span>
+                            <span data-chapter="15" data-exercise="7">15.7</span>
+                            <span data-chapter="15" data-exercise="8">15.8</span>
+                            <span data-chapter="15" data-exercise="9">15.9</span>
+                            <span data-chapter="15" data-exercise="10">15.10</span>
+                            <span data-chapter="15" data-exercise="11">15.11</span>
+                            <span data-chapter="15" data-exercise="12">15.12</span>
+                        </div></li> --> </ul> </div> <!-- /sidebar --> <!-- main --> <div class="column col-sm-10" id=main> <div class=padding> <div id=full class="full col-sm-9"> <div id=loggedout> <h1>Login with GitHub</h1> <div id=login onclick=login()> <i class="fa fa-github"></i> </div> </div> <div id=exercise> <div id=current></div> <div id=transitory> <h1>Select an exercise</h1> <div id=arrow> <i class="fa fa-arrow-circle-o-left"></i> </div> </div> </div> </div><!-- /col-9 --> </div><!-- /padding --> </div> <!-- /main --> </div> </div> </div> <script src=scripts/b9bb5d48.vendor.js></script> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. --> <script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');</script> <script src=scripts/942796ac.main.js></script>  
