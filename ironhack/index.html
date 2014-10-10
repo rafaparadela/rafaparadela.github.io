@@ -84,6 +84,8 @@
 				<li><a href="#w02">Semana 2</a></li>
 				<li><a href="#w03">Semana 3</a></li>
 				<li><a href="#w04">Semana 4</a></li>
+				<li><a href="#w05">Semana 5</a></li>
+				<li><a href="#w06">Semana 6</a></li>
               
             </ul>
 			
@@ -2746,7 +2748,6 @@ self.myView.backgroundColor = [UIColor redColor];
 				  <!-- %%%%%% -->
 			  </div>
 			  
-			  
 			  <div class="bs-docs-section" id="w04-section">
 				  <h1 id="w04" class="page-header">Semana 4</h1>
 				  
@@ -3970,15 +3971,1422 @@ UIImage * image = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath
 			  
 			  
 			  
-			  <!-- 
-			  <div class="bs-docs-section" id="w00-section">
-				  <h1 id="w00" class="page-header">Semana 00</h1>
-				  
-				  <!-- &&&&&& ->
-				  
-				  <!-- %%%%%% ->
-			  </div>
-			  -->
+              
+              <div class="bs-docs-section" id="w05-section">
+                  <h1 id="w05" class="page-header">Semana 5</h1>
+                  
+                  <!-- &&&&&& -->
+                  
+
+<p>La semana 5 viene cargadita de mucho <strong>Core Data</strong> y <strong>TDD</strong> de la mano de otro grande: <a href="https://twitter.com/jdortiz">Jorge Ortiz</a>.</p>
+
+<p>Los ejercicios que propone, con una duración bien prefijada, están acompañados por un proyecto Xcode de base publicado en su Github. </p>
+
+<h1 id="malometer">Malometer</h1>
+
+<p><a href="https://github.com/jdortiz/Malometer">https://github.com/jdortiz/Malometer</a></p>
+
+<p><strong>Basic Core Data demo</strong>: Full use of Core Data the &#8220;hard way&#8221;, using KVC.</p>
+
+<h3 id="createproject2min">Create project (2 min)</h3>
+
+<p>Learn the basics.</p>
+
+<ol>
+<li>Open Xcode</li>
+<li>New project iOS -&gt; Application -&gt; Master-Detail Application</li>
+<li>Product Name: &#8220;Malometer&#8221;, Devices: &#8220;iPhone&#8221;, Select &#8220;Use Core
+ Data&#8221;</li>
+<li>Choose directory and maintain create git repository selected.</li>
+</ol>
+
+<h3 id="reviewprojecttemplatecontents5min">Review project template contents (5 min)</h3>
+
+<p>Understand how the template works.</p>
+
+<ol>
+<li>Visit Malometer.xcdatamodeld: 1 entity, 1 attribute.</li>
+<li>Visit Main.storyboard: Expected screens. No buttons!</li>
+<li>Visit MasterViewController.m:</li>
+<li>Buttons added in code?</li>
+<li>Coupling between VC and model (Example insertNewObject)</li>
+<li>Run the app to see how it works.</li>
+</ol>
+
+<h3 id="changestothemodel10min">Changes to the model (10 min)</h3>
+
+<p>Use our own model with the template.</p>
+
+<ol>
+<li><p>Edit the name of the entity in the model. Change it to Agent.</p></li>
+<li><p>Delete the attribute.</p></li>
+<li><p>Create 3 new attributes:</p></li>
+<li><p>name :: String, not optional, indexed</p></li>
+<li><p>destructionPower :: Integer 16, not optional</p></li>
+<li><p>motivation :: Integer 16, not optional</p></li>
+<li><p>Run it and it will crash. From the terminal</p>
+
+<p>$ cd ~/Library/Application\ Support/iPhone\ Simulator
+$ find . -name Malometer.app
+$ cd <path>/Documents
+$ rm Malometer.sqlite*</p></li>
+</ol>
+
+<h3 id="changethequeryofthefetchedresultscontroller2min">Change the query of the fetchedResultsController (2 min)</h3>
+
+<p>Make the table display the agents (for when they are ready later).</p>
+
+<ol>
+<li>Run it and it will crash. The name of the entity and the attribute in
+ fetchedResultsController are wrong. Change them.</li>
+<li>Change the name of the entity to &#8220;Agent&#8221; and the attribute to &#8220;name&#8221;</li>
+</ol>
+
+<h3 id="modifytheviewcontrollertoaddmodelobjects20min">Modify the view controller to add model objects (20 min)</h3>
+
+<p>Create a new view controller that will later allow to edit the agent
+data. In this step, only the views are put in place and the basic
+initialization.</p>
+
+<ol>
+<li>Rut it again and tap on the plus button at the top. It will crash
+ because the creation still uses the attribute timeStamp. Shouldn&#8217;t
+ we change it once for all the code?</li>
+<li>Comment out the insertNewObject method.</li>
+<li>Remove the creation of the add button in viewDidLoad and comment
+ out the creation of the edit button.</li>
+<li>Time to edit the detail view controller to populate the fields. Use
+ the storyboard to create these fields in the viewcontroller:</li>
+<li>Delete the existing label.</li>
+<li>Add five labels.</li>
+<li>Add one textfield and configure its parameters..</li>
+<li>Add two steppers and configure its parameters.</li>
+<li>In the detail view controller header, define IBOutlets for the
+ three labels that will change, the text field and the two steppers.</li>
+<li>Connect the outlets to their respective object in interface
+ builder.</li>
+<li>Initialize each of the controls in viewDidLoad. Use arrays for the
+ named values of the 3 properties of the agent object.</li>
+</ol>
+
+<h3 id="connecttheviewcontrollersforcreatingagents10min">Connect the view controllers for creating agents (10 min)</h3>
+
+<p>Have a segue that works to enable editing newly created agents.</p>
+
+<ol>
+<li>Delete the existing segue that connects master and detail view
+ controllers.</li>
+<li>Embed the view controller in a navigation vc.</li>
+<li>Add a new &#8220;+&#8221; button to the master view controller.</li>
+<li>Create a modal segue from the button to the detail view controller
+ and name it &#8220;CreateAgent&#8221;.</li>
+<li>Change the name of the property of the detail view controller from
+ detailItem to agent.</li>
+<li>Modify the metod prepareForSegue of the master view controller:</li>
+<li>Define a constant string for the class with the name of the
+ segue.</li>
+<li>Extract the destination view controller.</li>
+<li>Create a new agent object.</li>
+<li>Pass it to the detail view controller</li>
+<li>Run and test. Notice there is no way to go back.</li>
+</ol>
+
+<h3 id="addactionstotheagenteditviewcontroller20min">Add actions to the Agent edit view controller (20 min)</h3>
+
+<p>Respond to the events of the interface in the view controller used for
+editing that make the user go back to the main view controller.</p>
+
+<ol>
+<li>Add new header file with the protocol to dismiss the view
+ controller. (1 method, modifiedData)</li>
+<li>In the detail, import the new header and define a delegate property.</li>
+<li>Make the header of the master implement the protocol.</li>
+<li>Assign the delegate in the prepareForSegue of the master.</li>
+<li>Implement the method in the master that dismisses the view
+ controller. (No data saving yet)</li>
+<li>Define the two actions for each bar button in the detail view
+ controller.</li>
+<li>In the storyboard create two bar buttons to cancel and save the
+ contents of the detail view controller.</li>
+<li>Connnect them with their respective actions.</li>
+<li>Run it and it will throw an error. Change the attribute name of the
+ configureCell method.</li>
+</ol>
+
+<h3 id="createactionsforthecontrolsofthedetailviewcontroller10min">Create actions for the controls of the detail view controller (10 min)</h3>
+
+<p>Define actions to respond to the events generated by the steppers and
+use that data in the saving process.</p>
+
+<ol>
+<li>Inside of the save action include a method to read the values from
+ the text field and applies it to the agent object.</li>
+<li>Define a new method to deal with the destruction power changes and
+ apply those changes to the assessment value.</li>
+<li>Connect the method to stepper for the destruction value.</li>
+<li>Run and verify that the labels aren&#8217;t updated.</li>
+<li>Create the analogous method for the motivation stepper and connect it.</li>
+</ol>
+
+<h3 id="showtheupdatedvaluesoftheagentobjectintheviewcontroller10min">Show the updated values of the agent object in the view controller (10 min)</h3>
+
+<p>Update the labels of interface when the values change. This is done by
+pushing the changes.</p>
+
+<ol>
+<li>Add a method for each label to display its value based on the
+ respective agent property.</li>
+<li>Invoke the required methods in each of the stepper actions.</li>
+<li>Refactor viewDidLoad</li>
+<li>Run and verify that the labels are updated.</li>
+<li>Verify that the steppers only change within the expected range or
+ solve in Interface Builder.</li>
+</ol>
+
+<h3 id="persistthedata15min">Persist the data (15 min)</h3>
+
+<p>Use the undo manager to forget about objects that the user decides
+cancelling their creation. Save the context to make the (not-undone)
+changes persistent (in the file system).</p>
+
+<ol>
+<li>Review the app delegate, the section of the Core Data Stack.</li>
+<li>Create an undo manager and assign it to the moc. Configure it to
+ not create groups by event and limit the number of undos to 10.</li>
+<li>Begin an undo group before creating the new object in the master
+ view controller.</li>
+<li>Set the action name for the undo operation and end the undo group
+ in the method that is used to dismiss the detail view controller.</li>
+<li>If modified data should be preserved, call the save method of the context.</li>
+<li>If modified data should be dismissed, rollback the change.</li>
+</ol>
+
+<h3 id="janitorialchanges5min">Janitorial changes (5 min)</h3>
+
+<p>Cleaner code.</p>
+
+<ol>
+<li>Remove commented out code.</li>
+<li>Rename the detail view controller to AgentEditViewController using
+ the refactoring capabilities of Xcode.</li>
+<li>Rename the Master view controller to AgentsViewController.</li>
+</ol>
+
+<h2 id="subclassingthemanagedobject">Subclassing the managed object</h2>
+
+<p>This is the way Core Data is commonly used. Objective-C objects are
+mapped to the database with their properties and methods.</p>
+
+<h3 id="createagentasasubclassofmo10min">Create Agent as a subclass of MO (10 min)</h3>
+
+<p>Have the class ready to be able to use it in the rest of the
+code. Use properties instead of KVC.</p>
+
+<ol>
+<li>Use Xcode to generate the subclass.</li>
+<li>Review the generated subclass.</li>
+<li>Replace the code to use the properties in the Agents view controller.</li>
+<li>Import the Agent.h header</li>
+<li>Change configureCell.</li>
+<li>Change the type of the object created in your prepare for segue
+ method.</li>
+<li>Replace the code to use the properties in the Agent edit view controller.</li>
+<li>Change its header so the agent type is Agent * using a forward
+ declaration.</li>
+<li>Import the Agent.h header in the implementation file.</li>
+<li>Replace all the invocation to setValue:forKey: and valueForKey:
+ by the corresponding properties.</li>
+</ol>
+
+<h3 id="observingthemodel15min">Observing the model (15 min)</h3>
+
+<p>Be able to react to changes in the model instead of pushing them from
+the events.</p>
+
+<ol>
+<li>Remove the call to the method that updates the label of the
+ destruction power from the action assigned to its stepper.</li>
+<li>Add the view controller as an observer for the keypath
+ agent.destructionPower in viewWillAppear</li>
+<li>Remove the observer in viewDidDisappear</li>
+<li>Write the method to respond to the value changes so it updates the
+ text of the label.</li>
+<li>Run and test that the label is updated.</li>
+<li>Repeat for the same sequence for the motivation attribute.</li>
+</ol>
+
+<h3 id="movelogictothemodel20min">Move logic to the model (20 min)</h3>
+
+<p>Understand the value provided by transient properties. Have properties
+that depend on other properties.</p>
+
+<p>The way to calculate assessment is part of the model. However, it is
+outside of the model itself.</p>
+
+<ol>
+<li>Create a new attribute in the model: assessment: int16, transient,
+ non optional.</li>
+<li>Chech Agent.h and Agent.m. Nothing has changed, they must be
+ regenerated. Do so.</li>
+<li>Create the getter for it in the implementation file that uses the
+ equation to calculate the assessment and returns it.</li>
+<li>Use it in the method to display the assessment.</li>
+<li>Remove the call to the method that updates the label of the
+ assesment from the actions assigned to both steppers.</li>
+<li>Add an observer for its keypath. Run and check that it doesn&#8217;t work.</li>
+<li>Add calls to the getter notify that the value will/did change for
+ the assessment key.</li>
+<li>Tell Core Data that the value of assessment depends on the other
+ two attributes. ((NSSet *)keyPathsForValuesAffectingAssessment).</li>
+<li>Refactor the actions assigned to the setters.</li>
+</ol>
+
+<h3 id="morepropertiesandprimitivevaluesfordependenciesincategories20min">More properties and primitive values for dependencies in categories (20 min)</h3>
+
+<p>Understand how the custom setters and getters in Core Data and how to
+define dependencies in a category.</p>
+
+<ol>
+<li>Create a new string attribute called pictureURL (optional, not indexed).</li>
+<li>Regenerate the subclass.</li>
+<li>Verify the regenerated files and notice what is missing.</li>
+<li>Create a &#8220;Model&#8221; category of the agent class.</li>
+<li>Recover the model logic code from the previous git commit and put
+ it in the Model category.</li>
+<li>Run it. It will crash. Remove the database, run it again and test
+ the model logic. WARNING: the results here MAY vary.</li>
+<li>Put two breakpoints in the two methods of the logic model and
+ notice that the class method (might not) isn&#8217;t called.</li>
+<li>Create constant strings for the properties in the category
+ implementation and declare them as extern in the header.</li>
+<li>In any case, create setters for the motivation and the destruction
+ power that update the primitive value of assessment and get rid of
+ the class method.</li>
+</ol>
+
+<h3 id="revisitingmodellogic15min">Revisiting model logic (15 min)</h3>
+
+<p>Make the interface easier to use, and the created objects editable
+using a second segue to the same view controllers.</p>
+
+<ol>
+<li>Add to the agent edit view controller the delegate method for the
+ text field that alows the keyboard to be dismissed. And connect the
+ view controller to the text field as delegate.</li>
+<li>Create another segue to the navigation controller connected to the
+ agent in order to revie and visit agent objects when they are
+ selected from the table.</li>
+</ol>
+
+<h3 id="assignandviewthepicture1:30h">Assign and view the picture (1:30h)</h3>
+
+<p>Have the user interface required to select/edit/delete images.</p>
+
+<ol>
+<li>Move all the controls of the agent edit view controller downwards
+ to leave space for the picure.</li>
+<li>Create a 100x100 button with the label &#8220;Add image&#8221;</li>
+<li>Create an action in the view controller that shows an action sheet
+ (Take photo, Select photo, Delete photo).</li>
+<li>Make the view controller and action sheet delegate and add the
+ method that responds to the action sheet options.</li>
+<li>Use UIImagePickerVC to obtain the images from the user.</li>
+<li>Persistence of the images must be a separated object (SRP).</li>
+</ol>
+
+<h2 id="relationshipsandpredicates">Relationships and Predicates</h2>
+
+<p>Having the data inside of the database is important, but it is even
+more important to be able to extract the data that we want from it.</p>
+
+<h3 id="movethequerytothemodel15min">Move the query to the model (15min)</h3>
+
+<p>Queries are part of the model, so they belong there.</p>
+
+<ol>
+<li>Add a class method to the Agent category that provides the fetch
+ request used by the fetch results controller of the agents view
+ controller.</li>
+<li>Try it with fetched results controller. Verify the order.</li>
+<li>Create a similar request with a predicate as a parameter. Use it to
+ filter out the agents with a destruction power smaller than 2.</li>
+</ol>
+
+<h3 id="createrelationships10min">Create relationships (10 min)</h3>
+
+<p>Relationships is one of the most powerful features of Core Data. Let&#8217;s
+define the model to be able to use them.</p>
+
+<ol>
+<li>Define 2 new entities:</li>
+<li>&#8220;FreakType&#8221;: with attribute &#8220;name&#8221;: string, non optional,
+ indexed and relationship &#8220;agents&#8221;, optional, cardinality: 1 category includes
+ many agents, delete rule: cascade. Reverse relationship
+ &#8220;category&#8221;, optional, delete rule, nullify.</li>
+<li>&#8220;Domain&#8221;: with atribute &#8220;name&#8221;: string, non optional, indexed
+ and relationship &#8220;agents&#8221;, optional, cardinality 1 domain has many
+ agents, delete rule: denay. Reverse relationship &#8220;domains&#8221;, 1 agent works in many
+ domains, delete rule: nulify.</li>
+<li>Regenerate the subclasses (all three). And delete the database,
+ once again.</li>
+</ol>
+
+<h3 id="createcontrolstoeditthecategoryanddomains30min">Create controls to edit the category and domains (30 min)</h3>
+
+<p>Modify the user interface to be able to use the relationships.</p>
+
+<ol>
+<li>Add two text fields besides the picture.</li>
+<li>Add two iboutlets for them in the agent edit view controller
+ header, connect them and set the view controller as delegate.</li>
+<li>Create a method that, when the text field has finished being
+ edited, parses the string (spliting by commas for the domains, and
+ nothing for the category) and creates an attributed string decides
+ with green colors for objects that already exist, and red for the
+ ones that don&#8217;t. The implementation of whether they exist or not
+ will be done later.</li>
+</ol>
+
+<h3 id="workwithrelationships20min">Work with relationships (20 min)</h3>
+
+<p>Add logic to the FreakType entity that will make working with
+relationships easier.</p>
+
+<ol>
+<li>Create a convenience constructor for the FreakType that uses a name.</li>
+<li>Create a class method that returns the FreakType with the provided
+ name in the given managed object context.</li>
+<li>Use those two methods when saving the agent.</li>
+<li>Create the analogous methods for the domains. Keep in mind that the
+ relationship with the domains is expressed using a NSSet.</li>
+</ol>
+
+<h3 id="sortingtheresults10min">Sorting the results (10 min)</h3>
+
+<p>Demonstrate different ways to sort the data. Understant the
+limitations of transient attributes.</p>
+
+<ol>
+<li>Create a new method of the Agent, that generates a fetch request
+ sorted with the provided sort descriptors. Run it and see the results.</li>
+<li>Use the same method sorting by assesment. Run it and see what happens.</li>
+<li>You can also sort by more than one criteria. Try sorting by
+ destruction power and then by name.</li>
+</ol>
+
+<h3 id="fetchrequest10min">Fetch request (10 min)</h3>
+
+<p>Use relationship based sections in the table view.</p>
+
+<ol>
+<li>Modify the fetch results controller to use the category name as section.</li>
+<li>Add the table view data source method to return the name of the
+ section from the corresponding object of the sections array in the
+ fetched results controller.</li>
+<li>Complete the section header title with the average of the
+ destruction power of the members of that section.</li>
+<li>Create a fetch request of the domains that returns those which
+ have more than one agent with a destruction power of 3 or more.</li>
+<li>Calculate the number of results and display it in the title.</li>
+<li>Refresh it after controller did finish.</li>
+</ol>
+
+<h3 id="exercisesforthereader15min">Exercises for the reader (15 min)</h3>
+
+<ul>
+<li>Complete the CRUD. Delete an object when the user swipes over one of the table rows.</li>
+</ul>
+
+<h2 id="unittestingdemo:testingtheappdelegate">Unit testing demo: Testing the app delegate</h2>
+
+<p>Install the test Template.</p>
+
+<h3 id="testreturnvalue:sutnotnil">Test return value: Sut not nil</h3>
+
+<p>Understand how to test a method for a return value.</p>
+
+<ol>
+<li>Delete existing unit test file.</li>
+<li>Under the MalometerTests folder create an &#8220;AppDelegate&#8221; group.</li>
+<li>Create the Test class for the app delegate.</li>
+<li>Remove from it all the Core Data related code.</li>
+<li>Validate the &#8220;sut is not nil&#8221; test.</li>
+</ol>
+
+<h3 id="teststate:managedobjectcontext">Test state: managedObjectContext</h3>
+
+<p>Understand how to test a method that changes the state of the object.</p>
+
+<ol>
+<li>Check that the managed object context is created when accessed.</li>
+</ol>
+
+<h3 id="testbehavior:savingthedataofamanagedobjectcontext">Test behavior: saving the data of a managed object context</h3>
+
+<p>Understand how to test a method that uses other objects.</p>
+
+<ol>
+<li>Add a test to check that the saveContext method tells the
+ managedObjectContext to save the changes.</li>
+<li>Create a subclass of MOC in the same file (mocFake).</li>
+<li>Create an instance of that class in the test and inject it into the
+ sut using kvc.</li>
+<li>Override the hasChanges method to return YES.</li>
+<li>Create a BOOL property to record the changes.</li>
+<li>Set the property to YES in the overriden save: method.</li>
+<li>Verify that it is yes.</li>
+</ol>
+
+<h3 id="exercisesforthereader30-45min">Exercises for the reader (30 - 45 min)</h3>
+
+<ul>
+<li>Test app documents directory is not nil, is a directory (not a
+ file), contains Documents as the last component of the path&#8230;</li>
+<li>Test the managed object model and the persistent store coordinator
+ are created when the managed object context is accessed.</li>
+<li>Test the root view controller is assigned the managed object context
+ on launch.</li>
+</ul>
+
+<h2 id="testingcoredata">Testing Core Data</h2>
+
+<h3 id="basictestofamodelclass10min">Basic test of a model class (10 min)</h3>
+
+<ol>
+<li>Create a unit test for the agent with the provided template, inside
+ of a new &#8220;Model&#8221; group.</li>
+<li>Run and verify that it fails, because the object isn&#8217;t created
+ properly.</li>
+<li>Uncomment and verify the creation and release of the Core Data stack.</li>
+<li>Use Agent+Model.h instead of just Agent.h when importing into the
+ test file.</li>
+<li>Make the entity name shared.</li>
+<li>Change the createSut method to create an agent ala Core Data.</li>
+<li>Run and verify that it fails.</li>
+<li>Include the model in the unit test target.</li>
+<li>Run and verify that it works.</li>
+</ol>
+
+<h2 id="versioningmigration">Versioning &amp; migration</h2>
+
+<p>Understand how to change the model in a controller way. Be sure to
+have some data loaded (at least 3 agents for the examples).</p>
+
+<h3 id="identifyingthecurrentmodelversion5min">Identifying the current model version (5 min)</h3>
+
+<p>Understand the current status of the model.</p>
+
+<ol>
+<li><p>Run the program to check that it runs and displays the current data.</p></li>
+<li><p>In the file inspector of the model fill in a new version
+ identifier (1.0.0).</p></li>
+<li><p>Run the program again to see that nothing has changed.</p></li>
+<li><p>Using the terminal, go to the directory where the sqlite of the
+ project is. Execute the following command and keep what follows
+ NSStoreModelVersionHashesVersion resulting from the last one.</p>
+
+<p>$ sqlite3 Malometer.sqlite</p>
+
+<blockquote>
+<p>select * from sqlite_master where type=&#8217;table&#8217;;
+select * from Z_METADATA;
+.quit</p>
+</blockquote></li>
+</ol>
+
+<h3 id="addinganewmodelversion10min">Adding a new model version (10 min)</h3>
+
+<p>Create a the new version of the model.</p>
+
+<ol>
+<li>Add a new model version (Editor -&gt; Add Model Version&#8230;)</li>
+<li>In the new model, add a new attribute to the Agent entity (Power:
+ string, optional, not indexed.</li>
+<li>Edit the model version identifier of the new one to have the right one.</li>
+<li>Run and it will not crash.</li>
+<li>Check the hash and see that it is still the same.</li>
+<li>In the inspector of the model change the current model version to
+ the new one.</li>
+<li>Run and it will crash. The value of
+ NSStoreModelVersionHashesVersion will continue being the same.</li>
+</ol>
+
+<h3 id="lightweightmigration5min">Lightweight migration (5 min)</h3>
+
+<p>Let Core Data take care of the required changes to the data based on
+the new model.</p>
+
+<ol>
+<li>In the persistentCoordinator getter of the app delegate, create a
+ new dicionary for the options to use with the persistent store.</li>
+<li>Add options to make automatic migration of the store and infer the
+ mapping automatically and pass them to the persistent store
+ addition process.</li>
+<li>Run it. It will not crash, but we haven&#8217;t made any change to the
+ interface to know that the change has actually happened.</li>
+</ol>
+
+<h3 id="verifyingthechange5min">Verifying the change (5 min)</h3>
+
+<p>Check that the expected change has happened.</p>
+
+<ol>
+<li>Add a breakpoint to any method that uses an Agent object. For
+ example AgentsViewController&#8217;s configureCell:atIndexPath:.</li>
+<li>Run &#8216;po agent&#8217; in the debugger and verify that power is one of the
+ attributes.</li>
+<li>In the terminal chech that the string after
+ NSStoreModelVersionHashesVersionhas finally changed. The store has
+ been migrated.</li>
+</ol>
+
+<h3 id="populatedatatopreserve10min">Populate data to preserve (10 min)</h3>
+
+<p>Prepare data for the next, more complex, migration.</p>
+
+<ol>
+<li>Regenerate the Agent subclass.</li>
+<li>In order to have some data add line in the prepareForSegue part of
+ the edit view controller to set the power to Intelligence if the
+ row is an even number or Strength if it is odd.</li>
+<li>Run it visit some (not all) of the agents and remember to save them.</li>
+<li>Use the debuger to print the fetchedObjects of the
+ fetchedResultsController to verify that the data has been created.</li>
+<li>Close the application by quiting it from the simulator (task
+ manager) and query the sqlite database to double-check that the
+ data is there.</li>
+<li>Preserve a copy of the current database. Query that copy to ensure
+ that the data is there. (MD5s appreciated).</li>
+</ol>
+
+<h3 id="anewmodelwithcomplexchanges15min">A new model with complex changes (15 min)</h3>
+
+<p>Now our goal is to be able to have many powers per agent (a many to
+many relationship). Create the model for it.</p>
+
+<ol>
+<li>Add a new model based on Malometer 1.1.0 and call it Malometer2.</li>
+<li>Edit its identifier.</li>
+<li>Create a new entity Power with one attribute name: string, non
+ optional, indexed.</li>
+<li>Create a to-many relationship in Agents: powers, and the inverse
+ relationship in Power, agents that is also to-many.</li>
+<li>Remove the power attribute of the Agent entity.</li>
+<li>Regenerate the Agent and Power entities.</li>
+<li>Create a Model category of the Power class.</li>
+<li>Create a class method in Power to fetch a power with a given name
+ in a given MOC.</li>
+<li>Build it, but DON&#8217;T Run the app or else it will loose the data,
+ because lightweight migration is enabled. (if you make 2 the
+ current version).</li>
+</ol>
+
+<h3 id="createthemapping20min">Create the mapping (20 min)</h3>
+
+<p>Provide the required information to preserve the names of the existing
+powers into the new entities, without duplicating them.</p>
+
+<ol>
+<li>Create a new file, Mapping Model, from version 1.1.0 to 2.0.0.</li>
+<li>Inspect (but don&#8217;t change) the newly created mapping.</li>
+<li>In the AgentToAgent entity mapping notice that there is the
+ posibility to create a custom policy.</li>
+<li>Create subclass of NSEntityMigrationPolicy and call it AgentToAgentMigrationPolicy.</li>
+<li>Override the method
+ createDestinationInstancesForSourceInstance:entityMapping:manager:error:
+ It must do 4 things:</li>
+<li>Create the destination instance (an Agent in the destination
+ context).</li>
+<li>Transfer the atributes from the source to the destination one.</li>
+<li>Extract a pawer instance with the name of the attribute (or use
+ the already existing one) and relate it with the destination instance.</li>
+<li>Tell the migration manager to associate the source and
+ destination instances.</li>
+<li>Use this class as the name of the custom policy for the Agents mapping.</li>
+<li>Make version 2 the current version of the model.</li>
+<li>Run and check with the debugger that the relationships exists. For
+ any object that had a power in the previous dataset,
+po [[agent.powers anyObject] name]</li>
+</ol>
+
+<h2 id="coredataconcurrency">Core Data Concurrency</h2>
+
+<p>We are going to import 10.000 agents everytime the application
+runs. This will happen in the app delegate.</p>
+
+<h3 id="createafakeimporter15min">Create a fake importer (15 min)</h3>
+
+<p>Create a method in the app delegate that simulates loading 10.000
+registers taking 5 seconds to complete.</p>
+
+<ol>
+<li>Add a convenience constructor for the Agent with a given name.</li>
+<li>Define a fake importer method in the app delegate that does:</li>
+<li>Create a category with its convenience constructor (any name).</li>
+<li>Create 10.000 registers with different names using the
+ convenience constructor.</li>
+<li>Relate the object and the category.</li>
+<li>Wait using usleep after each agent creation, so the total time
+ is aprox. 5 secs.</li>
+<li>When all the objects have been created, save the changes.</li>
+<li>Invoke the method when the app has just finished launching, before
+ anything else.</li>
+<li>Run the program and see what happens.</li>
+<li>Remove the database from the application directory.</li>
+</ol>
+
+<h3 id="planthetaskforabettermoment10min">Plan the task for a better moment (10 min)</h3>
+
+<p>Plan the task asynchornously in the same context / main thread.</p>
+
+<ol>
+<li>Change the creation of the managed object context so it is created
+ with a concurrency type of main queue.</li>
+<li>Change the importer method so all the action happens inside of a
+ block that is passed for asynchronous execution to the MOC.</li>
+<li>Remember to weakfy and strongfy self.</li>
+<li>Run the application an see if anything changes.</li>
+<li>Remove the database from the application directory.</li>
+</ol>
+
+<h3 id="makeabetterimporter5min">Make a better importer (5 min)</h3>
+
+<p>Prepare the method to change the MOC.</p>
+
+<ol>
+<li>Change the importer method so it takes a managed object context as
+ parameter.</li>
+<li>Use the parameter instead of the property in all the required
+ places.
+Comment:</li>
+<li>It should be easier than the previous versions and less leaks.</li>
+</ol>
+
+<h3 id="createanindependentbackgroundcontext20min">Create an independent background context (20 min)</h3>
+
+<p>Have a different context to perform the time consuming process in a
+background queue. The database must be empty at the beginning of this
+section. It is necessary to add some logic to make the main context
+know about the changes.</p>
+
+<ol>
+<li>Define another property for the backgroundMOC.</li>
+<li>Write a lazy instantiation method for this property that creates
+ this context with concurrency type private queue.</li>
+<li>Remember to set the persistent coordinator of this context to the
+ existing one.</li>
+<li>Change the context used as parameter for the importer method to
+ the background one.</li>
+<li>Run the app and wait for 15 seconds. Why doesn&#8217;t it appear?</li>
+<li>Use =sqlite3= to query the database to check if the data has been
+ imported in saved.</li>
+<li>Stop the app and delete the database.</li>
+</ol>
+
+<h3 id="makingthemaincontextawareofthechangesintheother10min">Making the main context aware of the changes in the other (10 min)</h3>
+
+<p>Receive the notifications produced by the background context when
+it saves the changes to merge them.</p>
+
+<ol>
+<li>Move the Core Data properties of the app delegate to private
+ interface.</li>
+<li>Right after the application ends launcing, register to attend to
+ the NSManagedObjectContextDidSaveNotification</li>
+<li>Create to the method that will handle the notification. It should
+ accept just one NSNotification* paramter, and invoke the method of
+ the main MOC that takes the notificaiton and merges the changes.</li>
+<li>Remember to deregister for receiving notifications in
+ applicationWillTerminate.</li>
+<li>Run the application an see if the data is shown.</li>
+<li>Stop the app and delete the database.</li>
+</ol>
+
+<h3 id="creatingthenestedcontextsalternative30min">Creating the nested contexts alternative (30 min)</h3>
+
+<p>Use nested context to have the parent updated automatically.</p>
+
+<ol>
+<li>Add a third MOC property and call it rootMOC.</li>
+<li>Synthesize the property.</li>
+<li>Make a copy of the backgroundMOC getter and rename it
+ rootMOC (and the ivars used inside must be _rootMOC.)</li>
+<li>The managedObjectContext (also known as mainMOC.) getter needs to
+ do the following things:</li>
+<li>Perform lazy instanciation.</li>
+<li>Instanciate the MOC with concurrency type Main.</li>
+<li>Become the child of the rootMOC</li>
+<li>Assign the undoManager to it.</li>
+<li>And return that value.</li>
+<li>The rootMOC getter needs to do the following things:</li>
+<li>Perform lazy instanciation.</li>
+<li>Verify the persistent coordinator exists.</li>
+<li>If it does, instanciate the MOC with concurrency type Private Queue.</li>
+<li>Assign the persistence coordinator to its property.</li>
+<li>And return that value.</li>
+<li>The backgroundMOC is much easier now:</li>
+<li>Performs lazy instantiation.</li>
+<li>Instanciates it with private queue concurrency type.</li>
+<li>Become the child of the managedObjectContext (or mainMOC)</li>
+<li>Remove the registration and deregistration for the notification of
+ the MOC changes and the method for that.</li>
+<li>Run the app and wait until the objects appear on the table view.</li>
+<li>Check the contents of the database.</li>
+<li>Stop and delete the database.</li>
+</ol>
+
+<h1 id="malometertdd">Malometer TDD</h1>
+<p><a href="https://github.com/jdortiz/MalometerTDD">https://github.com/jdortiz/MalometerTDD</a></p>
+<p>Learn how to write code the TDD way.</p>
+<h3 id="createproject5min">Create project (5min)</h3>
+
+<ol>
+<li><p>Create new project in Xcode. Use the &#8220;Empty application&#8221; (iOS) template.</p></li>
+<li><p>Call it &#8220;MalometerTDD&#8221; and use Core Data.</p></li>
+<li><p>Close the project window.</p></li>
+<li><p>Create a Podfile in the project directory.</p>
+
+<p>platform :ios, &#8220;7.0&#8221;</p>
+
+<p>target &#8220;MalometerTDD&#8221; do</p>
+
+<p>end</p>
+
+<p>target &#8220;MalometerTDDTests&#8221; do
+ pod &#8216;OCMock&#8217;
+end</p></li>
+<li><p>Execute <code>pod install</code></p></li>
+<li><p>Copy the Core Data Test template</p>
+
+<p>$ cd
+$ tar xjvf <path>/UnitTestTemplates.tar.bz2</p></li>
+<li><p>Open MalometerTDD.xcworkspace</p></li>
+</ol>
+
+<h3 id="firsttesttestreturn10min">First test (test return) (10 min)</h3>
+
+<p>Make an initial test, in order to understand the pieces and the mechanics.</p>
+
+<ol>
+<li>Create the Agent entity in the model and declare the name,
+ destructionPower and motivation as they were defined before.</li>
+<li>Generate the subclass.</li>
+<li>Generate the Model category.</li>
+<li>Remove the existing test.</li>
+<li>Create a new test file from the new template.</li>
+<li>Replace the imported header.</li>
+<li>Uncomment the createCoreDataStack invocation.</li>
+<li>Change the createSut to use a convenience constructor.</li>
+<li>Run the test and see that it fails.</li>
+<li>Add the source code in the category to create the Agent object.</li>
+<li>Run the test and see that it fails, but notice that it is related
+to &#8220;Agent not being located in the bundle.&#8221;</li>
+<li>Add the xcdatamodel file to the Tests target.</li>
+<li>Run the test and see that it succeeds.</li>
+</ol>
+
+<h2 id="tddexercise">TDD exercise</h2>
+
+<p>Now you play to get code from the tests.</p>
+
+<h3 id="testthetransientpropertyteststate15min">Test the transient property (test state) (15 min)</h3>
+
+<p>Core Data properties need no testing, but the assessment that is
+calculated, is somthing to be checked.</p>
+
+<ol>
+<li>Add the transient property to the model as you did before.</li>
+<li>Write the first test to check the assessment value given a
+ combination of destruction power and motivation.</li>
+<li>Run the test. Red.</li>
+<li>Hardcode the result.</li>
+<li>Run the test. Green.</li>
+<li>Add the second test for the transient property with another
+ combination of values.</li>
+<li>Run the test. Red.</li>
+<li>Generalize the resuls.</li>
+<li>Run the test. Green.</li>
+</ol>
+
+<h3 id="testkvocompliancetestbehavior20min">Test KVO compliance (test behavior) (20 min)</h3>
+
+<p>will/didAccessValueForKey is required for maintaining relationships
+and unfaulting, so we must be sure that it works.</p>
+
+<ol>
+<li>Test behavior using OCMock.</li>
+<li>Understand the problems of mocking and Core Data.</li>
+<li>Replace properties with primitive values and voila!</li>
+<li>Refactor to include constants.</li>
+</ol>
+
+<h3 id="testassessmentdependencies20min">Test assessment dependencies (20 min)</h3>
+
+<p>Test that objects observing changes of assessment are notified when
+the other two properties change.</p>
+
+<ol>
+<li>Create a boolean iVar to flag changes and reset in the test setUp.</li>
+<li>Create a test that observes changes of assessment when motivation
+ is changed.</li>
+<li>Write the code to pass the test. Notice that it breaks previous
+ tests because the motivation isn&#8217;t persisted.</li>
+<li>Write another test to persist motivation.</li>
+<li>Write the code to pass the tests.</li>
+<li>Add another test to check full KVO compliance of motivation.</li>
+<li>Repeat the process for destructionPower.</li>
+</ol>
+
+<h3 id="completeagentfunctionality30min">Complete agent functionality (30 min)</h3>
+
+<p>Test other logic of the model.</p>
+
+<ol>
+<li>Add tests and code for the picture logic.</li>
+<li>Add tests and code for the fetch requests.</li>
+</ol>
+
+<h3 id="createtheotherentitiesandtheirtests30min">Create the other entities and their tests (30 min)</h3>
+
+<p>Extend the tests to the FreakType entity.</p>
+
+<ol>
+<li>Create the FreakType entity and the subclass.</li>
+<li>Run the test to confirm that everything is fine.</li>
+<li>Test the convenience constructor, NOT the relationship.</li>
+<li>Create a fixture for the fetches.</li>
+</ol>
+
+<h3 id="testvalidation20min">Test validation (20 min)</h3>
+
+<p>Validation is a key part of Core Data. Test that the data is validated
+only if follows our requirements and understand how to make this
+custom validations.</p>
+
+<ol>
+<li>Write the test to confirm that an empty agent name cannot be
+ saved.</li>
+<li>Change the model to disallow empty agent names.</li>
+<li>Make another test to see that a name consisting only on spaces
+ will not be accepted when saving.</li>
+<li>To add the validation include the validateName:error: to the Agent
+ category. Pay attention to the input value: it is a pointer to an
+ NSString *.</li>
+<li>Add another test to verify that the validation returns an error
+ with a code when it doesn&#8217;t pass.</li>
+<li>Define the error codes in the category header.</li>
+<li>Create the error with the proper information to pass the test.</li>
+</ol>
+
+<h3 id="addaselfservedstack:uimanageddocument15min">Add a self served stack: UIManagedDocument (15 min)</h3>
+
+<p>Undertand a different way to work with the Core Data Stack.</p>
+
+<ol>
+<li>Create the MalometerDocument class as subclass of UIManagedDocument.</li>
+<li>Create its corresponding test class.</li>
+<li>In the createSut method, create a fake URL and a new document with
+ the initWithFileURL: initializer.</li>
+<li>Verify that the test passes.</li>
+<li>Write a test to ensure that the managed object context that the
+ document provides is the one that you create for the tests.</li>
+<li>Replace the context in the createSut method.</li>
+<li>Run the test. It will fail. Change the context creation to be
+ created with concurrency type NSMainQueueConcurrencyType.</li>
+</ol>
+
+<h3 id="exercisesforthereader15min">Exercises for the reader (15 min)</h3>
+
+<ul>
+<li>Test that pictures are deleted when objects are.</li>
+</ul>
+
+<h2 id="importdata">Import data</h2>
+
+<p>Make our object able to work with data in a different format.</p>
+
+<h3 id="createaconvenienceconstructorforimporting20min">Create a convenience constructor for importing (20 min)</h3>
+
+<p>Use convenience constructors, that consume the data in the expected format.</p>
+
+<ol>
+<li>Create a convenience constuctor that takes the MOC and a
+ dictionary as parameters.</li>
+<li>Verify (tests) that the name, destruction power, and motivation
+ are preserved.</li>
+</ol>
+
+<h3 id="createconvenienceconstructorsfortheotherentities20min">Create convenience constructors for the other entities (20 min)</h3>
+
+<p>Apply the same concepts to the other entities.</p>
+
+<ol>
+<li>Create a convenience constuctor for the FreakType that takes the
+ MOC and a dictionary as parameters.</li>
+<li>Verify (tests) that the name is preserved.</li>
+<li>Create a convenience constuctor for the Domain that takes the
+ MOC and a dictionary as parameters.</li>
+<li>Verify (tests) that the name is preserved.</li>
+</ol>
+
+<h3 id="importrelationships20min">Import relationships (20 min)</h3>
+
+<p>Understand how the relationships can be recovered from the data and
+applied to our model.</p>
+
+<ol>
+<li>Modify the agent convenience constructor (with tests) so it is
+ related with the (pre-existing) category that has the name provided
+ in the dictionary with the &#8220;freakTypeName&#8221; key, as name.</li>
+<li>Modify the agent convenience constructor (with tests) so it is
+ related with the (pre-existing) domains that have the names (array) provided
+ in the dictionary with the &#8220;domainNames&#8221; key, as name.</li>
+</ol>
+
+<h3 id="generalimporter30min">General importer (30 min)</h3>
+
+<p>Make the importer method that performs all the required steps.</p>
+
+<ol>
+<li>Create the importData as a document method that takes a dictionary.</li>
+<li>Create (and test) as many FreakTypes as indicated in the array
+ contained under the &#8220;FreakTypes&#8221; of the main dictionary key.</li>
+<li>Create (and test) as many Domains as indicated in the array
+ contained under the &#8220;Domains&#8221; of the main dictionary key.</li>
+<li>Create (and test) as many Agents as indicated in the array
+ contained under the &#8220;Agents&#8221; of the main dictionary key.</li>
+</ol>
+
+<h3 id="preloadexistingdata20min">Preload existing data (20 min)</h3>
+
+<p>Understand how to provide seed data in our app.</p>
+
+<ol>
+<li>Create another lazy loaded property that returns the URL to the
+ initial data. If it doesnt exist, it returns a path to a resource
+ in the main bundle.</li>
+<li>Create a lazy loaded property for the document class for the file
+ manager. If it doesn&#8217;t exist returns the defaultManager.</li>
+<li>Create a test to verify that if the storeURL passed to
+ configurePersistentStoreCoordinatorForURL:ofType:modelConfiguration:storeOptions:error:
+ doesn&#8217;t exist, it is copied from the URL to the initial data.</li>
+<li>Remember to call super.</li>
+</ol>
+
+<h3 id="exercisesforthereader">Exercises for the reader</h3>
+
+<ul>
+<li>Create an OSX target that loads a JSON file and uses this to store
+ the data.</li>
+<li>Import images.</li>
+<li>Export methods.</li>
+</ul>
+
+                  
+                  <!-- %%%%%% -->
+              </div>
+              
+
+              <div class="bs-docs-section" id="w06-section">
+                  <h1 id="w06" class="page-header">Semana 6</h1>
+                  
+                  <!-- &&&&&& -->
+                  
+
+<h1 id="timer:">Timer:</h1>
+
+<p>Propiedad:</p>
+
+<pre><code>@property (nonatomic, strong) NSTimer * timer;
+
+</code></pre>
+
+<p>Lazy getter</p>
+
+<pre><code>- (NSTimer *)timer
+{
+    if (_timer == nil)
+    {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(fireTimer) userInfo:nil repeats:YES];
+        
+    }
+    return _timer;
+}
+
+</code></pre>
+
+<p>lo que hace:</p>
+
+<pre><code>- (void) fireTiemer {
+    NSLog(@&quot;Loop&quot;);   
+}
+</code></pre>
+
+<p>Para lanzarlo:</p>
+
+<pre><code>[[self timer] fire];
+</code></pre>
+
+<p>Si queremos pararlo, conviene hacerlo asi para evitar retain circle:</p>
+
+<pre><code>- (void) stopTimer{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+</code></pre>
+
+<h1 id="audio:">Audio:</h1>
+
+<p>Importamos el framework:</p>
+
+<pre><code>#import &lt;AVFoundation/AVFoundation.h&gt;
+</code></pre>
+
+<p>propiedad</p>
+
+<pre><code>@property (strong, nonatomic)  AVAudioPlayer * myAudio;
+</code></pre>
+
+<p>Reproduce:</p>
+
+<pre><code>- (void) playMySound {
+    
+    NSURL* url = [[NSBundle mainBundle] URLForResource:@&quot;Torpedo&quot; withExtension:@&quot;wav&quot;];
+    NSError* error = nil;
+    self.myAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&amp;error];
+    if(!self.myAudio) {
+        NSLog(@&quot;Error creating player: %@&quot;, error);
+    }
+
+    [self.myAudio play];
+   
+}
+</code></pre>
+
+<h1 id="vibrate:">Vibrate:</h1>
+
+<p>Importa el framework:</p>
+
+<pre><code>#import &lt;AudioToolbox/AudioToolbox.h&gt;
+</code></pre>
+
+<p>Lanzar vibración:</p>
+
+<pre><code>AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+</code></pre>
+
+<h1 id="luzdeflash:">Luz de flash:</h1>
+
+<pre><code>- (void) fireFlash {
+    NSLog(@&quot;Loop&quot;);
+    
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    [device lockForConfiguration:nil];
+    [device setTorchMode: AVCaptureTorchModeOn];
+    [device unlockForConfiguration];
+    
+}
+</code></pre>
+
+<p>Sería mejor tener una propiedad:</p>
+
+<pre><code>@property (strong, nonatomic)  AVCaptureDevice * device;
+</code></pre>
+
+<p>Que se inicializa al cargar:</p>
+
+<pre><code>- (void) setupDevice{
+    self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+}
+</code></pre>
+
+<p>Y cuando quieras encender la luz:</p>
+
+<pre><code>[self.device lockForConfiguration:nil];
+[self.device setTorchMode: AVCaptureTorchModeOn];
+[self.device unlockForConfiguration];
+</code></pre>
+
+<p>Y cuando quieras apagar la luz:</p>
+
+<pre><code>[self.device lockForConfiguration:nil];
+[self.device setTorchMode: AVCaptureTorchModeOff];
+[self.device unlockForConfiguration];
+</code></pre>
+
+<h1 id="detectarlosshakes:">Detectar los SHAKES:</h1>
+
+<p>En el <code>didFinishLaunchingWithOptions</code> del appDelegate:</p>
+
+<pre><code>application.applicationSupportsShakeToEdit = YES;
+</code></pre>
+
+<p>En el viewController:</p>
+
+<pre><code>- (BOOL)canBecomeFirstResponder{
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+    if (motion == UIEventSubtypeMotionShake){
+        NSLog(@&quot;shakeeee&quot;);
+    }
+}
+</code></pre>
+
+<h1 id="usodelgiroscopio">Uso del giroscopio</h1>
+
+<p>Importo el framework:</p>
+
+<pre><code>#import &lt;CoreMotion/CoreMotion.h&gt;
+</code></pre>
+
+<p>Creo una propiedad del tipo <code>CMMotionManager</code>:</p>
+
+<pre><code>@property (strong, nonatomic) CMMotionManager *motionManager;
+</code></pre>
+
+<p>Activamos la &#8220;escucha&#8221; de los cambios en el acelerometro:</p>
+
+<pre><code>- (void) setupAccelerometer{
+    self.motionManager = [[CMMotionManager alloc] init];
+    self.motionManager.accelerometerUpdateInterval = .2;
+    
+    [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue]
+                                             withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
+                                                 [self outputAccelertionData:accelerometerData.acceleration];
+                                                 if(error){
+                                                     
+                                                     NSLog(@&quot;%@&quot;, error);
+                                                 }
+                                             }];
+}
+</code></pre>
+
+<p>En el bloque podemos llamar a una función que haga algo:</p>
+
+<pre><code>-(void)outputAccelertionData:(CMAcceleration)acceleration
+{    
+    NSLog(@&quot;x:%.2fg  y:%.2fg  z: %.2fg&quot;, acceleration.x, acceleration.y, acceleration.z);
+   
+}
+</code></pre>
+
+<h1 id="usarlacamara">Usar la camara</h1>
+
+<p>Importar el framework:</p>
+
+<pre><code>#import &lt;MobileCoreServices/MobileCoreServices.h&gt;
+</code></pre>
+
+<p>Conformar el protocolo de <code>UIImagePickerControllerDelegate</code> y <code>UINavigationControllerDelegate</code>:</p>
+
+<pre><code>@interface ViewController () &lt;UIImagePickerControllerDelegate, UINavigationControllerDelegate&gt;
+</code></pre>
+
+<p>Lanzar el uso de la camara:</p>
+
+<pre><code>- (void) useCamera{
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.mediaTypes = @[(NSString * ) kUTTypeImage];
+        imagePicker.allowsEditing = NO;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }
+}
+</code></pre>
+
+<p>Podemos usar la imagen cuando se hace cierra la cámara:</p>
+
+<pre><code>- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        UIImage *image = info[UIImagePickerControllerOriginalImage];
+        self.myImage.image = image;
+        UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+    }
+}
+</code></pre>
+
+<p>Si queremos acceder al &#8220;Camera Roll&#8221; para obtener una imagen, habría que cambiar la propiedad <code>sourceType</code> del <code>UIImagePickerController</code>:</p>
+
+<pre><code>imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+</code></pre>
+
+<h1 id="sensordeproximidad">Sensor de proximidad</h1>
+
+<p>Podemos detectar cambios de proximidad con el sensor, añadiendo un observador:</p>
+
+<pre><code>- (void) setupProximitySensor{
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximityChanged) name:UIDeviceProximityStateDidChangeNotification object:nil];
+    
+}
+</code></pre>
+
+<p>Y hacer lo que queramos antes los cambios:</p>
+
+<pre><code>- (void) proximityChanged{
+    NSLog(@&quot;%d&quot;, [[UIDevice currentDevice] proximityState]);
+}
+</code></pre>
+
+<h1 id="corelocation">Core Location</h1>
+
+<p>Importamos framework</p>
+
+<pre><code>#import &lt;CoreLocation/CoreLocation.h&gt;
+</code></pre>
+
+<p>Conformamos el protocolo de <code>CLLocationManagerDelegate</code></p>
+
+<pre><code>@interface ViewController () &lt;CLLocationManagerDelegate&gt;
+</code></pre>
+
+<p>Creamos una propiedad para nuestro <code>CLLocationManager</code></p>
+
+<pre><code>@property (nonatomic, strong) CLLocationManager * myManager;
+</code></pre>
+
+<p>Lanzamos nuestro Location Manager:</p>
+
+<pre><code>- (void) setupLocation{
+    
+    BOOL enabled = [CLLocationManager locationServicesEnabled];
+    
+    if(enabled){
+        _myManager = [[CLLocationManager alloc] init];
+        self.myManager.delegate = self;
+        self.myManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+        self.myManager.distanceFilter = 500;
+        [self.myManager startUpdatingLocation];
+    }
+    
+}
+</code></pre>
+
+<p>Podemos recibir la información cuando el GPS detecte un cambio, implementando el método:</p>
+
+<pre><code>- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+
+    CLLocation *location = [manager location];
+    CLLocationCoordinate2D myCoordinate = [location coordinate];
+    NSLog(@&quot;%f,%f&quot;, myCoordinate.latitude, myCoordinate.longitude);
+    
+}
+</code></pre>
+
+<h1 id="mostrarmapa">Mostrar mapa</h1>
+
+<p>Insertar un MapView y crear una propiedad <code>IBOutlet</code> de <code>MKMapView</code> en el controlador:</p>
+
+<pre><code>@property (weak, nonatomic) IBOutlet MKMapView *myMap;
+</code></pre>
+
+<h2 id="centrarelmapaconlaposiciónactualdelusuario.">Centrar el mapa con la posición actual del usuario.</h2>
+
+<pre><code>- (IBAction)goCenter:(id)sender {
+    [self.myMap userLocation];
+    CLLocationCoordinate2D myLocation = [[self.myMap userLocation] coordinate];
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(myLocation, 2000.0, 2000.0);
+    MKCoordinateRegion ajustedRegion = [self.myMap regionThatFits:viewRegion];
+    [self.myMap setRegion:ajustedRegion animated:YES];
+}
+</code></pre>
+
+<h2 id="cambiareltipodevistademapa.">Cambiar el tipo de vista de mapa.</h2>
+
+<p>Lo vamos hacer mostrando un ActionSheet para elegir el tipo:</p>
+
+<pre><code>- (IBAction)goType:(id)sender {
+    UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:@&quot;MapType&quot; delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@&quot;Satellite&quot;, @&quot;Standard&quot;, @&quot;Hybrid&quot;, nil];
+    [as showInView:self.view];
+}
+</code></pre>
+
+<p>Tenemos que conformar el delegado <code>UIActionSheetDelegate</code>:</p>
+
+<pre><code>@interface MapsViewController () &lt;UIActionSheetDelegate&gt;
+</code></pre>
+
+<p>E implementamos el método:</p>
+
+<pre><code>- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [self.myMap setMapType:MKMapTypeSatellite];
+            break;
+        
+        case 1:
+            [self.myMap setMapType:MKMapTypeStandard];
+            break;
+            
+        case 2:
+            [self.myMap setMapType:MKMapTypeHybrid];
+            break;
+            
+        default:
+            break;
+    }
+}
+</code></pre>
+
+<h2 id="buscardirecciónusandogeocoding">Buscar dirección usando Geocoding</h2>
+
+<pre><code>- (void) addressSearch: (NSString*)searchString{
+
+    NSMutableDictionary * placeDictionary = [[NSMutableDictionary alloc] init];
+    NSArray *keys = @[@&quot;Street&quot;, @&quot;City&quot;];
+    NSArray * addressComponents = [searchString componentsSeparatedByString:@&quot;,&quot;];
+    
+    if(addressComponents.count == 2){
+        [addressComponents enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [placeDictionary setValue:obj forKey:keys[idx]];
+        }];
+    }
+    
+    CLGeocoder * geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressDictionary:placeDictionary completionHandler:^(NSArray *placemarks, NSError *error) {
+        if([placemarks count]){
+            CLPlacemark * placemark = [placemarks firstObject];
+            CLLocation * location = placemark.location;
+            CLLocationCoordinate2D coordinate = location.coordinate;
+            [self goCenterInCoordinate:coordinate];
+        }
+    }];
+   
+}
+</code></pre>
+
+<p>Centramos el mapa en la primera dirección resultante con:</p>
+
+<pre><code>- (void) goCenterInCoordinate: (CLLocationCoordinate2D) coordinate{
+
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 2000.0, 2000.0);
+    MKCoordinateRegion ajustedRegion = [self.myMap regionThatFits:viewRegion];
+    [self.myMap setRegion:ajustedRegion animated:YES];
+}
+</code></pre>
+
+                  <!-- %%%%%% -->
+              </div>
+
+              <!-- 
+              <div class="bs-docs-section" id="w00-section">
+                  <h1 id="w00" class="page-header">Semana 00</h1>
+                  
+                  <!-- &&&&&& ->
+                  
+                  <!-- %%%%%% ->
+              </div>
+              -->
 
         </div>
         
