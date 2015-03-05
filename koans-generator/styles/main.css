@@ -1,0 +1,175 @@
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+html{
+    background: #ffffff; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkYmRiZGIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #ffffff 0%, #dbdbdb 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#dbdbdb)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#dbdbdb 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#dbdbdb 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#dbdbdb 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#dbdbdb 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dbdbdb',GradientType=0 ); /* IE6-8 */
+    
+}
+
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+    
+
+}
+
+a{color: #B1E2F9;}
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+#content{padding: 15px;}
+
+
+/*editor*/
+
+#editor{}
+
+#editor .col-head{color: #CCC; letter-spacing: 2px; margin-bottom: 30px  ;}
+
+#md{}
+#md .title{width: 100%; border: 1px solid #DDD; margin-bottom: 4px; padding: 4px;}
+#md .title:focus{outline:none;}
+
+#md>.btn{
+	width: 100%;
+    background-color: transparent;
+    border: 1px solid #999;
+    color: #999;
+    border-radius:0px;
+}
+
+#md .md{
+	padding: 0px;
+	margin: 0px;
+}
+
+#md .md .module{
+	margin: 15px 0px;
+	padding: 0px 15px;
+    border-left: 3px solid #B1E2F9;
+}
+
+#md .md .module>.btn{
+    border: none;
+}
+
+#md .md .module>h5{
+    margin: 4px 0px;
+    color: #777;
+}
+
+#md .md .module textarea:focus{outline:none;}
+#md .md .module input:focus{outline:none;}
+
+#md .md .module .preparagraph, #md .md .module .postparagraph{
+	margin: 0px;
+	padding: 3px;
+	width: 100%;
+	border: 0px solid pink;
+}
+
+#md .md .module .code{
+	background-color: #EEE;
+	padding: 8px;
+	color: #333;
+	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-size: 10px;
+	margin: 0px;
+	width: 100%;
+	height: 140px;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: scroll;
+	border: 0px solid pink;
+}
+
+#md .md .module .solutions{
+	margin-bottom: 15px;
+}
+#md .md .module .solutions .solution{
+	background-color: #EEE;
+    border: 0px solid red;
+	padding: 4px;
+	color: #333;
+	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-size: 10px;
+	margin: 0px;
+	margin-bottom: 4px;
+	width: 100%;
+}
+
+/*html*/
+#html{}
+#html .module{border: 0px solid #999;margin-bottom: 30px;}
+#html .module .pre{margin-top: 15px;}
+
+
+/*json*/
+#json{}
+#json .btn-reset{border-radius:0px; padding: 0px 2px; font-size: 9px;}
+    
+    
+#json .json{
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: scroll;
+    width: 100%;
+    height: 400px;
+    font-size: 12px;
+    color: #555;
+    background-color: #FFF;
+    border: 1px solid #FFF;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+#json .json:focus{outline:none;}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+
+.footer{
+    text-align: center;
+}
+
+/* Responsive: Portrait tablets and up */
+
+@media  (min-width: 1600px) {
+    .container{width: 1600px;}
+}
+@media screen and (min-width: 768px) {
+  
+
+  /* Remove the padding we set earlier */
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+
+}
