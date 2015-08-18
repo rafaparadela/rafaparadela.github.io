@@ -529,6 +529,7 @@
 	```
 
 	###Status code: `200`
+	
 	###Response:
 
 	```
