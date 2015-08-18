@@ -1,7 +1,7 @@
 
 #ITEMOFFERS
 
-- #Fetch ItemOffer Details: (GET /backoffice/v3/itemoffers/detail)
+- ##Fetch ItemOffer Details: (GET /backoffice/v3/itemoffers/detail)
 
 	###Parameters
 	- itemOfferId: `p000050`
@@ -90,7 +90,7 @@
 
 #SKUS
 
-- #Add SKU (POST /backoffice/v3/skus/)
+- ##Add SKU (POST /backoffice/v3/skus/)
 
 	###Request
 	```
@@ -230,7 +230,7 @@
 	```
 	
 
-- #Fetch SKU (GET /backoffice/v3/skus/{skuId})
+- ##Fetch SKU (GET /backoffice/v3/skus/{skuId})
 
 	###Paramters
 	- skuId : `sku650009`
@@ -414,9 +414,9 @@
 	```
 
 
-- #Update SKU (PUT /backoffice/v3/skus/{skuId})
+- ##Update SKU (PUT /backoffice/v3/skus/{skuId})
 
-	###Request
+	###Request:
 	```
 {
    "sku": {
@@ -526,8 +526,7 @@
        }
    }
 }
-```
-
+	```
 
 	###Status code: `200`
 	###Response:
@@ -655,7 +654,7 @@
 	```
 
 
-- #Set Inventory SKU (PUT /backoffice/v3/skus/{skuId}/inventory)
+- ##Set Inventory SKU (PUT /backoffice/v3/skus/{skuId}/inventory)
 
 	###Parameter:
 	- skuId = `sku650009`
@@ -681,7 +680,7 @@
 	```
 	
 
-- #Set Inventory SKU (PUT /backoffice/v3/skus/{skuId}/inventory)
+- ##Set Inventory SKU (PUT /backoffice/v3/skus/{skuId}/inventory)
 
 	###Parameter:
 	- skuId = `sku650009`
