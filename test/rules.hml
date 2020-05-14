@@ -1,0 +1,1722 @@
+<ul class="list-group">
+   <li id="pattern-1491" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1491" class="ChkPattern" data-pattern-id="1491" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1491"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid Control flow inside finally <span class="PatternFeedback-1491"></span></h5>
+               <a id="btn-details-pattern-1491" href="#collapse-pattern-1491" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button collapsed">Details</a>
+            </div>
+            <p>Avoid using return statement inside finally.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1491" class="collapse" aria-expanded="false" style="height: 0px;">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Finally blocks should not contain control flow statements such as <code>return</code> and complex logic because it may mask exceptions and it makes debugging more difficult.</p>
+                     <p><a href="http://stackoverflow.com/questions/8443743/return-and-try-catch-finally-block-evaluation-in-scala">More Info</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-798" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-798" class="ChkPattern" checked="" data-pattern-id="798" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-798"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid Direct Promise Creation <span class="PatternFeedback-798"></span></h5>
+               <a id="btn-details-pattern-798" href="#collapse-pattern-798" data-toggle="collapse" aria-expanded="true" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Always try to avoid creating Promise instances directly.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-798" class="collapse in" aria-expanded="true" style="">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>It's not recommended to use the Promise object and its factory methods directly in your code. Instead you should use
+                        Futures and the provided combinators to manipulate Promises.
+                     </p>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Concurrency-Futures">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1492" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1492" class="ChkPattern" checked="" data-pattern-id="1492" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1492"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid Object deserialization of untrusted data <span class="PatternFeedback-1492"></span></h5>
+               <a id="btn-details-pattern-1492" href="#collapse-pattern-1492" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Object deserialization of untrusted data can lead to remote code execution.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1492" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Object deserialization of untrusted data can lead to remote code execution, if there is a class in classpath allow the trigger of malicious operation.</p>
+                     <p>Libraries developers tend to fix class that provided potential malicious trigger. Their are still classes that are known to trigger <a href="https://gist.github.com/coekie/a27cc406fc9f3dc7a70d">Denial of Service</a>.</p>
+                     <p>Deserialization is a sensible operation that has a great history of vulnerabilities. The web application might become vulnerable has soon as a new vulnerability is found in the Java Virtual Machine.</p>
+                     <p>Code at risk:</p>
+                     <pre><code>public UserData deserializeObject(InputStream receivedFile) throws IOException, ClassNotFoundException {
+
+    try (ObjectInputStream in = new ObjectInputStream(receivedFile)) {
+        return (UserData) in.readObject();
+    }
+}
+</code></pre>
+                     <p>Solution:</p>
+                     <pre><code>Avoid deserializing object provided by remote users.
+</code></pre>
+                     <p>More information at:</p>
+                     <ul>
+                        <li><a href="https://cwe.mitre.org/data/definitions/502.html">CWE-502: Deserialization of Untrusted Data</a></li>
+                        <li><a href="https://www.owasp.org/index.php/Deserialization_of_untrusted_data">Deserialization of untrusted data</a></li>
+                        <li><a href="http://www.oracle.com/technetwork/java/seccodeguide-139067.html#8">Serialization and Deserialization</a></li>
+                        <li><a href="https://github.com/frohoff/ysoserial">A proof-of-concept tool for generating payloads that exploit unsafe Java object deserialization</a></li>
+                        <li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2015-2590">OpenJDK: Deserialization issue in ObjectInputStream.readSerialData() (CVE-2015-2590)</a></li>
+                        <li><a href="https://www.rapid7.com/db/modules/exploit/multi/browser/java_calendar_deserialize">Rapid7: Sun Java Calendar Deserialization Privilege Escalation (CVE-2008-5353)</a></li>
+                     </ul>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-797" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-797" class="ChkPattern" checked="" data-pattern-id="797" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-797"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid creating Threads <span class="PatternFeedback-797"></span></h5>
+               <a id="btn-details-pattern-797" href="#collapse-pattern-797" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Implement concurrent behaviour by using Futures.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-797" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Futures allow the programmer to express concurrent computation in a declarative style, are composable, and have principled handling of failure.
+                        These qualities have convinced us that they are especially well suited for use in functional programming languages, where this is the encouraged style.
+                     </p>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Concurrency-Futures">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1507" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1507" class="ChkPattern" checked="" data-pattern-id="1507" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1507"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid implementing dangerous Regexs <span class="PatternFeedback-1507"></span></h5>
+               <a id="btn-details-pattern-1507" href="#collapse-pattern-1507" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Regular expressions are frequently subject to Denial of Service attacks</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1507" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Regular expressions (regexs) are frequently subject to Denial of Service (DOS) attacks (called ReDOS). This is due to the fact that regex engines may take a large amount of time when analyzing certain strings, depending on how the regex is defined.</p>
+                     <p>For example, for the regex: ^(a+)+$, the input "aaaaaaaaaaaaaaaaX" will cause the regex engine to analyze 65536 different paths.[1] Example taken from OWASP references</p>
+                     <p>Therefore, it is possible that a single request may cause a large amount of computation on the server side. The problem with this regex, and others like it, is that there are two different ways the same input character can be accepted by the Regex due to the + (or a *) inside the parenthesis, and the + (or a *) outside the parenthesis. The way this is written, either + could consume the character 'a'. To fix this, the regex should be rewritten to eliminate the ambiguity. For example, this could simply be rewritten as: ^a+$, which is presumably what the author meant anyway (any number of a's). Assuming that's what the original regex meant, this new regex can be evaluated quickly, and is not subject to ReDOS.</p>
+                     <p>For more details:</p>
+                     <p><a href="http://h3xstream.github.io/find-sec-bugs/bugs.htm#REDOS">FindBugs</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-796" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-796" class="ChkPattern" checked="" data-pattern-id="796" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-796"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid self-explanatory type aliases <span class="PatternFeedback-796"></span></h5>
+               <a id="btn-details-pattern-796" href="#collapse-pattern-796" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Prefer type aliases for complex types only.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-796" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Use type aliases when they provide convenient naming or clarify purpose, but do not alias types that are self-explanatory.</p>
+                     <pre><code> () =&gt; Int
+</code></pre>
+                     <p>is clearer than</p>
+                     <pre><code> type IntMaker = () =&gt; Int
+ IntMaker
+</code></pre>
+                     <p>since it is both short and uses a common type. However</p>
+                     <pre><code> class ConcurrentPool[K, V] {
+   type Queue = ConcurrentLinkedQueue[V]
+   type Map   = ConcurrentHashMap[K, Queue]
+   ...
+ }
+</code></pre>
+                     <p>is helpful since it communicates purpose and enhances brevity.</p>
+                     <p>For more details:</p>
+                     <p><a href="http://twitter.github.io/effectivescala/#Types%20and%20Generics-Type%20aliases">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-801" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-801" class="ChkPattern" checked="" data-pattern-id="801" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-801"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid usage of Structural Types <span class="PatternFeedback-801"></span></h5>
+               <a id="btn-details-pattern-801" href="#collapse-pattern-801" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Do not use structural types in normal use.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-801" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Do not use structural types in normal use. They are a convenient and powerful feature, but unfortunately do not have an efficient implementation on the JVM. However — due to an implementation quirk — they provide a very nice shorthand for doing reflection.</p>
+                     <p>val obj: AnyRef</p>
+                     <p>obj.asInstanceOf[{def close()}].close()</p>
+                     <p>For more details:</p>
+                     <p><a href="http://twitter.github.io/effectivescala/#Object%20oriented%20programming-Structural%20typing">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1757" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1757" class="ChkPattern" data-pattern-id="1757" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1757"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using DateTime.now without a timezone <span class="PatternFeedback-1757"></span></h5>
+               <a id="btn-details-pattern-1757" href="#collapse-pattern-1757" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Always prefer using DateTime.now with a specified timezone in order to avoid subtle bugs.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1757" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Using DateTime.now without specifying a timezone can lead to error prone code with regard to
+                        dealing with other timezones than those initially considered, as well as with daylight saving time.
+                     </p>
+                     <p>For instance, the following example</p>
+                     <pre><code>val now = DateTime.now
+</code></pre>
+                     <p>could easily be written as this</p>
+                     <pre><code>val now = DateTime.now(DateTimeZone.UTC)
+</code></pre>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-10266" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-10266" class="ChkPattern" data-pattern-id="10266" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-10266"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using empty blocks in for statements <span class="PatternFeedback-10266"></span></h5>
+               <a id="btn-details-pattern-10266" href="#collapse-pattern-10266" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Avoid using empty blocks in for statements.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-10266" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Avoid using empty blocks on for statements</p>
+                     <pre><code> for( ... )
+ {} // &lt;-- avoid this
+</code></pre>
+                     <p>Or
+                        for{ ... }
+                        yield {} // &lt;-- avoid this
+                     </p>
+                     <p>For more details:</p>
+                     <p><a href="https://docs.scala-lang.org/overviews/quasiquotes/expression-details.html#for-and-for-yield-loops">Scala Docs</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-10267" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-10267" class="ChkPattern" data-pattern-id="10267" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-10267"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using empty blocks in if statements <span class="PatternFeedback-10267"></span></h5>
+               <a id="btn-details-pattern-10267" href="#collapse-pattern-10267" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Avoid using empty blocks in if statements.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-10267" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Avoid using empty blocks on if statements</p>
+                     <pre><code> if(foo)
+ {} // &lt;-- avoid this
+</code></pre>
+                     <p>For more details:</p>
+                     <p><a href="https://docs.scala-lang.org/overviews/quasiquotes/expression-details.html#if">Scala Docs</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-10269" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-10269" class="ChkPattern" data-pattern-id="10269" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-10269"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using empty blocks in while statements <span class="PatternFeedback-10269"></span></h5>
+               <a id="btn-details-pattern-10269" href="#collapse-pattern-10269" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Avoid using empty blocks in while statements.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-10269" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Avoid using empty blocks on while statements</p>
+                     <pre><code> while( ... )
+ {} // &lt;-- avoid this
+</code></pre>
+                     <p>Or</p>
+                     <pre><code> do
+ {} // &lt;-- avoid this
+ while( ... )
+</code></pre>
+                     <p>For more details:</p>
+                     <p><a href="https://docs.scala-lang.org/overviews/quasiquotes/expression-details.html#while-and-do-while-loops">Scala Docs</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-10270" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-10270" class="ChkPattern" data-pattern-id="10270" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-10270"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using empty methods <span class="PatternFeedback-10270"></span></h5>
+               <a id="btn-details-pattern-10270" href="#collapse-pattern-10270" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Avoid using empty methods.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-10270" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Avoid using empty method</p>
+                     <pre><code> def empty(): Boolean = {} // &lt;-- avoid this
+</code></pre>
+                     <p>For more details:</p>
+                     <p><a href="https://docs.scala-lang.org/overviews/quasiquotes/expression-details.html#function">Scala Docs</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-10268" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-10268" class="ChkPattern" data-pattern-id="10268" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-10268"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using empty try blocks <span class="PatternFeedback-10268"></span></h5>
+               <a id="btn-details-pattern-10268" href="#collapse-pattern-10268" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Avoid using empty try blocks.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-10268" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Avoid using empty try blocks</p>
+                     <pre><code> try
+ {} // &lt;-- avoid this
+ catch( ... )
+ {} // &lt;-- and also avoid this
+</code></pre>
+                     <p>For more details:</p>
+                     <p><a href="https://docs.scala-lang.org/overviews/quasiquotes/expression-details.html#try">Scala Docs</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-781" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-781" class="ChkPattern" checked="" data-pattern-id="781" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-781"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using reserved keywords <span class="PatternFeedback-781"></span></h5>
+               <a id="btn-details-pattern-781" href="#collapse-pattern-781" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Don't use reserved scala keywords to name things.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-781" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Parameters</h5>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="exclude">Set of reserved keywords excluded from the search</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="[]">
+                        </div>
+                     </div>
+                     <button id="btn-save-parameters-pattern-781" class="btn btn-default btn-xs SaveParameters" data-pattern-id="781" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro">
+                     Save parameters</button>
+                     <span class="feedback SaveParametersFeedback-781"></span>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Formatting-Naming">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1501" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1501" class="ChkPattern" checked="" data-pattern-id="1501" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1501"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Avoid using the NullCipher <span class="PatternFeedback-1501"></span></h5>
+               <a id="btn-details-pattern-1501" href="#collapse-pattern-1501" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>The NullCipher is rarely used intentionally in production applications.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1501" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>The NullCipher is rarely used intentionally in production applications. It implements the Cipher interface by returning ciphertext identical to the supplied plaintext. In a few contexts, such as testing, a NullCipher may be appropriate.</p>
+                     <p><strong>Solution:</strong>
+                        Avoid using the NullCipher. Its accidental use can introduce a significant confidentiality risk.
+                     </p>
+                     <p>For more details:</p>
+                     <p><a href="http://h3xstream.github.io/find-sec-bugs/bugs.htm#NULL_CIPHER">FindBugs</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-795" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-795" class="ChkPattern" data-pattern-id="795" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-795"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce Active Names <span class="PatternFeedback-795"></span></h5>
+               <a id="btn-details-pattern-795" href="#collapse-pattern-795" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Use active names for operations with side effects.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-795" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Operations that produce side effects should have names that indicate actions.</p>
+                     <p>For example, prefer <code>user.activate()</code> instead of <code>user.setActive()</code>.</p>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Functional%20programming-Call%20by%20name">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-785" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-785" class="ChkPattern" checked="" data-pattern-id="785" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-785"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce Wildcard Imports <span class="PatternFeedback-785"></span></h5>
+               <a id="btn-details-pattern-785" href="#collapse-pattern-785" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Use wildcards when more than six names are imported.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-785" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>e.g.: import com.twitter.concurrent._
+                        Don't apply this blindly: some packages export too many names
+                     </p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Control%20structures-Returns">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-784" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-784" class="ChkPattern" checked="" data-pattern-id="784" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-784"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce call-by-name as last arguments <span class="PatternFeedback-784"></span></h5>
+               <a id="btn-details-pattern-784" href="#collapse-pattern-784" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Only use call-by-name arguments in the last position of the last argument list.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-784" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Functional%20programming-Call%20by%20name">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-3344" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-3344" class="ChkPattern" data-pattern-id="3344" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-3344"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce class naming convention <span class="PatternFeedback-3344"></span></h5>
+               <a id="btn-details-pattern-3344" href="#collapse-pattern-3344" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Enforces Scala class naming convention.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-3344" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Parameters</h5>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="regex">The regex for name validation</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="^[A-Z][A-Za-z0-9]*$">
+                        </div>
+                     </div>
+                     <button id="btn-save-parameters-pattern-3344" class="btn btn-default btn-xs SaveParameters" data-pattern-id="3344" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro">
+                     Save parameters</button>
+                     <span class="feedback SaveParametersFeedback-3344"></span>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Classes should be named in the CamelCase style with the very first letter of the name capitalized:</p>
+                     <pre><code>class MyFairLady
+</code></pre>
+                     <p>This mimics the Java naming convention for classes.</p>
+                     <p><a href="http://docs.scala-lang.org/style/naming-conventions.html">Source</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1490" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1490" class="ChkPattern" checked="" data-pattern-id="1490" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1490"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce consistent field names <span class="PatternFeedback-1490"></span></h5>
+               <a id="btn-details-pattern-1490" href="#collapse-pattern-1490" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Enforce that field names match a regular expression</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1490" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Parameters</h5>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="allowConstants">Use a different regular expression for object constants</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="true">
+                        </div>
+                     </div>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="constantsRegex">Regular expression to use in object constants (if allowConstants is set to true)</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="^[A-Za-z][A-Za-z0-9]*$">
+                        </div>
+                     </div>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="includeEnums">Enforce naming convention for Enumeration Values</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="false">
+                        </div>
+                     </div>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="regex">Regular expression</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="^[a-z][A-Za-z0-9]*$">
+                        </div>
+                     </div>
+                     <button id="btn-save-parameters-pattern-1490" class="btn btn-default btn-xs SaveParameters" data-pattern-id="1490" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro">
+                     Save parameters</button>
+                     <span class="feedback SaveParametersFeedback-1490"></span>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>A consistent naming convention for field names can make code easier to read and understand.
+                        You can parameterize the regex that validates your field names. The default regex is "^[a-z][A-Za-z0-9]*$".
+                        There is also an option to specify if you want this pattern to check for enum variables (includeEnums), that are ignored by default.
+                     </p>
+                     <p><a href="http://docs.scala-lang.org/style/naming-conventions.html">More Info</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-778" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-778" class="ChkPattern" checked="" data-pattern-id="778" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-778"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce grouping imports <span class="PatternFeedback-778"></span></h5>
+               <a id="btn-details-pattern-778" href="#collapse-pattern-778" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Use braces when importing several names from a package.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-778" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Formatting-Imports">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-800" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-800" class="ChkPattern" data-pattern-id="800" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-800"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce immutable collections <span class="PatternFeedback-800"></span></h5>
+               <a id="btn-details-pattern-800" href="#collapse-pattern-800" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Prefer using immutable collections.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-800" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Prefer using immutable collections over the mutable ones. They are applicable in most circumstances,
+                        and make programs easier to reason about since they are referentially transparent and are thus also thread-safe by default.
+                     </p>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Collections-Use">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-790" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-790" class="ChkPattern" checked="" data-pattern-id="790" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-790"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce imports at the top of the package <span class="PatternFeedback-790"></span></h5>
+               <a id="btn-details-pattern-790" href="#collapse-pattern-790" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Putting all imports at the beginning of the package can increase readability.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-790" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Formatting-Imports">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-3345" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-3345" class="ChkPattern" data-pattern-id="3345" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-3345"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce method naming convention <span class="PatternFeedback-3345"></span></h5>
+               <a id="btn-details-pattern-3345" href="#collapse-pattern-3345" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Enforces Scala method naming convention.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-3345" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Parameters</h5>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="regex">The regex for name validation</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="^([a-z][A-Za-z0-9]*|<<|>>>|>|==|!=|<|<=|>|>=|\||&amp;|\^|\+|-|\*|\/|%|\|\||&amp;&amp;|\+\+|--|\+=|-=)$">
+                        </div>
+                     </div>
+                     <button id="btn-save-parameters-pattern-3345" class="btn btn-default btn-xs SaveParameters" data-pattern-id="3345" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro">
+                     Save parameters</button>
+                     <span class="feedback SaveParametersFeedback-3345"></span>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Textual (alphabetic) names for methods should be in the camelCase style with the first letter lower-case:</p>
+                     <pre><code>def myFairMethod = ???
+</code></pre>
+                     <p><a href="http://docs.scala-lang.org/style/naming-conventions.html">Source</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-789" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-789" class="ChkPattern" data-pattern-id="789" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-789"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce minimum visibility in module values <span class="PatternFeedback-789"></span></h5>
+               <a id="btn-details-pattern-789" href="#collapse-pattern-789" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Values should have minimum scope to avoid misuses.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-789" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Scala has very expressive visibility modifiers. It’s important to use these as they define what constitutes the public API.
+                        Public APIs should be limited so users don’t inadvertently rely on implementation details and limit the author’s ability
+                        to change them: They are crucial to good modularity. As a rule, it’s much easier to expand public APIs than to contract
+                        them. Poor annotations can also compromise backwards binary compatibility of your code.
+                     </p>
+                     <pre><code> private[this]
+</code></pre>
+                     <p>A class member marked private,</p>
+                     <pre><code> private val x: Int = ...
+</code></pre>
+                     <p>is visible to all instances of that class (but not their subclasses). In most cases, you want private[this].</p>
+                     <pre><code> private[this] val x: Int = ...
+</code></pre>
+                     <p>which limits visibility to the particular instance. The Scala compiler is also able to translate private[this] into a
+                        simple field access (since access is limited to the statically defined class) which can sometimes aid performance optimizations.
+                     </p>
+                     <p><a href="http://twitter.github.io/effectivescala/#Object&amp;20oriented&amp;20programming-Visibility">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-3346" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-3346" class="ChkPattern" data-pattern-id="3346" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-3346"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce object naming convention <span class="PatternFeedback-3346"></span></h5>
+               <a id="btn-details-pattern-3346" href="#collapse-pattern-3346" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Enforces Scala object naming convention.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-3346" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Parameters</h5>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="regex">The regex for name validation</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="^[A-Z][A-Za-z0-9]*$">
+                        </div>
+                     </div>
+                     <button id="btn-save-parameters-pattern-3346" class="btn btn-default btn-xs SaveParameters" data-pattern-id="3346" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro">
+                     Save parameters</button>
+                     <span class="feedback SaveParametersFeedback-3346"></span>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Objects should be named in the CamelCase style with the very first letter of the name capitalized:</p>
+                     <pre><code>object MyFairLady
+</code></pre>
+                     <p><a href="http://docs.scala-lang.org/style/naming-conventions.html">Source</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-783" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-783" class="ChkPattern" checked="" data-pattern-id="783" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-783"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce pattern matching over else-if nesting <span class="PatternFeedback-783"></span></h5>
+               <a id="btn-details-pattern-783" href="#collapse-pattern-783" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Pattern matching usually increases readability of the code.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-783" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Instead of using</p>
+                     <pre><code> def suffix(i: Int) =
+   if      (i == 1) "st"
+   else if (i == 2) "nd"
+   else if (i == 3) "rd"
+   else             "th"
+</code></pre>
+                     <p>prefer</p>
+                     <pre><code> def suffix(i: Int) = i match {
+   case 1 =&gt; "st"
+   case 2 =&gt; "nd"
+   case 3 =&gt; "rd"
+   case _ =&gt; "th"
+ }
+</code></pre>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Control%20structures-Returns">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1500" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1500" class="ChkPattern" checked="" data-pattern-id="1500" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1500"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce secure RSA usage <span class="PatternFeedback-1500"></span></h5>
+               <a id="btn-details-pattern-1500" href="#collapse-pattern-1500" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>RSA algorithm must have padding set.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1500" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Detects usage of the RSA algorithm without Optimal Asymmetric Encryption Padding (OAEP), which might weaken the encryption.</p>
+                     <p>Vulnerable Code:</p>
+                     <pre><code>Cipher.getInstance("RSA/NONE/NoPadding")
+</code></pre>
+                     <p>Solution:</p>
+                     <pre><code>Cipher.getInstance("RSA/ECB/OAEPWithMD5AndMGF1Padding")
+</code></pre>
+                     <p><a href="http://h3xstream.github.io/find-sec-bugs/bugs.htm#RSA_NO_PADDING">More information</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-786" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-786" class="ChkPattern" data-pattern-id="786" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-786"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce sorting imports alphabetically <span class="PatternFeedback-786"></span></h5>
+               <a id="btn-details-pattern-786" href="#collapse-pattern-786" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>This makes it easy to examine visually, and is simple to automate.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-786" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Parameters</h5>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="caseSensitive">Most IDEs do respect case sensitivity when sorting imports.</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="false">
+                        </div>
+                     </div>
+                     <button id="btn-save-parameters-pattern-786" class="btn btn-default btn-xs SaveParameters" data-pattern-id="786" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro">
+                     Save parameters</button>
+                     <span class="feedback SaveParametersFeedback-786"></span>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>For more details:</p>
+                     <p><a href="http://twitter.github.io/effectivescala/#Formatting-Imports">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1497" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1497" class="ChkPattern" data-pattern-id="1497" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1497"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce type parameter names <span class="PatternFeedback-1497"></span></h5>
+               <a id="btn-details-pattern-1497" href="#collapse-pattern-1497" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Enforces type parameters naming convention</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1497" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Parameters</h5>
+                     <div class="row ParameterRow">
+                        <div class="col-xs-8 ParameterTitle" data-parameter-key="regex">Regular expression</div>
+                        <div class="col-xs-2 col-xs-offset-1 form-group">
+                           <input class="form-control ParameterValue" type="text" value="^[A-Z]$">
+                        </div>
+                     </div>
+                     <button id="btn-save-parameters-pattern-1497" class="btn btn-default btn-xs SaveParameters" data-pattern-id="1497" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro">
+                     Save parameters</button>
+                     <span class="feedback SaveParametersFeedback-1497"></span>
+                  </div>
+               </div>
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Follows the Scala naming convention to use single letter type parameter.</p>
+                     <p>If you prefer other naming conventions, you can change the 'regex' parameter to sooth your style.</p>
+                     <p>A common practice is to use more descriptive names prefixed with a capital T.</p>
+                     <p>For example:</p>
+                     <pre><code>    case class Entry[TKey, TProperties](key: TKey, properties: TProperties)
+
+    trait HistoryBuilder[TKey, TEntity &lt;: Entity[TProperties], TProperties] {
+    ...
+    }
+</code></pre>
+                     <p>In that case, set the regexp parameter to <code>^T[A-Z][A-Za-z0-9]*$</code>.</p>
+                     <p><a href="http://docs.scala-lang.org/style/naming-conventions.html">More Info</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1966" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1966" class="ChkPattern" data-pattern-id="1966" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1966"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce typed equality comparison <span class="PatternFeedback-1966"></span></h5>
+               <a id="btn-details-pattern-1966" href="#collapse-pattern-1966" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Prohibits using the untyped operators == and !=.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1966" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Using the <code>==</code> and <code>!=</code> operators are not type-checked by the compiler.
+                        As an alternative, you should use type-checked <code>===</code> and <code>=!=</code> as provided by scalaz or cats.
+                     </p>
+                     <p><a href="https://hseeberger.wordpress.com/2013/05/30/implicits-unchained-type-safe-equality-part-1/">Read more</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-787" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-787" class="ChkPattern" checked="" data-pattern-id="787" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-787"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce usage of the Try object <span class="PatternFeedback-787"></span></h5>
+               <a id="btn-details-pattern-787" href="#collapse-pattern-787" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Enforce usage of the util.Try object instead of try-catch blocks.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-787" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Using util.Try is a good, idiomatic choice, as it harnesses the type system to ensure that the user is properly considering error handling.</p>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Error%20handling">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-793" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-793" class="ChkPattern" data-pattern-id="793" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-793"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce using defaults on conditional execution <span class="PatternFeedback-793"></span></h5>
+               <a id="btn-details-pattern-793" href="#collapse-pattern-793" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Don't use pattern matching for conditional execution when defaults make more sense.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-793" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>The collections libraries usually provide methods that return Options. Avoid using</p>
+                     <pre><code> val x = list match { case head :: _ =&gt; head; case Nil =&gt; default }
+</code></pre>
+                     <p>because</p>
+                     <pre><code> val x = list.headOption getOrElse default
+</code></pre>
+                     <p>is both shorter and communicates purpose.</p>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Functional%20programming-Call%20by%20name">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-794" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-794" class="ChkPattern" data-pattern-id="794" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-794"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce using pattern matching directly in function definitions <span class="PatternFeedback-794"></span></h5>
+               <a id="btn-details-pattern-794" href="#collapse-pattern-794" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Prefer pattern matching directly in function definitions.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-794" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Instead of</p>
+                     <pre><code> list map { item =&gt;
+   item match {
+     case Some(x) =&gt; x
+     case None =&gt; default
+   }
+ }
+</code></pre>
+                     <p>collapse the match</p>
+                     <pre><code> list map {
+   case Some(x) =&gt; x
+   case None =&gt; default
+ }
+</code></pre>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Formatting-Pattern%20matching">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-802" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-802" class="ChkPattern" data-pattern-id="802" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-802"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Enforce using the mutable namespace explicitly <span class="PatternFeedback-802"></span></h5>
+               <a id="btn-details-pattern-802" href="#collapse-pattern-802" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Use the mutable namespace explicitly.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Error Prone</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-802" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Don't import scala.collection.mutable._ and refer to Set, instead,</p>
+                     <pre><code> import scala.collection.mutable
+ val set = mutable.Set()
+</code></pre>
+                     <p>makes it clear that the mutable variant is being used.</p>
+                     <p>For more details:</p>
+                     <p><a href="https://twitter-archive.github.io/effectivescala/#Collections-Use">Effective Scala</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1963" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1963" class="ChkPattern" checked="" data-pattern-id="1963" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1963"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Play untrusted Content-Type header <span class="PatternFeedback-1963"></span></h5>
+               <a id="btn-details-pattern-1963" href="#collapse-pattern-1963" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Check for usage of the 'Content-Type' header in play</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1963" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>The HTTP header Content-Type can be controlled by the client. As such, its value should not be used in any security critical decisions.</p>
+                     <p><a href="http://find-sec-bugs.github.io/bugs.htm#SERVLET_CONTENT_TYPE">More Information</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1968" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1968" class="ChkPattern" checked="" data-pattern-id="1968" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1968"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Play untrusted http-header: Referrer <span class="PatternFeedback-1968"></span></h5>
+               <a id="btn-details-pattern-1968" href="#collapse-pattern-1968" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>The Referer header can be controlled by the client. As such, its value should not be used in any security critical decisions.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1968" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>The Referer header can be controlled by the client. As such, its value should not be used in any security critical decisions.</p>
+                     <p><a href="http://cwe.mitre.org/data/definitions/807.html">More Information</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1964" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1964" class="ChkPattern" checked="" data-pattern-id="1964" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1964"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Play untrusted http-header: User-Agent <span class="PatternFeedback-1964"></span></h5>
+               <a id="btn-details-pattern-1964" href="#collapse-pattern-1964" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>The User-Agent header can be controlled by the client. As such, its value should not be used in any security critical decisions.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1964" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>The User-Agent header can be controlled by the client. As such, its value should not be used in any security critical decisions.</p>
+                     <p><a href="http://cwe.mitre.org/data/definitions/807.html">More Information</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1965" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1965" class="ChkPattern" checked="" data-pattern-id="1965" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1965"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Play untrusted http-headers <span class="PatternFeedback-1965"></span></h5>
+               <a id="btn-details-pattern-1965" href="#collapse-pattern-1965" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Request headers can easily be altered by the requesting user.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1965" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Request headers can easily be altered by the requesting user. In general, no assumption should be made that the request came from a regular browser without modification by an attacker. As such, it is recommended that you not trust this value in any security decisions you make with respect to a request.</p>
+                     <p>For more details:</p>
+                     <p><a href="http://cwe.mitre.org/data/definitions/807.html">CWE</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1969" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1969" class="ChkPattern" checked="" data-pattern-id="1969" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1969"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Play unvalidated redirect <span class="PatternFeedback-1969"></span></h5>
+               <a id="btn-details-pattern-1969" href="#collapse-pattern-1969" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Check if call to redirect comes directly from an input</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1969" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Unvalidated redirects occur when an application redirects a user to a destination URL specified by a user supplied parameter that is not validated. Such vulnerabilities can be used to facilitate phishing attacks.</p>
+                     <p><strong>Scenario</strong></p>
+                     <ol>
+                        <li>
+                           <p>A user is tricked into visiting the malicious URL: http://website.com/login?redirect=http://evil.vvebsite.com/fake/login</p>
+                        </li>
+                        <li>
+                           <p>The user is redirected to a fake login page that looks like a site they trust. (http://evil.vvebsite.com/fake/login)</p>
+                        </li>
+                        <li>
+                           <p>The user enters his credentials.</p>
+                        </li>
+                        <li>
+                           <p>The evil site steals the user's credentials and redirects him to the original website.</p>
+                        </li>
+                     </ol>
+                     <p>This attack is plausible because most users don't double check the URL after the redirection. Also, redirection to an authentication page is very common.</p>
+                     <p><strong>Vulnerable Code:</strong></p>
+                     <pre><code>class Application extends Controller {
+
+  def index(string: String): Action[AnyContent] = Redirect(string)
+}
+</code></pre>
+                     <p><strong>Solution/Countermeasures:</strong></p>
+                     <ul>
+                        <li>Don't accept redirection destinations from users</li>
+                        <li>Accept a destination key, and use it to look up the target (legal) destination</li>
+                        <li>Accept only relative paths</li>
+                        <li>White list URLs (if possible)</li>
+                        <li>Validate that the beginning of the URL is part of a white list</li>
+                     </ul>
+                     <p><a href="http://find-sec-bugs.github.io/bugs.htm#UNVALIDATED_REDIRECT">More Information</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1885" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1885" class="ChkPattern" checked="" data-pattern-id="1885" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1885"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Potential filename injection <span class="PatternFeedback-1885"></span></h5>
+               <a id="btn-details-pattern-1885" href="#collapse-pattern-1885" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Prevents possible filename injection by unfiltered input.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1885" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Reading a file without validating the received input might lead to potential filename injections.
+                        Always make sure to sanitize your inputs.
+                     </p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1755" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1755" class="ChkPattern" data-pattern-id="1755" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1755"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Prefer using .nonEmpty <span class="PatternFeedback-1755"></span></h5>
+               <a id="btn-details-pattern-1755" href="#collapse-pattern-1755" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Prefer using .nonEmpty instead of verifying that length is greater than 0 explicitly.</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Code Style</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1755" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>The collections libraries usually provide a method for determining if the iterable has at least one element, with</p>
+                     <pre><code> val hasElements = SomeSequence.nonEmpty
+</code></pre>
+                     <p>This is a bit cleaner than verifying explicitly the length or the size</p>
+                     <pre><code> val hasElements = SomeSequence.length &gt; 0
+ val hasElementsUsingSize = SomeSequence.size &gt; 0
+</code></pre>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+   <li id="pattern-1893" class="list-group-item pattern-item">
+      <div class="row">
+         <div class="col-xs-1">
+            <div class="checkbox">
+               <input id="chk-pattern-1893" class="ChkPattern" data-pattern-id="1893" data-needs-modal="false" data-algorithm="Codacy ScalaMeta Pro" type="checkbox">
+               <label for="chk-pattern-1893"></label>
+            </div>
+         </div>
+         <div class="col-xs-11 margin-bottom-xs">
+            <div class="clearfix">
+               <h5 class="pull-left text-truncate" style="max-width: 80%;">Prevent Command Injection <span class="PatternFeedback-1893"></span></h5>
+               <a id="btn-details-pattern-1893" href="#collapse-pattern-1893" data-toggle="collapse" aria-expanded="false" class="h5 text-normal pull-right pattern-details-button">Details</a>
+            </div>
+            <p>Prevents possible command injection by unfiltered input</p>
+            <span class="label label-default label-sm">Scala</span>
+            <span class="label label-default label-sm">Security</span>
+         </div>
+         <div class="col-xs-12">
+            <div id="collapse-pattern-1893" class="collapse">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                     <h5>Explanation</h5>
+                     <p class="ExplanationBody">
+                     <p>Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. Command injection attacks are possible when an application passes unsafe user supplied data (forms, cookies, HTTP headers etc.) to a system shell. In this attack, the attacker-supplied operating system commands are usually executed with the privileges of the vulnerable application. Command injection attacks are possible largely due to insufficient input validation.</p>
+                     <p>This attack differs from Code Injection, in that code injection allows the attacker to add his own code that is then executed by the application. In Code Injection, the attacker extends the default functionality of the application without the necessity of executing system commands.</p>
+                     <p>Example:</p>
+                     <pre><code>public static void main(String[] args) {
+    Runtime runtime = Runtime.getRuntime();
+    
+    //Executes potential dangerous command
+    Process proc = runtime.exec("find" + " " + args[0]);
+}
+
+</code></pre>
+                     <p><a href="https://www.owasp.org/index.php/Command_Injection">More Information</a></p>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </li>
+</ul>
